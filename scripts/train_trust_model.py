@@ -39,6 +39,18 @@ class Learned:
         vector=np.asarray([vector_from_event(feature_event(state))],dtype=np.float32)
         return float(np.clip(self.model.predict(vector)[0],0,100))
 
+def training_versions():
+    versions={p:importlib.metadata.version(p) for p in ['numpy','scikit-learn','shap']}
+    # Both wheels expose the xgboost import, but their distribution names differ.
+    for distribution in ('xgboost-cpu','xgboost'):
+        try:
+            versions['xgboost']=importlib.metadata.version(distribution)
+            versions['xgboost_distribution']=distribution
+            return versions
+        except importlib.metadata.PackageNotFoundError:
+            continue
+    raise importlib.metadata.PackageNotFoundError('xgboost-cpu or xgboost')
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--manifest',type=Path,default=ROOT/'evaluation/trust_model/corpus/manifest.json');parser.add_argument('--responses',required=True,type=Path);parser.add_argument('--output',type=Path,default=ROOT/'services/trust_engine/models');parser.add_argument('--report-dir',type=Path,default=ROOT/'evaluation/trust_model');parser.add_argument('--model-version',default='synthetic-pilot-v1');args=parser.parse_args();args.report_dir.mkdir(parents=True,exist_ok=True)
     manifest=json.loads(args.manifest.read_text());raw_rows=[json.loads(l) for l in args.responses.read_text().splitlines() if l.strip()]
@@ -74,7 +86,7 @@ def main():
         validation=metrics(split['validation'],Learned(model));candidates.append((validation['false_accepts'],validation['mae'],depth,model,validation))
     _,_,depth,model,validation=min(candidates,key=lambda c:(c[0],c[1],c[2]))
     args.output.mkdir(parents=True,exist_ok=True);path=args.output/'guardian.json';model.save_model(path)
-    metadata={'model_version':args.model_version,'feature_version':FEATURE_VERSION,'feature_names':FEATURE_NAMES,'monotonic_constraints':MONOTONIC_CONSTRAINTS,'target':'trust_score_0_100','training_scope':'project-authored synthetic pilot; no independent human review','sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'manifest_sha256':hashlib.sha256(args.manifest.read_bytes()).hexdigest(),'selected_depth':depth,'seed':56,'versions':{p:importlib.metadata.version(p) for p in ['xgboost','numpy','scikit-learn','shap']}}
+    metadata={'model_version':args.model_version,'feature_version':FEATURE_VERSION,'feature_names':FEATURE_NAMES,'monotonic_constraints':MONOTONIC_CONSTRAINTS,'target':'trust_score_0_100','training_scope':'project-authored synthetic pilot; no independent human review','sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'manifest_sha256':hashlib.sha256(args.manifest.read_bytes()).hexdigest(),'selected_depth':depth,'seed':56,'versions':training_versions()}
     path.with_suffix('.metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
     baseline=metrics(split['test'],WeightedSumScorer());test=metrics(split['test'],Learned(model))
     # Verify SHAP library agrees with exact native TreeSHAP, in trust-point output space.
