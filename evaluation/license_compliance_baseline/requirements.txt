@@ -1,0 +1,8 @@
+# Optional direct-import comparison, not a full-service benchmark.
+pip-licenses==5.5.5
+httpx==0.28.1
+pyyaml==6.0.1
+scancode-toolkit==32.5.0
+packaging==26.3
+license-expression==30.4.4
+# External npm baseline: license-checker@25.0.1 (not verified in Checkpoint 2).

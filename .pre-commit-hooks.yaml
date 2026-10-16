@@ -1,0 +1,7 @@
+- id: guardian-scan
+  name: AI Supply Chain Guardian
+  description: Require final Accept and the configured trust threshold before committing.
+  entry: scripts/guardian_cli.py
+  language: script
+  types: [text]
+  require_serial: true

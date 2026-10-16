@@ -1,0 +1,8 @@
+.......................................                                  [100%]
+=============================== warnings summary ===============================
+tests/test_analyze.py::test_analyze_dockerfile
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/docker_security/app/cache.py:48: DeprecationWarning: Call to deprecated setex. (Use 'set' instead.) -- Deprecated since version 2.6.12.
+    self._redis_client.setex(key, ttl_val, json.dumps(value))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+39 passed, 1 warning in 7.10s

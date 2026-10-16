@@ -1,0 +1,7 @@
+services:
+  dashboard:
+    ports:
+      - 127.0.0.1:${GUARDIAN_TLS_PORT:-3343}:8443
+    volumes:
+      - ./frontend/nginx-tls.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${GUARDIAN_TLS_DIR:-./.data/production-pass/tls}:/etc/guardian-tls:ro

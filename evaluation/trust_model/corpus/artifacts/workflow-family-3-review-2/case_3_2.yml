@@ -1,0 +1,9 @@
+name: case_3_2
+on: push
+permissions: {contents: read}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@latest
+      - run: echo build-2

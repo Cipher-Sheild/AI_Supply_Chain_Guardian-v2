@@ -1,0 +1,9 @@
+name: case_3_3
+on: pull_request_target
+permissions: write-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@latest
+      - run: echo build-3

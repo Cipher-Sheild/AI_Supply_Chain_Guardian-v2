@@ -1,0 +1,14 @@
+.                                                                        [100%]
+=============================== warnings summary ===============================
+tests/test_postgres_integration.py::test_postgres_restart_and_distributed_row_lock
+tests/test_postgres_integration.py::test_postgres_restart_and_distributed_row_lock
+tests/test_postgres_integration.py::test_postgres_restart_and_distributed_row_lock
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/scan_store.py:61: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    stamp = datetime.utcnow()
+
+tests/test_postgres_integration.py::test_postgres_restart_and_distributed_row_lock
+  /home/cipher/.local/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:4296: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore[call-arg, no-any-return, no-untyped-call]  # noqa: E501
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 4 warnings in 3.89s

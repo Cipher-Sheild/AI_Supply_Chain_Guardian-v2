@@ -1,0 +1,68 @@
+{
+  "deployment": "Docker Compose with verified localhost TLS",
+  "prompt_injection_tested": false,
+  "checks": {
+    "unauthenticated_history_blocked": true,
+    "native_oci_inventory_and_advisory_callback": true,
+    "authenticated_pdf_export": true,
+    "installed_cli_over_tls": true
+  },
+  "scans": {
+    "compose": {
+      "request_id": "6b5cb06fad564ee9b634494634557695",
+      "recommendation": "reject",
+      "coverage": "full",
+      "agents": {
+        "docker_security": "fail",
+        "secret_detection": "pass"
+      }
+    },
+    "github": {
+      "request_id": "6e2d104a92b24cf989a50a80722e6136",
+      "recommendation": "review",
+      "coverage": "full",
+      "agents": {
+        "workflow_cicd": "fail",
+        "secret_detection": "pass"
+      }
+    },
+    "gitlab": {
+      "request_id": "b08f43dd54df48ccb449023fcd8cc7b0",
+      "recommendation": "review",
+      "coverage": "full",
+      "agents": {
+        "workflow_cicd": "fail",
+        "secret_detection": "pass"
+      }
+    },
+    "empty_dependency": {
+      "request_id": "8e4ac680403e4f7d9c62251ceb7d452a",
+      "recommendation": "accept",
+      "coverage": "full",
+      "agents": {
+        "cipherguard": "pass",
+        "license_compliance": "pass",
+        "secret_detection": "pass"
+      }
+    },
+    "cargo": {
+      "request_id": "ffbb83c31bc44724a510b62ba7ffaf22",
+      "recommendation": "review",
+      "coverage": "partial",
+      "agents": {
+        "cipherguard": "warn",
+        "license_compliance": "pass",
+        "secret_detection": "pass"
+      }
+    },
+    "native_image": {
+      "request_id": "f653fdaae68d40868fea5a4ac26f45bf",
+      "recommendation": "accept",
+      "coverage": "full",
+      "agents": {
+        "docker_security": "pass",
+        "secret_detection": "pass"
+      }
+    }
+  }
+}

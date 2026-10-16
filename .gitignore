@@ -1,0 +1,59 @@
+# Environment
+.env
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/build/
+.next/
+
+# Docker
+*.pid
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# DB data (bind-mounted volumes, if any get added locally)
+pgdata/
+evaluation/prompt_injection_baseline/vendor/
+
+# code_security service
+*_dump.txt
+
+# Downloaded embedding weights; fetch from pinned revision using setup script
+services/prompt_injection/models/minilm/
+services/prompt_injection/models/local-judge/
+.data/
+
+integrations/vscode/dist/
+integrations/vscode/.vscode-test/
+frontend/test-results/
+frontend/playwright-report/
+*.vsix
+
+# Local assistant/cloud credential configuration
+.aws/
+.codex/
+.agents/
+
+.tools/bin/
+/dist/

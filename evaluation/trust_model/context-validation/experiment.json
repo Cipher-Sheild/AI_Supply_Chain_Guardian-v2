@@ -1,0 +1,9 @@
+{
+  "corpus_samples": 360,
+  "submission_failures": 0,
+  "production_promoted": false,
+  "candidate_policy": "LLM contextual benign may clear screening signal",
+  "accepted_as_default": false,
+  "reason": "Rejected after external attack false accepts increased. These detector responses describe an experimental policy, not the final deployed default.",
+  "labels_changed": false
+}

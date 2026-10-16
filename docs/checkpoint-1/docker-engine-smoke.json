@@ -1,0 +1,20 @@
+{
+  "artifact": "FROM ubuntu:22.04\\nUSER root\\nRUN apt-get update\\n",
+  "hadolint": {
+    "completed": true,
+    "error_reason": null,
+    "duration_ms": 59.73,
+    "finding_count": 3
+  },
+  "trivy_config": {
+    "completed": true,
+    "error_reason": null,
+    "duration_ms": 2934.75,
+    "finding_count": 3
+  },
+  "versions": {
+    "hadolint": "2.15.1",
+    "trivy": "0.74.0"
+  },
+  "scope": "host subprocess wrappers; no Docker build or CVE image verification"
+}

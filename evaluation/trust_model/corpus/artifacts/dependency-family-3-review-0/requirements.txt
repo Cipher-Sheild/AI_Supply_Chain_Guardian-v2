@@ -1,0 +1,1 @@
+click @ git+https://example.org/case_3_0.git

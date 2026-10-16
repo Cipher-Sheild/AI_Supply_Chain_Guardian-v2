@@ -1,0 +1,9 @@
+name: case_1_4
+on: pull_request_target
+permissions: write-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v4
+      - run: echo build-4

@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "types": {
+    "code": [
+      "code_security",
+      "secret_detection",
+      "prompt_injection"
+    ],
+    "dockerfile": [
+      "docker_security",
+      "secret_detection"
+    ],
+    "compose": [
+      "docker_security",
+      "secret_detection"
+    ],
+    "workflow": [
+      "workflow_cicd",
+      "secret_detection"
+    ],
+    "dependency": [
+      "cipherguard",
+      "license_compliance",
+      "secret_detection"
+    ],
+    "markdown": [
+      "prompt_injection",
+      "secret_detection"
+    ],
+    "unknown": [
+      "secret_detection"
+    ],
+    "license": [
+      "license_compliance",
+      "secret_detection"
+    ]
+  },
+  "code_extensions": [
+    ".py",
+    ".js",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".mjs",
+    ".cjs",
+    ".php",
+    ".java",
+    ".go"
+  ],
+  "unsupported_code_extensions": [],
+  "unsupported_manifests": [],
+  "compose_filenames": [
+    "docker-compose.yml",
+    "docker-compose.yaml",
+    "compose.yml",
+    "compose.yaml"
+  ],
+  "markdown_extensions": [
+    ".md",
+    ".markdown"
+  ],
+  "dependency_filenames": [
+    "package.json",
+    "requirements.txt",
+    "package-lock.json",
+    "npm-shrinkwrap.json",
+    "pyproject.toml",
+    "pipfile",
+    "cargo.toml",
+    "cargo.lock",
+    "go.mod",
+    "go.sum",
+    "poetry.lock",
+    "uv.lock"
+  ],
+  "workflow_suffixes": [
+    ".yml",
+    ".yaml"
+  ],
+  "unsupported_workflows": [],
+  "license_filenames": [
+    "license",
+    "licence",
+    "copying",
+    "license.txt",
+    "licence.txt",
+    "copying.txt",
+    "license.md",
+    "licence.md",
+    "copying.md"
+  ]
+}

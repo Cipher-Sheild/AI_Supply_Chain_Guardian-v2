@@ -1,0 +1,402 @@
+services:
+  cipherguard:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/cipherguard
+    restart: unless-stopped
+    init: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      REDIS_URL: redis://redis:6379/0
+  code_security:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/code_security
+    restart: unless-stopped
+    init: true
+    mem_limit: 2g
+    cpus: 2
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      SEMGREP_TIMEOUT_SECONDS: ${SEMGREP_TIMEOUT_SECONDS:-7}
+  secret_detection:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/secret_detection
+    restart: unless-stopped
+    init: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+  docker_security:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/docker_security
+    restart: unless-stopped
+    init: true
+    mem_limit: 2g
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      REDIS_URL: redis://redis:6379/0
+      TRUST_ENGINE_CALLBACK_URL: http://trust_engine:8000/callback/{callback_id}
+      CALLBACK_TOKEN: ${CALLBACK_TOKEN:?Set CALLBACK_TOKEN}
+      DOCKER_CALLBACK_OUTBOX_PATH: /data/image-jobs.sqlite3
+    volumes:
+      - dockerjobs:/data
+  workflow_cicd:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/workflow_cicd
+    restart: unless-stopped
+    init: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+  license_compliance:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/license_compliance
+    restart: unless-stopped
+    init: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    environment:
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      REDIS_URL: redis://redis:6379/0
+  prompt_injection:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/prompt_injection
+    environment:
+      TRUST_ENGINE_CALLBACK_URL: http://trust_engine:8000/callback/{callback_id}
+      CALLBACK_TOKEN: ${CALLBACK_TOKEN:?CALLBACK_TOKEN is not set. Add CALLBACK_TOKEN=<value>
+        to the root .env (generate one with openssl rand -hex 32). See .env.example.}
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      REDIS_URL: redis://redis:6379/0
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://host.docker.internal:11434}
+      PROMPT_JUDGE_WORKERS: ${PROMPT_JUDGE_WORKERS:-1}
+      EMBEDDING_MODEL_REVISION: ${EMBEDDING_MODEL_REVISION:-1110a243fdf4706b3f48f1d95db1a4f5529b4d41}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      XAI_API_KEY: ${XAI_API_KEY:-}
+      XAI_MODEL: ${XAI_MODEL:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-}
+      CALLBACK_OUTBOX_PATH: /data/callbacks.sqlite3
+    restart: unless-stopped
+    init: true
+    mem_limit: 4g
+    cpus: 2
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 180s
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    volumes:
+    - callbackdata:/data
+  trust_engine:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=128m,mode=1777
+      - /home/guardian/.cache:rw,nosuid,noexec,size=128m,uid=10001,gid=10001
+    build:
+      context: ./services/trust_engine
+    ports:
+    - 127.0.0.1:${TRUST_ENGINE_PORT:-8000}:8000
+    environment:
+      GUARDIAN_ENV: ${GUARDIAN_ENV:-production}
+      GUARDIAN_API_KEY: ${GUARDIAN_API_KEY:?Set a deployment API key of at least 32 bytes}
+      GUARDIAN_TENANT_KEYS: ${GUARDIAN_TENANT_KEYS:-}
+      SCAN_RETENTION_DAYS: ${SCAN_RETENTION_DAYS:-30}
+      CIPHERGUARD_URL: http://cipherguard:8000/analyze
+      CODE_SECURITY_URL: http://code_security:8000/analyze
+      SECRET_DETECTION_URL: http://secret_detection:8000/analyze
+      DOCKER_SECURITY_URL: http://docker_security:8000/analyze
+      WORKFLOW_CICD_URL: http://workflow_cicd:8000/analyze
+      LICENSE_COMPLIANCE_URL: http://license_compliance:8000/analyze
+      PROMPT_INJECTION_URL: http://prompt_injection:8000/analyze
+      CALLBACK_TOKEN: ${CALLBACK_TOKEN:?CALLBACK_TOKEN is not set. Add CALLBACK_TOKEN=<value>
+        to the root .env (generate one with openssl rand -hex 32). See .env.example.}
+      SCAN_WORKERS: ${SCAN_WORKERS:-4}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-2097152}
+      REDIS_URL: redis://redis:6379/0
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-guardian}:${POSTGRES_PASSWORD:?Set a strong database password}@postgres:5432/${POSTGRES_DB:-guardian}
+      TRUST_SCORER: ${TRUST_SCORER:-weighted}
+      TRUST_MODEL_PATH: /service/models/guardian.json
+      FEATURE_LOG_PATH: /data/features.jsonl
+      GLOBAL_AGENT_WORKERS: ${GLOBAL_AGENT_WORKERS:-12}
+      SCAN_DEADLINE_SECONDS: ${SCAN_DEADLINE_SECONDS:-9}
+      PENDING_TIMEOUT_SECONDS: ${PENDING_TIMEOUT_SECONDS:-180}
+      CIPHERGUARD_TIMEOUT_SECONDS: ${CIPHERGUARD_TIMEOUT_SECONDS:-8}
+      CODE_SECURITY_TIMEOUT_SECONDS: ${CODE_SECURITY_TIMEOUT_SECONDS:-8}
+      SECRET_DETECTION_TIMEOUT_SECONDS: ${SECRET_DETECTION_TIMEOUT_SECONDS:-8}
+      DOCKER_SECURITY_TIMEOUT_SECONDS: ${DOCKER_SECURITY_TIMEOUT_SECONDS:-8}
+      WORKFLOW_CICD_TIMEOUT_SECONDS: ${WORKFLOW_CICD_TIMEOUT_SECONDS:-8}
+      LICENSE_COMPLIANCE_TIMEOUT_SECONDS: ${LICENSE_COMPLIANCE_TIMEOUT_SECONDS:-8}
+      PROMPT_INJECTION_TIMEOUT_SECONDS: ${PROMPT_INJECTION_TIMEOUT_SECONDS:-8}
+    depends_on:
+      cipherguard:
+        condition: service_started
+      code_security:
+        condition: service_started
+      secret_detection:
+        condition: service_started
+      docker_security:
+        condition: service_started
+      workflow_cicd:
+        condition: service_started
+      license_compliance:
+        condition: service_started
+      prompt_injection:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    init: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://localhost:8000/health',timeout=3)
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+    volumes:
+    - featuredata:/data
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-guardian}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong database password}
+      POSTGRES_DB: ${POSTGRES_DB:-guardian}
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 1g
+    cpus: 1
+    pids_limit: 128
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    command:
+    - redis-server
+    - --appendonly
+    - 'yes'
+    - --maxmemory
+    - 128mb
+    - --maxmemory-policy
+    - allkeys-lru
+    volumes:
+    - redisdata:/data
+    healthcheck:
+      test:
+      - CMD
+      - redis-cli
+      - ping
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 64
+  migrate:
+    build:
+      context: ./services/trust_engine
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-guardian}:${POSTGRES_PASSWORD:?Set a strong database password}@postgres:5432/${POSTGRES_DB:-guardian}
+    command:
+    - sh
+    - -c
+    - alembic upgrade head && python -m app.seed
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+  dashboard:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=32m,mode=1777
+    build:
+      context: ./frontend
+    ports:
+    - 127.0.0.1:${DASHBOARD_PORT:-3000}:8080
+    depends_on:
+      trust_engine:
+        condition: service_healthy
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+volumes:
+  dockerjobs: {}
+  pgdata: null
+  redisdata: {}
+  callbackdata: {}
+  featuredata: {}

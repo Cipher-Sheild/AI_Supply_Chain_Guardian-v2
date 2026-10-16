@@ -1,0 +1,44 @@
+## trust_engine
+route docker-compose.yml {'filename': 'docker-compose.yml', 'artifact_type': 'unknown', 'routing_source': 'fallback', 'expected_agents': ['secret_detection'], 'coverage': 'partial', 'notes': ['artifact type not recognised: only secret_detection dispatched, coverage is partial']}
+route README.md {'filename': 'README.md', 'artifact_type': 'unknown', 'routing_source': 'fallback', 'expected_agents': ['secret_detection'], 'coverage': 'partial', 'notes': ['artifact type not recognised: only secret_detection dispatched, coverage is partial']}
+route Login.java {'filename': 'Login.java', 'artifact_type': 'unknown', 'routing_source': 'fallback', 'expected_agents': ['secret_detection'], 'coverage': 'partial', 'notes': ['artifact type not recognised: only secret_detection dispatched, coverage is partial']}
+route login.php {'filename': 'login.php', 'artifact_type': 'unknown', 'routing_source': 'fallback', 'expected_agents': ['secret_detection'], 'coverage': 'partial', 'notes': ['artifact type not recognised: only secret_detection dispatched, coverage is partial']}
+route app.tsx {'filename': 'app.tsx', 'artifact_type': 'code', 'routing_source': 'inferred', 'expected_agents': ['code_security', 'secret_detection', 'prompt_injection'], 'coverage': 'full', 'notes': []}
+route .gitlab-ci.yml {'filename': '.gitlab-ci.yml', 'artifact_type': 'workflow', 'routing_source': 'inferred', 'expected_agents': ['workflow_cicd', 'secret_detection'], 'coverage': 'full', 'notes': []}
+route requirements-dev.txt {'filename': 'requirements-dev.txt', 'artifact_type': 'dependency', 'routing_source': 'inferred', 'expected_agents': ['cipherguard', 'license_compliance', 'secret_detection'], 'coverage': 'full', 'notes': []}
+fusion workflow_cicd stub {'trust_score': 100.0, 'recommendation': 'accept', 'explanation': 'Trust score 100/100 (accept). No findings from 1 agent call(s).', 'agent_breakdown': {'workflow_cicd': 0.0}, 'detector_results': [{'agent_name': 'workflow_cicd', 'status': 'stub', 'findings': [], 'evidence': None, 'callback_id': None}]}
+fusion workflow_cicd fail {'trust_score': 100.0, 'recommendation': 'accept', 'explanation': 'Trust score 100/100 (accept). No findings from 1 agent call(s).', 'agent_breakdown': {'workflow_cicd': 0.0}, 'detector_results': [{'agent_name': 'workflow_cicd', 'status': 'fail', 'findings': [], 'evidence': None, 'callback_id': None}]}
+fusion license_compliance warn {'trust_score': 100.0, 'recommendation': 'accept', 'explanation': 'Trust score 100/100 (accept). No findings from 1 agent call(s).', 'agent_breakdown': {'license_compliance': 0.0}, 'detector_results': [{'agent_name': 'license_compliance', 'status': 'warn', 'findings': [{'category': 'license_review', 'severity': 'medium', 'confidence': 0.0, 'location': None, 'details': None, 'score': None}], 'evidence': None, 'callback_id': None}]}
+fusion docker_security fail {'trust_score': 60.0, 'recommendation': 'review', 'explanation': 'Trust score 60/100 (review). Top risks: critical container_escape from docker_security in <unnamed file> (risk 40.0).', 'agent_breakdown': {'docker_security': -40.0}, 'detector_results': [{'agent_name': 'docker_security', 'status': 'fail', 'findings': [{'category': 'container_escape', 'severity': 'critical', 'confidence': 1.0, 'location': None, 'details': None, 'score': None}], 'evidence': None, 'callback_id': None}]}
+fusion cipherguard error {'trust_score': 0.0, 'recommendation': 'reject', 'explanation': 'Rejected by hard override: CipherGuard scored a dependency 100/100 (>= 90) in <unnamed file>. 1 expected agent call(s) did not complete (cipherguard on <unnamed file>: agent reported error).', 'agent_breakdown': {'cipherguard': -40.0, '_override': 'cipherguard_score>=90'}, 'detector_results': [{'agent_name': 'cipherguard', 'status': 'error', 'findings': [{'category': 'cipherguard', 'severity': 'critical', 'confidence': 1.0, 'location': None, 'details': None, 'score': 100.0}], 'evidence': None, 'callback_id': None}]}
+negative confidence accepted {'category': 'x', 'severity': 'medium', 'confidence': -100.0, 'location': None, 'details': None, 'score': None}
+
+## license_compliance
+license input {'content': 'requests==2.31.0', 'filename': 'requirements-dev.txt'} applicable False extracted ([Dependency(name='requests', version='2.31.0', ecosystem='python', raw='requests==2.31.0', direct=True, via=None)], [])
+license input {'content': '{broken', 'filename': 'package.json'} applicable True extracted ([], [])
+license input {'content': '{"devDependencies":{"react":"^18.3.1"}}', 'type': 'dependency'} applicable True extracted ([], [])
+partial AND (['MIT'], None, ['Proprietary'])
+
+## cipherguard
+filename absent JSON extraction []
+malformed JSON extraction []
+
+## docker_security
+image parse FROM alpine@sha256:abc [('alpine@sha256', 'abc')]
+image parse FROM localhost:5000/team/image:1 [('localhost', '5000/team/image:1')]
+image parse FROM alpine AS builder
+FROM builder [('alpine', 'latest'), ('builder', 'latest')]
+missing hadolint []
+missing trivy []
+hardener {'original': 'FROM alpine\nCMD ["sh"]', 'hardened': 'FROM alpine:3.19.1\n\n# Hardener: Created and switched to non-root user\nRUN groupadd -r appgroup && useradd -r -g appgroup appuser\nUSER appuser\nCMD ["sh"]\n\n# Hardener: Added default healthcheck\nHEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD curl -f http://localhost:8000/health || exit 1', 'applied_rules': ["Pinned image 'alpine' to tag '3.19.1'", 'Added non-root user creation and USER directive', 'Added default HEALTHCHECK instruction'], 'verification_passed': True, 'remaining_findings_count': 3}
+
+## prompt_injection
+judge parse {} (False, 0.5, '', True)
+judge parse {"is_injection":"false","confidence":0.9} (True, 0.9, '', True)
+judge parse {"is_injection":false} (False, 0.5, '', True)
+
+## secret_detection
+secret scan PASSWORD="short" []
+secret scan PASSWORD="StrongtestAb9!Real" []
+secret scan PASSWORD="StrongAb9!Real" [{'detector_id': 'structural:keyword_assignment', 'file_path': 'sample.py', 'line_number': 1, 'preview': 'Stro***Real', 'confidence': 0.65, 'severity': 'high', 'reason': "Suspicious identifier 'PASSWORD' assigned to string literal; High entropy (3.81) value.", 'remediation': 'Remove the hardcoded secret, rotate it, and use a secrets manager or environment variables.', 'category': 'keyword_assignment', 'location': 'sample.py:1', 'details': {'reason': "Suspicious identifier 'PASSWORD' assigned to string literal; High entropy (3.81) value.", 'remediation': 'Remove the hardcoded secret, rotate it, and use a secrets manager or environment variables.'}}]
+secret scan PASSWORD: StrongAb9!Real []

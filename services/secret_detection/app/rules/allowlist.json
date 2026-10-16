@@ -1,0 +1,6 @@
+{
+  "allowed_secrets": [
+    "example_safe_token"
+  ],
+  "allowed_paths": []
+}

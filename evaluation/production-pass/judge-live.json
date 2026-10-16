@@ -1,0 +1,16 @@
+[
+  {
+    "name": "benign",
+    "failed": false,
+    "is_injection": false,
+    "confidence": 1.0,
+    "matches_expected": true
+  },
+  {
+    "name": "injection",
+    "failed": false,
+    "is_injection": true,
+    "confidence": 0.99,
+    "matches_expected": true
+  }
+]

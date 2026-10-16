@@ -1,0 +1,572 @@
+{
+  "scope": "project-authored synthetic pilot; no independent human review",
+  "sample_count": 360,
+  "split_counts": {
+    "train": 180,
+    "validation": 90,
+    "test": 90
+  },
+  "group_counts": {
+    "train": 12,
+    "validation": 6,
+    "test": 6
+  },
+  "label_counts": {
+    "accept": 120,
+    "review": 120,
+    "reject": 120
+  },
+  "validation_selected": {
+    "n": 90,
+    "accuracy": 0.7222222222222222,
+    "mae": 24.232376543680825,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        20,
+        0,
+        10
+      ],
+      [
+        0,
+        15,
+        15
+      ],
+      [
+        0,
+        0,
+        30
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 15,
+        "accuracy": 1.0
+      },
+      "compose": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "dependency": {
+        "n": 15,
+        "accuracy": 1.0
+      },
+      "dockerfile": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "markdown": {
+        "n": 15,
+        "accuracy": 0.6666666666666666
+      },
+      "workflow": {
+        "n": 15,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "weighted_test": {
+    "n": 90,
+    "accuracy": 0.6666666666666666,
+    "mae": 25.416666666666668,
+    "false_accepts": 5,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        20,
+        5,
+        5
+      ],
+      [
+        5,
+        20,
+        5
+      ],
+      [
+        0,
+        10,
+        20
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 15,
+        "accuracy": 0.6666666666666666
+      },
+      "compose": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "dependency": {
+        "n": 15,
+        "accuracy": 1.0
+      },
+      "dockerfile": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "markdown": {
+        "n": 15,
+        "accuracy": 0.6666666666666666
+      },
+      "workflow": {
+        "n": 15,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "xgboost_test": {
+    "n": 90,
+    "accuracy": 0.6666666666666666,
+    "mae": 19.147734483083088,
+    "false_accepts": 5,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        20,
+        5,
+        5
+      ],
+      [
+        5,
+        15,
+        10
+      ],
+      [
+        0,
+        5,
+        25
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 15,
+        "accuracy": 0.6666666666666666
+      },
+      "compose": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "dependency": {
+        "n": 15,
+        "accuracy": 1.0
+      },
+      "dockerfile": {
+        "n": 15,
+        "accuracy": 0.3333333333333333
+      },
+      "markdown": {
+        "n": 15,
+        "accuracy": 0.6666666666666666
+      },
+      "workflow": {
+        "n": 15,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "shap_max_difference": 0.0,
+  "monotonic_violations": 0,
+  "monotonic_checks": 3360,
+  "agent_ablations_with_uncertainty_gates": {
+    "cipherguard": {
+      "n": 90,
+      "accuracy": 0.5555555555555556,
+      "mae": 25.02534055709839,
+      "false_accepts": 5,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          10
+        ],
+        [
+          5,
+          10,
+          15
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "code_security": {
+      "n": 90,
+      "accuracy": 0.6111111111111112,
+      "mae": 21.81581597858005,
+      "false_accepts": 5,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          10,
+          5
+        ],
+        [
+          5,
+          15,
+          10
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "docker_security": {
+      "n": 90,
+      "accuracy": 0.6666666666666666,
+      "mae": 19.312250402238632,
+      "false_accepts": 5,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          20,
+          0,
+          10
+        ],
+        [
+          5,
+          15,
+          10
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "license_compliance": {
+      "n": 90,
+      "accuracy": 0.6111111111111112,
+      "mae": 19.7162790828281,
+      "false_accepts": 5,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          10,
+          5
+        ],
+        [
+          5,
+          15,
+          10
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "prompt_injection": {
+      "n": 90,
+      "accuracy": 0.5555555555555556,
+      "mae": 26.391736931271023,
+      "false_accepts": 0,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          10,
+          5,
+          15
+        ],
+        [
+          0,
+          10,
+          20
+        ],
+        [
+          0,
+          0,
+          30
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "secret_detection": {
+      "n": 90,
+      "accuracy": 0.3888888888888889,
+      "mae": 38.653191566467285,
+      "false_accepts": 0,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          0,
+          10,
+          20
+        ],
+        [
+          0,
+          5,
+          25
+        ],
+        [
+          0,
+          0,
+          30
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        }
+      }
+    },
+    "workflow_cicd": {
+      "n": 90,
+      "accuracy": 0.5555555555555556,
+      "mae": 25.231365786658394,
+      "false_accepts": 5,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          10
+        ],
+        [
+          5,
+          10,
+          15
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 0.3333333333333333
+        }
+      }
+    }
+  },
+  "production_promoted": false,
+  "reason_not_promoted": "Synthetic corpus authored by implementation agent; no independent review or external held-out benchmark.",
+  "test_not_used_for_selection": true,
+  "validation_date": "2026-10-13",
+  "judging_provider": "groq",
+  "judging_model": "openai/gpt-oss-20b",
+  "label_scope_warning": "Configuration/intent labels authored before expanded native image CVE analysis; data contains live-feed errors and labeled-safe images may have current CVEs.",
+  "test_false_accept_scope": "Five Review-labeled markdown instructions were accepted; the test set had zero Reject-labeled artifacts accepted."
+}

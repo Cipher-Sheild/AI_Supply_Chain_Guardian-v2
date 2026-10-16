@@ -1,0 +1,13 @@
+
+> ai-supply-chain-guardian-frontend@0.1.0 build
+> tsc && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 31 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-BSqlFg5b.css    1.40 kB │ gzip:  0.67 kB
+dist/assets/index-p-E_8nSN.js   147.02 kB │ gzip: 47.64 kB
+✓ built in 2.56s

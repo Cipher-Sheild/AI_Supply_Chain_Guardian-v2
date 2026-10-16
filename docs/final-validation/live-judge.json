@@ -1,0 +1,8 @@
+{
+  "provider": "local Ollama",
+  "model": "llama3.2:latest",
+  "elapsed_seconds": 55.96,
+  "valid_typed_verdict": true,
+  "is_injection": false,
+  "confidence": 0.8
+}

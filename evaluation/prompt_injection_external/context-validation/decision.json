@@ -1,0 +1,7 @@
+{
+  "candidate": "LLM-contextual-benign override of screening signal",
+  "default_accepted": false,
+  "reason": "Public re-evaluation increased false accepts from 10 to 31 despite removing benign false positives. Conservative screening disagreement Review restored.",
+  "source": "reevaluation.json",
+  "re_evaluation_not_untouched_holdout": true
+}

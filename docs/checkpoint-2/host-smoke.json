@@ -1,0 +1,242 @@
+{
+  "deployment": "host HTTP processes, not Compose",
+  "storage": "SQLite, not PostgreSQL",
+  "readiness": {
+    "cipherguard": {
+      "http_status": 200,
+      "service": "cipherguard",
+      "agent": "cipherguard",
+      "agent_name": "cipherguard",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "code_security": {
+      "http_status": 200,
+      "status": "ok",
+      "agent": "code_security",
+      "semgrep_real_scan_completed": true
+    },
+    "secret_detection": {
+      "http_status": 200,
+      "service": "secret_detection",
+      "agent": "secret_detection",
+      "agent_name": "secret_detection",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "docker_security": {
+      "http_status": 200,
+      "service": "docker_security",
+      "agent": "docker_security",
+      "agent_name": "docker_security",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "docker_hub": true,
+        "hadolint": true,
+        "trivy": true
+      }
+    },
+    "workflow_cicd": {
+      "http_status": 200,
+      "service": "workflow_cicd",
+      "agent": "workflow_cicd",
+      "agent_name": "workflow_cicd",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "license_compliance": {
+      "http_status": 503,
+      "service": "license_compliance",
+      "agent": "license_compliance",
+      "agent_name": "license_compliance",
+      "status": "degraded",
+      "checks": {
+        "rules_loaded": true,
+        "scancode_fallback": false,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "prompt_injection": {
+      "http_status": 503,
+      "service": "prompt_injection",
+      "agent": "prompt_injection",
+      "agent_name": "prompt_injection",
+      "status": "degraded",
+      "checks": {
+        "rules_loaded": true,
+        "embedding_model": false,
+        "callback_journal": true,
+        "judge_configured": true,
+        "judge_backend": false
+      }
+    },
+    "trust_engine": {
+      "http_status": 503,
+      "service": "trust_engine",
+      "status": "degraded",
+      "checks": {
+        "callback_auth": true,
+        "database": true,
+        "cipherguard": true,
+        "code_security": true,
+        "secret_detection": true,
+        "license_compliance": false,
+        "docker_security": true,
+        "workflow_cicd": true,
+        "prompt_injection": false
+      },
+      "storage": "local_sqlite"
+    }
+  },
+  "scans": {
+    "code": {
+      "request_id": "b46bee4e5406430ba20cbc644daecb82",
+      "trust_score": 100.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "partial",
+      "initial_ms": 3807.22,
+      "agents": {
+        "code_security": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "prompt_injection": {
+          "status": "pass",
+          "coverage": "partial"
+        }
+      }
+    },
+    "dependency": {
+      "request_id": "32bbd189e14d49ae999c5056e3eb119d",
+      "trust_score": 90.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 1253.67,
+      "agents": {
+        "cipherguard": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "license_compliance": {
+          "status": "warn",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "dockerfile": {
+      "request_id": "722acc3c71ad478cbe23c5510cfb49b5",
+      "trust_score": 72.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 1817.51,
+      "agents": {
+        "docker_security": {
+          "status": "warn",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "compose": {
+      "request_id": "20baacdc16fa4124930d14e5e66800aa",
+      "trust_score": 0.0,
+      "recommendation": "reject",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 1525.48,
+      "agents": {
+        "docker_security": {
+          "status": "fail",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "workflow": {
+      "request_id": "56ca10da094749d89d3fcc1d784a9b49",
+      "trust_score": 75.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 98.66,
+      "agents": {
+        "workflow_cicd": {
+          "status": "fail",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "markdown": {
+      "request_id": "53fc26bcce424da2a6b6e50866f2f273",
+      "trust_score": 100.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "partial",
+      "initial_ms": 70.04,
+      "agents": {
+        "prompt_injection": {
+          "status": "pass",
+          "coverage": "partial"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "unknown": {
+      "request_id": "95d8d7b74c234ea3a68e2898a2f4e3fb",
+      "trust_score": 100.0,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "partial",
+      "initial_ms": 70.64,
+      "agents": {
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    }
+  },
+  "schema_audit": {
+    "cipherguard": "CONFORMS     status=fail findings=1",
+    "code_security": "CONFORMS     status=fail findings=1",
+    "secret_detection": "CONFORMS     status=fail findings=2",
+    "docker_security": "CONFORMS     status=warn findings=7",
+    "workflow_cicd": "CONFORMS     status=fail findings=3",
+    "license_compliance": "CONFORMS     status=warn findings=2",
+    "prompt_injection": "CONFORMS     status=fail findings=1"
+  }
+}

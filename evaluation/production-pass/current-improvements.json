@@ -1,0 +1,92 @@
+{
+  "complete_production_ready": false,
+  "source_only_no_push": true,
+  "license": {
+    "pinned_templates": 708,
+    "tests_passed": 43,
+    "live_canonical_mit": "accept",
+    "unknown_text": "review"
+  },
+  "code_security": {
+    "tests_passed": 66,
+    "changes": [
+      "local import and callable aliases",
+      "loop/exception taint joins",
+      "subscript assignments preserve index taint"
+    ]
+  },
+  "prompt_injection": {
+    "tests_passed": 75,
+    "public_test_reevaluation": {
+      "attack_rows": 60,
+      "false_accepts": 10,
+      "benign_false_positives": 9,
+      "benign_rows": 56,
+      "unknown": 2
+    },
+    "classification": "screening pilot; unresolved quality gaps",
+    "contextual_benign_override_rejected": true
+  },
+  "vscode": {
+    "actual_extension_host_passed": true,
+    "checks": [
+      "manual scan",
+      "diagnostic location",
+      "scan-on-save",
+      "unavailable service review",
+      "live authenticated API",
+      "credential clearing cancels stale scans"
+    ],
+    "backend": "Actual VS Code 1.95.3 extension host with controlled HTTP cases and authenticated deployed API",
+    "authenticated_deployed_api_passed": true,
+    "client_key_import_into_secret_storage": true
+  },
+  "web": {
+    "real_browser_tests_passed": 3,
+    "checks": [
+      "authenticated deployed scan",
+      "final verdict and findings",
+      "PDF signature",
+      "key not persisted",
+      "reload clears access",
+      "stale session history discarded",
+      "local deployment file imports only client key"
+    ]
+  },
+  "secret_detection": {
+    "tests_passed": 37,
+    "credential_shapes": [
+      "Groq",
+      "xAI",
+      "Hugging Face"
+    ],
+    "external_judge_credential_redaction": true
+  },
+  "cipherguard": {
+    "tests_passed": 39,
+    "registry_errors_fail_closed": true,
+    "go_module_graph_resolver": true,
+    "go_source_replacements_exclusions": "explicitly unresolved"
+  },
+  "unit_suite": {
+    "passed": 625,
+    "skipped": 1,
+    "details": "unit-suite-latest.json"
+  },
+  "persistence": {
+    "raw_source_and_options_not_retained_in_new_snapshots": true,
+    "credential_shaped_values_redacted_at_rest": true
+  },
+  "ml": {
+    "candidate": "native-detectors-synthetic-pilot-v4",
+    "production_promoted": false,
+    "synthetic_test_accuracy": 0.6111111111111112,
+    "synthetic_test_false_accepts": 0,
+    "shap_max_difference": 0.0,
+    "monotonic_checks": 3360,
+    "monotonic_violations": 0,
+    "live_candidate_scores_persistence_and_critical_override_verified": true,
+    "report": "evaluation/trust_model/final-validation/results.json"
+  },
+  "verified_at_utc": "2026-10-13T21:02:23.833407+00:00"
+}

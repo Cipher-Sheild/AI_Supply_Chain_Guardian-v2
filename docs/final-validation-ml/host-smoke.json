@@ -1,0 +1,345 @@
+{
+  "deployment": "host HTTP processes, not Compose",
+  "storage": "PostgreSQL",
+  "readiness": {
+    "cipherguard": {
+      "http_status": 200,
+      "service": "cipherguard",
+      "agent": "cipherguard",
+      "agent_name": "cipherguard",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "code_security": {
+      "http_status": 200,
+      "status": "ok",
+      "agent": "code_security",
+      "semgrep_real_scan_completed": true
+    },
+    "secret_detection": {
+      "http_status": 200,
+      "service": "secret_detection",
+      "agent": "secret_detection",
+      "agent_name": "secret_detection",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "docker_security": {
+      "http_status": 200,
+      "service": "docker_security",
+      "agent": "docker_security",
+      "agent_name": "docker_security",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "docker_hub": true,
+        "hadolint": true,
+        "trivy": true
+      }
+    },
+    "workflow_cicd": {
+      "http_status": 200,
+      "service": "workflow_cicd",
+      "agent": "workflow_cicd",
+      "agent_name": "workflow_cicd",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "license_compliance": {
+      "http_status": 200,
+      "service": "license_compliance",
+      "agent": "license_compliance",
+      "agent_name": "license_compliance",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "scancode_fallback": true,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "prompt_injection": {
+      "http_status": 200,
+      "service": "prompt_injection",
+      "agent": "prompt_injection",
+      "agent_name": "prompt_injection",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "embedding_model": true,
+        "callback_journal": true,
+        "judge_configured": true,
+        "judge_backend": true,
+        "judge_model": true
+      }
+    },
+    "trust_engine": {
+      "http_status": 200,
+      "service": "trust_engine",
+      "status": "ok",
+      "checks": {
+        "callback_auth": true,
+        "scorer_configuration": true,
+        "predictive_model": true,
+        "database": true,
+        "cipherguard": true,
+        "code_security": true,
+        "secret_detection": true,
+        "docker_security": true,
+        "workflow_cicd": true,
+        "license_compliance": true,
+        "prompt_injection": true
+      },
+      "storage": "postgresql"
+    }
+  },
+  "scans": {
+    "code": {
+      "request_id": "1daadf33e32e4ddeb7d83344998eda5c",
+      "trust_score": 84.51,
+      "recommendation": "accept",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 352.65,
+      "agents": {
+        "code_security": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "prompt_injection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "dependency": {
+      "request_id": "754f64a04e4f48cba096dae5319b1554",
+      "trust_score": 70.33,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 164.51,
+      "agents": {
+        "cipherguard": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "license_compliance": {
+          "status": "warn",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "dockerfile": {
+      "request_id": "7b5ca7df2c4141779b79f6f4ef11e165",
+      "trust_score": 61.21,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 1665.08,
+      "agents": {
+        "docker_security": {
+          "status": "warn",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "compose": {
+      "request_id": "cbe4ab9c4ef5442e920bd3aabd5efaeb",
+      "trust_score": 0.0,
+      "recommendation": "reject",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 1544.81,
+      "agents": {
+        "docker_security": {
+          "status": "fail",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "workflow": {
+      "request_id": "0de26a9068184958b7acf2ec55cfc8fc",
+      "trust_score": 62.75,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 76.34,
+      "agents": {
+        "workflow_cicd": {
+          "status": "fail",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "markdown": {
+      "request_id": "f44e1dd73f4241749c834a991c74f51c",
+      "trust_score": 78.1,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "full",
+      "initial_ms": 87.68,
+      "agents": {
+        "prompt_injection": {
+          "status": "pass",
+          "coverage": "full"
+        },
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    },
+    "unknown": {
+      "request_id": "b609050840ce462ebfb99766ca62dea7",
+      "trust_score": 54.51,
+      "recommendation": "review",
+      "scan_status": "final",
+      "coverage": "partial",
+      "initial_ms": 77.47,
+      "agents": {
+        "secret_detection": {
+          "status": "pass",
+          "coverage": "full"
+        }
+      }
+    }
+  },
+  "schema_audit": {
+    "cipherguard": "CONFORMS     status=fail findings=1",
+    "code_security": "CONFORMS     status=fail findings=1",
+    "secret_detection": "CONFORMS     status=fail findings=2",
+    "docker_security": "CONFORMS     status=warn findings=7",
+    "workflow_cicd": "CONFORMS     status=fail findings=3",
+    "license_compliance": "CONFORMS     status=warn findings=2",
+    "prompt_injection": "CONFORMS     status=fail findings=1"
+  },
+  "final_readiness": {
+    "cipherguard": {
+      "http_status": 200,
+      "service": "cipherguard",
+      "agent": "cipherguard",
+      "agent_name": "cipherguard",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "code_security": {
+      "http_status": 200,
+      "status": "ok",
+      "agent": "code_security",
+      "semgrep_real_scan_completed": true
+    },
+    "secret_detection": {
+      "http_status": 200,
+      "service": "secret_detection",
+      "agent": "secret_detection",
+      "agent_name": "secret_detection",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "docker_security": {
+      "http_status": 200,
+      "service": "docker_security",
+      "agent": "docker_security",
+      "agent_name": "docker_security",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "docker_hub": true,
+        "hadolint": true,
+        "trivy": true
+      }
+    },
+    "workflow_cicd": {
+      "http_status": 200,
+      "service": "workflow_cicd",
+      "agent": "workflow_cicd",
+      "agent_name": "workflow_cicd",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true
+      }
+    },
+    "license_compliance": {
+      "http_status": 200,
+      "service": "license_compliance",
+      "agent": "license_compliance",
+      "agent_name": "license_compliance",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "scancode_fallback": true,
+        "pypi": true,
+        "npm": true
+      }
+    },
+    "prompt_injection": {
+      "http_status": 200,
+      "service": "prompt_injection",
+      "agent": "prompt_injection",
+      "agent_name": "prompt_injection",
+      "status": "ok",
+      "checks": {
+        "rules_loaded": true,
+        "embedding_model": true,
+        "callback_journal": true,
+        "judge_configured": true,
+        "judge_backend": true,
+        "judge_model": true
+      }
+    },
+    "trust_engine": {
+      "http_status": 200,
+      "service": "trust_engine",
+      "status": "ok",
+      "checks": {
+        "callback_auth": true,
+        "scorer_configuration": true,
+        "predictive_model": true,
+        "database": true,
+        "cipherguard": true,
+        "secret_detection": true,
+        "prompt_injection": true,
+        "code_security": true,
+        "workflow_cicd": true,
+        "license_compliance": true,
+        "docker_security": true
+      },
+      "storage": "postgresql"
+    }
+  }
+}

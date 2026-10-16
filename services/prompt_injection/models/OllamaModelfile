@@ -1,0 +1,5 @@
+FROM llama3.2:latest
+PARAMETER temperature 0
+PARAMETER num_ctx 2048
+PARAMETER num_predict 192
+PARAMETER num_thread 4

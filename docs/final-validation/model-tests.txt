@@ -1,0 +1,36 @@
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+services/trust_engine/tests/test_ml_scoring.py::test_unavailable_model_falls_back_without_accepting_partial
+  /home/cipher/ai-supply-chain-guardian-CLEAN/.data/venv/lib/python3.12/site-packages/dateutil/tz/tz.py:37: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    EPOCH = datetime.datetime.utcfromtimestamp(0)
+
+services/trust_engine/tests/test_ml_scoring.py::test_public_scan_masks_secret_evidence_but_preserves_snapshot
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/main.py:23: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    @app.on_event('startup')
+
+services/trust_engine/tests/test_ml_scoring.py::test_public_scan_masks_secret_evidence_but_preserves_snapshot
+services/trust_engine/tests/test_ml_scoring.py::test_public_scan_masks_secret_evidence_but_preserves_snapshot
+  /home/cipher/ai-supply-chain-guardian-CLEAN/.data/venv/lib/python3.12/site-packages/fastapi/applications.py:4681: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+services/trust_engine/tests/test_ml_scoring.py::test_public_scan_masks_secret_evidence_but_preserves_snapshot
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/main.py:40: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    @app.on_event('shutdown')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+7 passed, 5 warnings in 2.39s

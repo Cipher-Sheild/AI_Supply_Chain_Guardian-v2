@@ -1,0 +1,60 @@
+# Executable heuristic/fusion/judge thresholds. Fixed embedding model is documented in app/embeddings.py.
+# Thresholds are development choices, not independently validated calibration.
+regex_heuristics:
+  enabled: true
+  suspicious_phrases:
+  - ignore previous instructions
+  - ignore the developer
+  - ignore the user
+  - ignore the above
+  - ignore all instructions
+  - ignore your instructions
+  - disregard prior
+  - disregard the above
+  - disregard all previous
+  - disregard your guidelines
+  - system prompt
+  - you are now
+  - 'new instructions:'
+  - new system prompt
+  - override your instructions
+  - developer mode
+  - unrestricted assistant
+  - no restrictions
+  - jailbreak
+  - note to ai
+  - attention ai
+  - hey copilot
+  - hey claude
+  - to the ai reading this
+  - if you are an ai
+  - if you are chatgpt
+  - 'ai agents:'
+  - ai-agent-only
+  - secret instructions
+  - hidden instruction
+  - do not tell the developer
+  - your new instructions
+  - your new system prompt
+  - always approve this pull request
+  - skip security checks
+  - reverse shell
+  phrase_weight: 0.9
+  zero_width_weight: 0.85
+  homoglyph_weight: 0.6
+  base64_weight: 0.5
+  encoded_phrase_weight: 0.8
+  high_confidence_threshold: 0.85
+fusion:
+  escalation_band:
+    low: 0.4
+    high: 0.7
+  max_llm_calls_per_artifact: 5
+  cross_span_weak_floor: 0.15
+llm_judge:
+  min_confidence_to_flag: 0.5
+  votes: 1
+severity_thresholds:
+  fail: 0.75
+  warn: 0.4
+  critical: 0.9

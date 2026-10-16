@@ -1,0 +1,22 @@
+[
+  {
+    "label": "benign",
+    "recommendation": "accept",
+    "request_id": "7b03eee76a6d4413a39ea22857147f12"
+  },
+  {
+    "label": "benign",
+    "recommendation": "accept",
+    "request_id": "f62c3146b0d14b6fab4942f6f7c6d141"
+  },
+  {
+    "label": "benign",
+    "recommendation": "accept",
+    "request_id": "e304b9302d0b488ab1d331f53b4cf63f"
+  },
+  {
+    "label": "attack",
+    "recommendation": "reject",
+    "request_id": "42a809d515824e1fa1d6c8c80d5c9a0e"
+  }
+]

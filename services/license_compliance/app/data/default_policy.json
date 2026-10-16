@@ -1,0 +1,21 @@
+{
+  "mode": "no-copyleft",
+  "allowed_licenses": [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "PSF-2.0",
+    "0BSD",
+    "Unlicense",
+    "CC0-1.0"
+  ],
+  "denied_licenses": [],
+  "always_flag": [
+    "AGPL-3.0-only",
+    "AGPL-3.0-or-later"
+  ],
+  "unknown_handling": "needs_review",
+  "cache_ttl_days": 3
+}

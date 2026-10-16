@@ -1,0 +1,5 @@
+# Project reference
+
+[Complete project documentation supplied by the user](PROJECT_DOCUMENTATION_2026-10-11.md) is preserved verbatim as historical specification and project context. Its implementation status stops at Checkpoint 1; it is not the current completion ledger. Use [STATUS.md](../STATUS.md) and [Checkpoint 2 verification](../checkpoint-2/VERIFICATION.md) for current implementation and evidence. In particular, persistence, durable callbacks, batch API, CLI/pre-commit, dashboard/PDF and evaluation tooling have since been implemented locally. Model training/SHAP and full deployment verification remain outstanding.
+
+The user has asked this Codex chat to handle the remaining project work directly; references to previous agents or teammate ownership are historical context, not a dependency on contacting them. Continue with the confirmed Review floor for ordinary license conflicts, explicit-denylist rejection, and partial Go coverage. Claims about benchmarks, novelty and literature require their original evidence before publication.

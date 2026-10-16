@@ -1,0 +1,11 @@
+services:
+  app1_3:
+    image: python:3.12-slim
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]

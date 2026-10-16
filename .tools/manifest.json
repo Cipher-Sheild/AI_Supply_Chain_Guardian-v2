@@ -1,0 +1,12 @@
+{
+  "hadolint": {
+    "version": "2.15.1",
+    "sha256": "c7187db94eeeeca956519a6af171adc31453941a1e777961f6e680f697c8c507",
+    "source": "existing matching host tool; hash recorded, upstream checksum not independently checked"
+  },
+  "trivy": {
+    "version": "0.74.0",
+    "sha256": "d89bcc6510a267f11b773398cbf1be5520ce39f9e8b6633178c4487f05b7d791",
+    "source": "existing matching host tool; hash recorded, upstream checksum not independently checked"
+  }
+}

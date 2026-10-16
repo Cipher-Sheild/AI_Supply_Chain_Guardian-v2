@@ -1,0 +1,80 @@
+{
+  "aws_access_key": {
+    "pattern": "(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])",
+    "prefix_context": [
+      "AKIA",
+      "ASIA",
+      "AGPA",
+      "AIDA",
+      "AROA",
+      "AIPA",
+      "ANPA",
+      "ANVA",
+      "APKA"
+    ],
+    "description": "AWS Access Key ID"
+  },
+  "aws_secret_key": {
+    "pattern": "(?i)aws_?(?:secret)?_?(?:access)?_?key(?:_id)?\\s*(=|:)\\s*['\"]?(?P<secret>[A-Za-z0-9/+=]{40})['\"]?",
+    "description": "AWS Secret Access Key"
+  },
+  "github_pat_classic": {
+    "pattern": "ghp_[A-Za-z0-9]{36}",
+    "description": "GitHub Personal Access Token (Classic)"
+  },
+  "github_pat_fine_grained": {
+    "pattern": "github_pat_[a-zA-Z0-9]{22}_[a-zA-Z0-9]{59}",
+    "description": "GitHub Personal Access Token (Fine-grained)"
+  },
+  "stripe_key": {
+    "pattern": "(?:sk|pk)_(?:test|live)_[0-9a-zA-Z]{24,99}",
+    "description": "Stripe Live/Test Key"
+  },
+  "openai_key": {
+    "pattern": "sk-(?:[a-zA-Z0-9]+-)?[a-zA-Z0-9]{48}",
+    "description": "OpenAI API Key"
+  },
+  "slack_token": {
+    "pattern": "xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}",
+    "description": "Slack Bot/User Token"
+  },
+  "google_api_key": {
+    "pattern": "AIza[0-9A-Za-z\\-_]{35}",
+    "description": "Google API Key"
+  },
+  "azure_connection_string": {
+    "pattern": "Endpoint=sb://[a-zA-Z0-9\\-_]+.servicebus.windows.net/;SharedAccessKeyName=[a-zA-Z0-9\\-_]+;SharedAccessKey=[a-zA-Z0-9\\+/=]+",
+    "description": "Azure Connection String"
+  },
+  "jwt_token": {
+    "pattern": "ey[A-Za-z0-9_=-]+\\.ey[A-Za-z0-9_=-]+\\.?[A-Za-z0-9_.=-]*",
+    "description": "Generic JWT"
+  },
+  "rsa_private_key": {
+    "pattern": "-----BEGIN (?:RSA|OPENSSH|PGP|EC|ENCRYPTED)? ?PRIVATE KEY(?: BLOCK)?-----.*?-----END (?:RSA|OPENSSH|PGP|EC|ENCRYPTED)? ?PRIVATE KEY(?: BLOCK)?-----",
+    "description": "Private Key Block",
+    "flags": [
+      "DOTALL"
+    ]
+  },
+  "npm_token": {
+    "pattern": "npm_[A-Za-z0-9]{36}",
+    "description": "npm Access Token"
+  },
+  "pypi_token": {
+    "pattern": "pypi-[A-Za-z0-9_\\-]{150,}",
+    "description": "PyPI API Token"
+  },
+  "groq_key": {
+    "pattern": "(?<![A-Za-z0-9_-])gsk_[A-Za-z0-9]{20,120}(?![A-Za-z0-9_-])",
+    "description": "Groq API credential shape (offline detection; validity is not checked)"
+  },
+  "xai_key": {
+    "pattern": "(?<![A-Za-z0-9_-])xai-[A-Za-z0-9]{20,120}(?![A-Za-z0-9_-])",
+    "description": "xAI API credential shape (offline detection; validity is not checked)"
+  },
+  "huggingface_token": {
+    "pattern": "(?<![A-Za-z0-9_-])hf_[A-Za-z0-9]{20,120}(?![A-Za-z0-9_-])",
+    "description": "Hugging Face access token shape (offline detection; validity is not checked)"
+  }
+}

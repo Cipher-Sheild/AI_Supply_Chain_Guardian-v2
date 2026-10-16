@@ -1,0 +1,6 @@
+{
+  "installed_lsp_stdio": true,
+  "verified_tls_api": true,
+  "gitlab_security_diagnostic": true,
+  "prompt_injection_tested": false
+}

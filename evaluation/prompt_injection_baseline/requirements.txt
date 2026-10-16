@@ -1,0 +1,5 @@
+# Optional baseline versions; comparison suites are not verified by service CI.
+llm-guard==0.3.16
+requests==2.34.2
+rebuff==0.1.1
+yara-python==4.5.4

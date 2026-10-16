@@ -1,0 +1,122 @@
+{
+  "phase": "Full operational validation with live Groq judge and native-detector ML candidate",
+  "verified_at_utc": "2026-10-13T21:02:23.833407+00:00",
+  "committed_baseline": "6f11de1f0705abe430c926cfe04979bc8e19d9a2",
+  "changes_saved_in_working_tree": true,
+  "pushed": false,
+  "tests_passed": {
+    "code_security": 66,
+    "docker_security": 63,
+    "secret_detection": 37,
+    "workflow_cicd": 31,
+    "license_compliance": 43,
+    "cipherguard": 39,
+    "prompt_injection": 75,
+    "trust_engine": 218,
+    "utilities": 53
+  },
+  "total_tests_passed": 625,
+  "prompt_injection_tested": true,
+  "complete_production_release_approved": false,
+  "live_deployment": {
+    "dashboard": "https://localhost:3343",
+    "tls": "Verified localhost demonstration certificate; public deployment needs a trusted certificate",
+    "storage": "PostgreSQL",
+    "authentication": "Distinct API/tenant and callback credentials",
+    "overall_health": "All eight agents healthy with PostgreSQL and Redis",
+    "latest_docker_diagnostics_build": "Layered over the previously verified local image without fetching a new base after Docker Hub HTTP 429"
+  },
+  "implemented": [
+    "Guardian-owned scanners default; external scanner programs are optional compatibility adapters",
+    "Native AST analysis for Python, JavaScript, TypeScript, PHP, Java and Go",
+    "Native Dockerfile and Compose configuration rules, OCI inventory and OSV advisory callbacks",
+    "SPDX license text matching and expression policy",
+    "npm installed dependency graph plus Rust, Python lockfile and Go inventory parsing",
+    "GitHub Actions and GitLab CI analysis",
+    "Scoped tenant persistence, retention, durable image jobs and callback authentication",
+    "Installed CLI, stdio LSP, VSCode extension and authenticated dashboard"
+  ],
+  "scope_limits": [
+    "Go minimum-version-selection graph resolution is implemented for supported public proxy module graphs; root replace/exclude, local modules and package import/build context remain unresolved",
+    "Registry verification budget is 100 dependencies per artifact; unchecked nodes make coverage partial",
+    "Rust and Go package maturity/similarity remain partial; Go license metadata remains unresolved",
+    "Native OCI covers public Docker Hub linux/amd64 Alpine/APK and Debian/DPKG; language lockfiles require separate analysis",
+    "Static code rules are intraprocedural and cover a finite language/rule set",
+    "708 pinned SPDX templates are supported; modified/unrecognized texts remain unresolved",
+    "Hardening suggestions are not build-verified remediations",
+    "Browser automation and actual extension-host integration passed; user manual acceptance remains pending"
+  ],
+  "remaining_release_gates": [
+    "Improve prompt-injection quality: latest re-evaluation reports 10 accepted attacks, 9 benign flags and 2 unknown responses among 116 public rows",
+    "Validate additional independently reviewed indirect-injection artifacts; the public test split has been observed previously",
+    "Independently review real-world trust-training labels: synthetic candidate accuracy is 61.1%; it remains unpromoted",
+    "Expand dependency, Go license, source replacement and package-risk coverage",
+    "Provide authenticated/mirrored/offline vulnerability and image data strategy; public feeds may rate-limit",
+    "Finalize public deployment operations and project documentation when requirements are supplied"
+  ],
+  "trust_model": {
+    "default_scorer": "weighted",
+    "candidate": "native-detectors-synthetic-pilot-v4",
+    "training_data": "360 project-authored synthetic cases, labels preserved before scanning; 180 train, 90 validation, 90 test",
+    "native_detector_metrics": "evaluation/trust_model/final-validation/results.json",
+    "production_promoted": false,
+    "label_scope_limitation": "The earlier labels primarily describe configuration/code intent. Current live base-image CVEs, registry conditions, and direct-vs-indirect injection context require independent label review."
+  },
+  "historical_documentation": "Existing final documentation and pilot metrics describe the previous baseline; this verification record describes the current production pass",
+  "client_date": "2026-10-14",
+  "judge": {
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "credential_authenticated": true,
+    "private_storage": ".env and private deployment configuration; ignored by Git"
+  },
+  "native_corpus": {
+    "submitted": 360,
+    "final_responses": 360,
+    "submission_failures": 0,
+    "coverage_counts": {
+      "full": 318,
+      "partial": 42
+    }
+  },
+  "fresh_model": {
+    "candidate": "native-detectors-synthetic-pilot-v4",
+    "production_promoted": false,
+    "synthetic_test_accuracy": 0.6111111111111112,
+    "synthetic_test_false_accepts": 0,
+    "shap_max_difference": 0.0,
+    "monotonic_checks": 3360,
+    "monotonic_violations": 0,
+    "live_candidate_scores_persistence_and_critical_override_verified": true,
+    "report": "evaluation/trust_model/final-validation/results.json"
+  },
+  "external_pi_benchmark": {
+    "source": "deepset/prompt-injections",
+    "revision": "4f61ecb038e9c3fb77e21034b22511b523772cdd",
+    "split": "test",
+    "samples": 116,
+    "tp": 48,
+    "fp": 9,
+    "fn": 10,
+    "tn": 47,
+    "unknown": 2,
+    "false_accepts": 10,
+    "scope": "Public direct prompts submitted as README prose; no full-chain generalization claim. LLM pretraining overlap is unknown.",
+    "test_split_previously_observed": true,
+    "evaluation_role": "Re-evaluation after independent training-split model selection; not a new untouched holdout"
+  },
+  "professional_demo": {
+    "installed_cli": true,
+    "stdio_lsp_live_tested": true,
+    "installed_vscode_extension_version": "0.2.0",
+    "scan_on_save_supported": true,
+    "scan_on_save_enabled_in_demo_workspace": true,
+    "manual_editor_gui_tested": false,
+    "actual_extension_host_tested": true,
+    "real_browser_tests_passed": 3
+  },
+  "separate_postgres_integration_test": {
+    "passed": 1,
+    "scope": "Prior deployed PostgreSQL snapshot/privacy integration; separate from current local unit suites"
+  }
+}

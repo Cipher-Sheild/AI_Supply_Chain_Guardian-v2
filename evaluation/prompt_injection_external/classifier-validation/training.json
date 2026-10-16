@@ -1,0 +1,26 @@
+{
+  "model_version": "guardian-pi-semantic-v1",
+  "model_sha256": "652ab8d3d8d5a2e6670b2ba9dbd8d2ee33a657ffc18b5021dede7ab8b57edfac",
+  "embedding_repo": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "dataset": "deepset/prompt-injections",
+  "dataset_revision": "4f61ecb038e9c3fb77e21034b22511b523772cdd",
+  "dataset_split_used": "train",
+  "dataset_sha256": "2e10bc7ab30f542c97e4e83e2a5683000b5057d25ec10908784c631d44124c04",
+  "training_rows": 546,
+  "source_attribution": "deepset, https://huggingface.co/datasets/deepset/prompt-injections",
+  "license_note": "Pinned dataset card declares Apache-2.0 at top level and CC-BY-4.0 in dataset_info; preserve attribution and both declarations.",
+  "validation_rows": 109,
+  "group_overlap": 0,
+  "validation_confusion": {
+    "tp": 35,
+    "tn": 63,
+    "fp": 9,
+    "fn": 2
+  },
+  "selected_C": 100.0,
+  "review_threshold": 0.3,
+  "purpose": "Candidate screening for contextual judgment, not independent proof of maliciousness",
+  "test_split_used_for_selection": false,
+  "test_split_previously_observed": true
+}

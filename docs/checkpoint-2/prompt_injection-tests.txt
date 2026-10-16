@@ -1,0 +1,32 @@
+..............................................                           [100%]
+=============================== warnings summary ===============================
+app/main.py:42
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/prompt_injection/app/main.py:42: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+../../../.local/lib/python3.12/site-packages/fastapi/applications.py:4681
+../../../.local/lib/python3.12/site-packages/fastapi/applications.py:4681
+  /home/cipher/.local/lib/python3.12/site-packages/fastapi/applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+app/main.py:670
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/prompt_injection/app/main.py:670: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+46 passed, 4 warnings in 1.65s

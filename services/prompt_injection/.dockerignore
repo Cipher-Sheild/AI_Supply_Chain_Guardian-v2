@@ -1,0 +1,11 @@
+.env
+.venv
+venv
+__pycache__
+.pytest_cache
+*.pyc
+*.sqlite3
+*.log
+
+# Local judge is a separately downloaded optional backend; not required for API deployments.
+models/local-judge/

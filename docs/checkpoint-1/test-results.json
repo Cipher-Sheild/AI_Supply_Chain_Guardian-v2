@@ -1,0 +1,42 @@
+{
+  "trust_engine": {
+    "exit_code": 0,
+    "elapsed_seconds": 6.99,
+    "summary": "191 passed, 2 warnings in 4.99s"
+  },
+  "cipherguard": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.62,
+    "summary": "16 passed in 1.10s"
+  },
+  "license_compliance": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.66,
+    "summary": "33 passed in 1.18s"
+  },
+  "prompt_injection": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.11,
+    "summary": "41 passed, 4 warnings in 0.67s"
+  },
+  "code_security": {
+    "exit_code": 0,
+    "elapsed_seconds": 70.57,
+    "summary": "27 passed, 2 warnings in 69.21s (0:01:09)"
+  },
+  "docker_security": {
+    "exit_code": 0,
+    "elapsed_seconds": 13.13,
+    "summary": "38 passed in 11.57s"
+  },
+  "secret_detection": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.03,
+    "summary": "29 passed in 0.42s"
+  },
+  "workflow_cicd": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.0,
+    "summary": "26 passed in 0.62s"
+  }
+}

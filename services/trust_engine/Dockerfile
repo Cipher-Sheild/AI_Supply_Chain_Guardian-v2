@@ -1,0 +1,20 @@
+FROM python:3.12-slim
+
+WORKDIR /service
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+RUN useradd --uid 10001 --create-home guardian && mkdir -p /data && chown -R guardian:guardian /service /data
+ENV HOME=/home/guardian
+USER 10001:10001
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,25 @@
+{
+  "production_promoted": false,
+  "cases": [
+    {
+      "name": "safe",
+      "request_id": "4f1e00cede2a4dc58265f2ca438d61a0",
+      "recommendation": "accept",
+      "method": "xgboost",
+      "model_version": "native-detectors-synthetic-pilot-v3",
+      "shap_additivity_error": 5.081295967102051e-06,
+      "persisted_final_equals_response": true
+    },
+    {
+      "name": "unsafe",
+      "request_id": "2a9bbed0b2244c1e988233915444eb11",
+      "recommendation": "reject",
+      "method": "xgboost",
+      "model_version": "native-detectors-synthetic-pilot-v3",
+      "shap_additivity_error": 3.5315752029418945e-06,
+      "persisted_final_equals_response": true
+    }
+  ],
+  "hard_overrides_preserved": true,
+  "critical_override_request_id": "b2f0d199d9544869acb569fbb34c3e8c"
+}

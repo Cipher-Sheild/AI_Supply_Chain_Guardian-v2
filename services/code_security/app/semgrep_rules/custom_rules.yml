@@ -1,0 +1,689 @@
+rules:
+  - id: python-sql-injection-string-concat
+    languages: [python]
+    severity: ERROR
+    message: >
+      SQL query built via string concatenation/f-string, then executed.
+      This is vulnerable even if the concatenation happens on an earlier
+      line than execute(). Use parameterized queries
+      (cursor.execute(query, (param,))) instead.
+    metadata:
+      cwe: 'CWE-89: SQL Injection'
+      category: sql_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+          - pattern: f"...{$VAR}..."
+    pattern-sinks:
+      - patterns:
+          - pattern: $CURSOR.execute($QUERY, ...)
+          - pattern-not: $CURSOR.execute($QUERY, $PARAMS, ...)
+
+  - id: python-requests-tls-verification-disabled
+    languages: [python]
+    severity: ERROR
+    message: >
+      TLS certificate verification is disabled (verify=False). This allows
+      man-in-the-middle attacks. Remove verify=False or set it to True /
+      a CA bundle path.
+    metadata:
+      cwe: 'CWE-295: Improper Certificate Validation'
+      category: insecure_tls
+    patterns:
+      - pattern-either:
+          - pattern: requests.get(..., verify=False, ...)
+          - pattern: requests.post(..., verify=False, ...)
+          - pattern: requests.request(..., verify=False, ...)
+
+  - id: python-os-system-command-injection
+    languages: [python]
+    severity: ERROR
+    message: >
+      os.system() executed with a value built from string concatenation
+      or an f-string -- even if that happens on an earlier line. This
+      risks command injection if any part of the string contains
+      unsanitized input. Prefer subprocess.run() with a list of
+      arguments (no shell=True).
+    metadata:
+      cwe: 'CWE-78: OS Command Injection'
+      category: command_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+          - pattern: f"...{$VAR}..."
+    pattern-sinks:
+      - pattern: os.system($CMD)
+      - pattern: subprocess.run($CMD, shell=True)
+      - pattern: subprocess.call($CMD, shell=True)
+
+  - id: python-eval-on-input
+    languages: [python]
+    severity: ERROR
+    message: >
+      eval()/exec() called on data that may come from an external source.
+      This allows arbitrary code execution. Avoid eval/exec on untrusted
+      input entirely.
+    metadata:
+      cwe: 'CWE-95: Improper Neutralization (Eval Injection)'
+      category: unsafe_eval
+    patterns:
+      - pattern-either:
+          - pattern: eval($X)
+          - pattern: exec($X)
+  - id: python-flask-xss-render-template-string
+    languages: [python]
+    severity: ERROR
+    message: >
+      User-influenced string passed to render_template_string() or Markup(),
+      which renders raw HTML without escaping. This allows XSS if the
+      concatenated/formatted value contains attacker-controlled input.
+      Use render_template() with a template file and Jinja2 autoescaping
+      instead, or escape the value explicitly before passing it to Markup().
+    metadata:
+      cwe: 'CWE-79: Cross-Site Scripting'
+      category: xss
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+          - pattern: f"...{$VAR}..."
+    pattern-sinks:
+      - pattern: render_template_string($HTML)
+      - pattern: Markup($HTML)
+
+  - id: python-insecure-deserialization-pickle
+    languages: [python]
+    severity: ERROR
+    message: >
+      pickle.loads()/pickle.load() deserializes arbitrary Python objects
+      and can execute arbitrary code if the input is attacker-controlled,
+      regardless of how the data was obtained. Avoid unpickling data from
+      untrusted sources; use a safe format like JSON instead.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      category: insecure_deserialization
+    patterns:
+      - pattern-either:
+          - pattern: pickle.loads(...)
+          - pattern: pickle.load(...)
+
+  - id: python-insecure-yaml-load
+    languages: [python]
+    severity: ERROR
+    message: >
+      yaml.load() without an explicit safe Loader can construct arbitrary
+      Python objects from the input, leading to code execution. Use
+      yaml.safe_load() or pass Loader=yaml.SafeLoader explicitly.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      category: insecure_deserialization
+    patterns:
+      - pattern: yaml.load($DATA)
+      - pattern-not: yaml.load($DATA, Loader=yaml.SafeLoader)
+
+  - id: python-ssrf-requests-user-controlled-url
+    languages: [python]
+    severity: ERROR
+    message: >
+      URL built via string concatenation/f-string, then used directly in
+      an outbound HTTP request -- even if that happens on an earlier line.
+      If any part of the URL is attacker-controlled, this allows Server-Side
+      Request Forgery (requests to internal services, cloud metadata
+      endpoints, etc). Validate/allowlist the target host before requesting.
+    metadata:
+      cwe: 'CWE-918: Server-Side Request Forgery'
+      category: ssrf
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+          - pattern: f"...{$VAR}..."
+    pattern-sinks:
+      - pattern: requests.get($URL, ...)
+      - pattern: requests.post($URL, ...)
+      - pattern: requests.request(..., $URL, ...)
+  - id: python-plaintext-password-comparison
+    languages: [python]
+    severity: ERROR
+    message: >
+      Password compared directly with == instead of a constant-time,
+      hash-based comparison. This suggests passwords are being stored
+      or compared in plaintext, and is also vulnerable to timing attacks
+      even if the stored value is hashed elsewhere. Use a password
+      hashing library's verify function (e.g. bcrypt.checkpw(),
+      werkzeug.security.check_password_hash()) instead of ==.
+    metadata:
+      cwe: 'CWE-287: Improper Authentication'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: $PASSWORD == $INPUT
+          - pattern: $INPUT == $PASSWORD
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+
+  - id: python-weak-password-hashing
+    languages: [python]
+    severity: ERROR
+    message: >
+      Password hashed with MD5 or SHA1, both of which are fast, general-
+      purpose hash functions vulnerable to brute-force and rainbow-table
+      attacks when used for passwords. Use a dedicated password-hashing
+      function that includes salting and deliberate slowness instead
+      (bcrypt, scrypt, argon2, or werkzeug.security.generate_password_hash()).
+    metadata:
+      cwe: 'CWE-916: Use of Password Hash With Insufficient Computational Effort'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: hashlib.md5($PASSWORD)
+          - pattern: hashlib.sha1($PASSWORD)
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+  - id: js-sql-injection-string-concat
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      SQL query built via string concatenation or template literal, then
+      passed to a query execution call. Use parameterized queries
+      (placeholders + a values array) instead.
+    metadata:
+      cwe: 'CWE-89: SQL Injection'
+      category: sql_injection
+    mode: taint
+    # NOTE: '... + $VAR' matches NOTHING in JavaScript/TypeScript -- '...' is
+    # spread syntax there, not an ellipsis wildcard, so the pattern never
+    # binds. Verified with Semgrep 1.177: only the template-literal
+    # alternative ever fired, leaving these rules effectively dead.
+    # '$A + $B' is the working equivalent. The Python and Java rules keep
+    # the ellipsis form -- it does work in those languages.
+    pattern-sources:
+      - pattern-either:
+          - pattern: $A + $B
+          - pattern: '`...${$VAR}...`'
+    pattern-sinks:
+      - patterns:
+          - pattern-either:
+              - pattern: $CONN.query($QUERY)
+              - pattern: $CONN.execute($QUERY)
+          - pattern-not: $CONN.query($QUERY, $PARAMS)
+          - pattern-not: $CONN.execute($QUERY, $PARAMS)
+
+  - id: js-insecure-tls-verification-disabled
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      TLS certificate verification disabled (rejectUnauthorized: false).
+      This allows man-in-the-middle attacks. Remove this option or set
+      it to true.
+    metadata:
+      cwe: 'CWE-295: Improper Certificate Validation'
+      category: insecure_tls
+    patterns:
+      - pattern-either:
+          - pattern: '{ ..., rejectUnauthorized: false, ... }'
+          - pattern: 'axios.get(..., { ..., rejectUnauthorized: false, ... })'
+
+  - id: js-command-injection
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      child_process.exec() called with a value built from string
+      concatenation or a template literal -- even if that happens on an
+      earlier line. Use execFile() or spawn() with an argument array
+      instead, which does not invoke a shell.
+    metadata:
+      cwe: 'CWE-78: OS Command Injection'
+      category: command_injection
+    mode: taint
+    # NOTE: '... + $VAR' matches NOTHING in JavaScript/TypeScript -- '...' is
+    # spread syntax there, not an ellipsis wildcard, so the pattern never
+    # binds. Verified with Semgrep 1.177: only the template-literal
+    # alternative ever fired, leaving these rules effectively dead.
+    # '$A + $B' is the working equivalent. The Python and Java rules keep
+    # the ellipsis form -- it does work in those languages.
+    pattern-sources:
+      - pattern-either:
+          - pattern: $A + $B
+          - pattern: '`...${$VAR}...`'
+    pattern-sinks:
+      - pattern: child_process.exec($CMD)
+      - pattern: exec($CMD)
+
+  - id: js-eval-on-input
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      eval() or the Function() constructor called on data that may come
+      from an external source. This allows arbitrary code execution.
+      Avoid eval/Function on untrusted input entirely.
+    metadata:
+      cwe: 'CWE-95: Improper Neutralization (Eval Injection)'
+      category: unsafe_eval
+    patterns:
+      - pattern-either:
+          - pattern: eval($X)
+          - pattern: new Function($X)
+
+  - id: js-xss-dangerous-html
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      User-influenced string assigned to innerHTML or
+      dangerouslySetInnerHTML, which renders raw HTML without escaping.
+      Use textContent for plain text, or a sanitization library (e.g.
+      DOMPurify) if HTML rendering is actually required.
+    metadata:
+      cwe: 'CWE-79: Cross-Site Scripting'
+      category: xss
+    mode: taint
+    # NOTE: '... + $VAR' matches NOTHING in JavaScript/TypeScript -- '...' is
+    # spread syntax there, not an ellipsis wildcard, so the pattern never
+    # binds. Verified with Semgrep 1.177: only the template-literal
+    # alternative ever fired, leaving these rules effectively dead.
+    # '$A + $B' is the working equivalent. The Python and Java rules keep
+    # the ellipsis form -- it does work in those languages.
+    pattern-sanitizers:
+      - pattern: DOMPurify.sanitize(...)
+      - pattern: $X.textContent = ...
+    pattern-sources:
+      - pattern-either:
+          - pattern: $A + $B
+          - pattern: '`...${$VAR}...`'
+    pattern-sinks:
+      - pattern: $EL.innerHTML = $HTML
+      - pattern: '<$TAG ... dangerouslySetInnerHTML={{__html: $HTML}} ... />'
+
+  - id: js-insecure-deserialization
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      node-serialize's unserialize() can execute arbitrary code when
+      given attacker-controlled input (a well-documented RCE vector in
+      this package). Avoid it entirely; use JSON.parse() for structured
+      data instead.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      category: insecure_deserialization
+    patterns:
+      - pattern: serialize.unserialize(...)
+
+  - id: js-ssrf-user-controlled-url
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      URL built via string concatenation or template literal, then used
+      directly in an outbound HTTP request -- even if that happens on an
+      earlier line. If any part of the URL is attacker-controlled, this
+      allows Server-Side Request Forgery. Validate/allowlist the target
+      host before requesting.
+    metadata:
+      cwe: 'CWE-918: Server-Side Request Forgery'
+      category: ssrf
+    mode: taint
+    # NOTE: '... + $VAR' matches NOTHING in JavaScript/TypeScript -- '...' is
+    # spread syntax there, not an ellipsis wildcard, so the pattern never
+    # binds. Verified with Semgrep 1.177: only the template-literal
+    # alternative ever fired, leaving these rules effectively dead.
+    # '$A + $B' is the working equivalent. The Python and Java rules keep
+    # the ellipsis form -- it does work in those languages.
+    pattern-sources:
+      - pattern-either:
+          - pattern: $A + $B
+          - pattern: '`...${$VAR}...`'
+    pattern-sinks:
+      - pattern: axios.get($URL)
+      - pattern: axios.post($URL, ...)
+      - pattern: fetch($URL)
+
+  - id: js-plaintext-password-comparison
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      Password compared directly with === instead of a constant-time,
+      hash-based comparison. Use a password hashing library's compare
+      function (e.g. bcrypt.compare()) instead of ===.
+    metadata:
+      cwe: 'CWE-287: Improper Authentication'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: $PASSWORD === $INPUT
+          - pattern: $INPUT === $PASSWORD
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+
+  - id: js-weak-password-hashing
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >
+      Password hashed with MD5 or SHA1 via crypto.createHash(), both
+      vulnerable to brute-force and rainbow-table attacks for password
+      storage. Use bcrypt, scrypt, or argon2 instead.
+    metadata:
+      cwe: 'CWE-916: Use of Password Hash With Insufficient Computational Effort'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: crypto.createHash("md5")
+          - pattern: crypto.createHash("sha1")
+  - id: php-sql-injection-string-concat
+    languages: [php]
+    severity: ERROR
+    message: >
+      SQL query built via string concatenation, then executed. Use
+      prepared statements (PDO with bound parameters, or
+      mysqli_prepare()) instead.
+    metadata:
+      cwe: 'CWE-89: SQL Injection'
+      category: sql_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: $X . $VAR
+          - pattern: $VAR . $X
+    pattern-sinks:
+      - pattern: mysqli_query($CONN, $QUERY)
+      - pattern: $CONN->query($QUERY)
+
+  - id: php-insecure-tls-verification-disabled
+    languages: [php]
+    severity: ERROR
+    message: >
+      cURL TLS certificate verification disabled
+      (CURLOPT_SSL_VERIFYPEER, false). This allows man-in-the-middle
+      attacks. Remove this option or set it to true.
+    metadata:
+      cwe: 'CWE-295: Improper Certificate Validation'
+      category: insecure_tls
+    patterns:
+      - pattern: curl_setopt($CH, CURLOPT_SSL_VERIFYPEER, false)
+
+  - id: php-command-injection
+    languages: [php]
+    severity: ERROR
+    message: >
+      Shell command executed with a value built from string
+      concatenation -- even if that happens on an earlier line. Use
+      escapeshellarg() on each argument, or avoid shelling out entirely.
+    metadata:
+      cwe: 'CWE-78: OS Command Injection'
+      category: command_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: $X . $VAR
+          - pattern: $VAR . $X
+    pattern-sinks:
+      - pattern: shell_exec($CMD)
+      - pattern: exec($CMD)
+      - pattern: system($CMD)
+      - pattern: passthru($CMD)
+
+  - id: php-eval-on-input
+    languages: [php]
+    severity: ERROR
+    message: >
+      eval() called on data that may come from an external source. This
+      allows arbitrary code execution. Avoid eval() on untrusted input
+      entirely.
+    metadata:
+      cwe: 'CWE-95: Improper Neutralization (Eval Injection)'
+      category: unsafe_eval
+    patterns:
+      - pattern: eval($X)
+
+  - id: php-xss-unescaped-echo
+    languages: [php]
+    severity: ERROR
+    message: >
+      User-influenced value echoed/printed directly without escaping.
+      This allows XSS if the value contains attacker-controlled input.
+      Use htmlspecialchars() before outputting any value that may
+      contain user input.
+    metadata:
+      cwe: 'CWE-79: Cross-Site Scripting'
+      category: xss
+    mode: taint
+    pattern-sanitizers:
+      - pattern: htmlspecialchars(...)
+      - pattern: htmlentities(...)
+      - pattern: strip_tags(...)
+    pattern-sources:
+      - pattern: $_GET[...]
+      - pattern: $_POST[...]
+      - pattern: $_REQUEST[...]
+    pattern-sinks:
+      - pattern: echo $VAL;
+      - pattern: print $VAL;
+
+  - id: php-insecure-deserialization
+    languages: [php]
+    severity: ERROR
+    message: >
+      unserialize() can execute arbitrary code via PHP object injection
+      when given attacker-controlled input. Use json_decode() for
+      structured data instead.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      category: insecure_deserialization
+    patterns:
+      - pattern: unserialize($DATA)
+
+  - id: php-ssrf-curl-user-controlled-url
+    languages: [php]
+    severity: ERROR
+    message: >
+      URL built via string concatenation, then used directly in an
+      outbound HTTP request -- even if that happens on an earlier line.
+      If any part of the URL is attacker-controlled, this allows
+      Server-Side Request Forgery. Validate/allowlist the target host
+      before requesting.
+    metadata:
+      cwe: 'CWE-918: Server-Side Request Forgery'
+      category: ssrf
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: $X . $VAR
+          - pattern: $VAR . $X
+    pattern-sinks:
+      - pattern: curl_setopt($CH, CURLOPT_URL, $URL)
+      - pattern: file_get_contents($URL)
+
+  - id: php-plaintext-password-comparison
+    languages: [php]
+    severity: ERROR
+    message: >
+      Password compared directly with == or === instead of a
+      constant-time, hash-based comparison. Use password_verify()
+      instead.
+    metadata:
+      cwe: 'CWE-287: Improper Authentication'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: $PASSWORD == $INPUT
+          - pattern: $PASSWORD === $INPUT
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+
+  - id: php-weak-password-hashing
+    languages: [php]
+    severity: ERROR
+    message: >
+      Password hashed with md5() or sha1(), both vulnerable to
+      brute-force and rainbow-table attacks for password storage. Use
+      password_hash() with PASSWORD_BCRYPT or PASSWORD_ARGON2ID instead.
+    metadata:
+      cwe: 'CWE-916: Use of Password Hash With Insufficient Computational Effort'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: md5($PASSWORD)
+          - pattern: sha1($PASSWORD)
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+  - id: java-sql-injection-string-concat
+    languages: [java]
+    severity: ERROR
+    message: >
+      SQL query built via string concatenation, then executed. Use
+      PreparedStatement with bound parameters instead.
+    metadata:
+      cwe: 'CWE-89: SQL Injection'
+      category: sql_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+    pattern-sinks:
+      - pattern: $STMT.executeQuery($QUERY)
+      - pattern: $STMT.execute($QUERY)
+      - pattern: $STMT.executeUpdate($QUERY)
+
+  - id: java-insecure-tls-verification-disabled
+    languages: [java]
+    severity: ERROR
+    message: >
+      Hostname verification disabled via ALLOW_ALL_HOSTNAME_VERIFIER.
+      This allows man-in-the-middle attacks. Use the default (strict)
+      hostname verifier instead.
+    metadata:
+      cwe: 'CWE-295: Improper Certificate Validation'
+      category: insecure_tls
+    patterns:
+      - pattern: SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER
+
+  - id: java-command-injection
+    languages: [java]
+    severity: ERROR
+    message: >
+      Runtime.exec() called with a value built from string concatenation
+      -- even if that happens on an earlier line. Use the array-argument
+      overload (Runtime.exec(String[])) or ProcessBuilder with separate
+      arguments instead, which does not invoke a shell.
+    metadata:
+      cwe: 'CWE-78: OS Command Injection'
+      category: command_injection
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+    pattern-sinks:
+      - pattern: Runtime.getRuntime().exec($CMD)
+
+  - id: java-scriptengine-eval-on-input
+    languages: [java]
+    severity: ERROR
+    message: >
+      ScriptEngine.eval() called on data that may come from an external
+      source. This allows arbitrary code execution. Avoid eval() on
+      untrusted input entirely.
+    metadata:
+      cwe: 'CWE-95: Improper Neutralization (Eval Injection)'
+      category: unsafe_eval
+    patterns:
+      - pattern: $ENGINE.eval($X)
+
+  - id: java-xss-unescaped-response-write
+    languages: [java]
+    severity: ERROR
+    message: >
+      Request parameter written directly to the HTTP response without
+      escaping. This allows XSS if the value contains attacker-
+      controlled input. Escape output (e.g. with OWASP Java Encoder)
+      before writing it to the response.
+    metadata:
+      cwe: 'CWE-79: Cross-Site Scripting'
+      category: xss
+    mode: taint
+    pattern-sanitizers:
+      - pattern: Encode.forHtml(...)
+      - pattern: Encode.forHtmlAttribute(...)
+      - pattern: StringEscapeUtils.escapeHtml4(...)
+    pattern-sources:
+      - pattern: $REQUEST.getParameter(...)
+    pattern-sinks:
+      - pattern: $WRITER.print($VAL)
+      - pattern: $WRITER.println($VAL)
+
+  - id: java-insecure-deserialization
+    languages: [java]
+    severity: ERROR
+    message: >
+      ObjectInputStream.readObject() deserializes arbitrary Java objects
+      and is a well-documented remote code execution vector when given
+      attacker-controlled input. Avoid deserializing untrusted data;
+      use a safe format like JSON instead.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      category: insecure_deserialization
+    patterns:
+      - pattern: $STREAM.readObject()
+
+  - id: java-ssrf-user-controlled-url
+    languages: [java]
+    severity: ERROR
+    message: >
+      URL built via string concatenation, then used directly to open an
+      outbound connection -- even if that happens on an earlier line. If
+      any part of the URL is attacker-controlled, this allows
+      Server-Side Request Forgery. Validate/allowlist the target host
+      before requesting.
+    metadata:
+      cwe: 'CWE-918: Server-Side Request Forgery'
+      category: ssrf
+    mode: taint
+    pattern-sources:
+      - pattern-either:
+          - pattern: '... + $VAR + ...'
+          - pattern: '... + $VAR'
+    pattern-sinks:
+      - pattern: new URL($URL).openConnection()
+      - pattern: new URL($URL).openStream()
+
+  - id: java-plaintext-password-comparison
+    languages: [java]
+    severity: ERROR
+    message: >
+      Password compared directly with .equals() instead of a
+      constant-time, hash-based comparison. This suggests passwords are
+      being stored or compared in plaintext. Use a password hashing
+      library's verify function (e.g. BCrypt.checkpw()) instead.
+    metadata:
+      cwe: 'CWE-287: Improper Authentication'
+      category: weak_auth
+    patterns:
+      - pattern: $PASSWORD.equals($INPUT)
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd).*
+
+  - id: java-weak-password-hashing
+    languages: [java]
+    severity: ERROR
+    message: >
+      Password hashed with MD5 or SHA-1 via MessageDigest, both
+      vulnerable to brute-force and rainbow-table attacks for password
+      storage. Use BCrypt, SCrypt, or Argon2 instead.
+    metadata:
+      cwe: 'CWE-916: Use of Password Hash With Insufficient Computational Effort'
+      category: weak_auth
+    patterns:
+      - pattern-either:
+          - pattern: MessageDigest.getInstance("MD5")
+          - pattern: MessageDigest.getInstance("SHA-1")

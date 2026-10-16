@@ -1,0 +1,18 @@
+{
+  "http_status": 503,
+  "same_origin_api_proxy": true,
+  "service": "trust_engine",
+  "checks": {
+    "callback_auth": true,
+    "scorer_configuration": true,
+    "predictive_model": true,
+    "database": true,
+    "code_security": true,
+    "secret_detection": true,
+    "prompt_injection": true,
+    "workflow_cicd": true,
+    "docker_security": true,
+    "cipherguard": false,
+    "license_compliance": false
+  }
+}

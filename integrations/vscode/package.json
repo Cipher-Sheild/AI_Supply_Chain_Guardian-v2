@@ -1,0 +1,70 @@
+{
+  "name": "ai-supply-chain-guardian",
+  "displayName": "AI Supply Chain Guardian",
+  "description": "Scan saved source and configuration files through the Guardian Trust Engine.",
+  "version": "0.2.0",
+  "publisher": "guardian-local",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:guardian.scanActive"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "guardian.scanActive",
+        "title": "Guardian: Scan Active Artifact"
+      },
+      {
+        "command": "guardian.setApiKey",
+        "title": "Guardian: Set API Key"
+      },
+      {
+        "command": "guardian.importDeploymentKey",
+        "title": "Guardian: Import Client Key from Deployment Configuration"
+      },
+      {
+        "command": "guardian.clearApiKey",
+        "title": "Guardian: Clear Stored Client Key"
+      }
+    ],
+    "configuration": {
+      "title": "Guardian",
+      "properties": {
+        "guardian.serverUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8000",
+          "description": "Local Trust Engine URL."
+        },
+        "guardian.finalTimeoutSeconds": {
+          "type": "number",
+          "default": 240,
+          "minimum": 1,
+          "maximum": 600
+        },
+        "guardian.scanOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically scan saved documents and publish Guardian diagnostics."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "package": "vsce package --allow-missing-repository --out guardian.vsix",
+    "test": "npm run build && node tests/run.cjs"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/vscode": "1.90.0",
+    "@vscode/test-electron": "2.5.2",
+    "@vscode/vsce": "3.2.1",
+    "typescript": "5.6.3"
+  }
+}

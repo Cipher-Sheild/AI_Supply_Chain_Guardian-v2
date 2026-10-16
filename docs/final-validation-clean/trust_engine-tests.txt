@@ -1,0 +1,50 @@
+........................................................................ [ 34%]
+........................................................................ [ 69%]
+...............................................................          [100%]
+=============================== warnings summary ===============================
+app/main.py:23
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/main.py:23: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    @app.on_event('startup')
+
+../../.data/venv/lib/python3.12/site-packages/fastapi/applications.py:4681
+../../.data/venv/lib/python3.12/site-packages/fastapi/applications.py:4681
+  /home/cipher/ai-supply-chain-guardian-CLEAN/.data/venv/lib/python3.12/site-packages/fastapi/applications.py:4681: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+app/main.py:40
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/main.py:40: DeprecationWarning:
+          on_event is deprecated, use lifespan event handlers instead.
+
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+
+    @app.on_event('shutdown')
+
+tests/test_analyze.py: 4 warnings
+tests/test_checkpoint2.py: 6 warnings
+tests/test_postgres_integration.py: 3 warnings
+  /home/cipher/ai-supply-chain-guardian-CLEAN/services/trust_engine/app/scan_store.py:61: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    stamp = datetime.utcnow()
+
+tests/test_analyze.py: 4 warnings
+tests/test_checkpoint2.py: 5 warnings
+tests/test_postgres_integration.py: 1 warning
+  /home/cipher/ai-supply-chain-guardian-CLEAN/.data/venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:4296: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore[call-arg, no-any-return, no-untyped-call]  # noqa: E501
+
+tests/test_ml_scoring.py::test_unavailable_model_falls_back_without_accepting_partial
+  /home/cipher/ai-supply-chain-guardian-CLEAN/.data/venv/lib/python3.12/site-packages/dateutil/tz/tz.py:37: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    EPOCH = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+207 passed, 28 warnings in 9.01s

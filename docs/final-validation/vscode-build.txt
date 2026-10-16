@@ -1,0 +1,4 @@
+
+> ai-supply-chain-guardian@0.1.0 build
+> tsc -p .
+

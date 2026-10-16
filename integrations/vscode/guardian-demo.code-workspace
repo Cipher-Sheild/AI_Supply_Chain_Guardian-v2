@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": "../.."
+    }
+  ],
+  "settings": {
+    "guardian.serverUrl": "http://127.0.0.1:18808",
+    "guardian.scanOnSave": true
+  },
+  "extensions": {
+    "recommendations": [
+      "guardian-local.ai-supply-chain-guardian"
+    ]
+  }
+}
