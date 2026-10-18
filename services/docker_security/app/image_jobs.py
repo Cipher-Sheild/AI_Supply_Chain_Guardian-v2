@@ -83,12 +83,13 @@ async def process(callback,payload):
             async def scan_all():
                 nonlocal incomplete
                 image_results=[]
+                evidence['native_image_scans']=image_results
                 for image in payload['images']:
                     engine,inventory=await analyze_image(image['reference'],payload['path'],image['line'])
                     findings.extend(Finding.model_validate(item.model_dump()) for item in engine.findings)
                     incomplete=incomplete or not engine.completed
                     image_results.append({'image':inventory['image_ref'],'manifest_digest':inventory['manifest_digest'],
-                        'platform':inventory['platform'],'os_release':inventory['os_release'],'layers_verified':inventory['layers_verified'],
+                        'content_manifest_digest':inventory.get('content_manifest_digest'),'platform':inventory['platform'],'os_release':inventory['os_release'],'layers_verified':inventory['layers_verified'],
                         'package_count':len(inventory['packages']),'scope':inventory['package_inventory_scope'],**engine.evidence()})
                 evidence['native_image_scans']=image_results
             await asyncio.wait_for(scan_all(),timeout=120)

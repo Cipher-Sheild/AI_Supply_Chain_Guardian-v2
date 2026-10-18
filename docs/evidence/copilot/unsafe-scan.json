@@ -1,0 +1,203 @@
+{
+  "trust_score": 78.75,
+  "recommendation": "review",
+  "explanation": "Trust score 78.75/100 (review). Top risks: high unsafe_eval from code_security in /home/cipher/Demo/final-evidence/final_verified_unsafe.py (/home/cipher/Demo/final-evidence/final_verified_unsafe.py:2) (risk 21.2).",
+  "agent_breakdown": {
+    "code_security": -21.25,
+    "prompt_injection": 0.0,
+    "secret_detection": 0.0
+  },
+  "detector_results": [
+    {
+      "contract_version": "1.0",
+      "agent_name": "code_security",
+      "status": "fail",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [
+        {
+          "category": "unsafe_eval",
+          "severity": "high",
+          "confidence": 0.85,
+          "location": "/home/cipher/Demo/final-evidence/final_verified_unsafe.py:2",
+          "reason": "Dynamic Python execution allows arbitrary code execution.",
+          "remediation": "Avoid eval()/exec() on external input entirely. If parsing structured data, use json.loads() instead. If dynamic dispatch is the actual goal, use an explicit lookup dict of allowed functions rather than executing arbitrary code.",
+          "hard_block": false,
+          "details": {
+            "engine": "guardian_python_ast",
+            "rule_id": "guardian.python-eval-on-input",
+            "end_line": 2,
+            "language": "python",
+            "base_severity": "high",
+            "analysis_scope": "intraprocedural",
+            "language_weighted": false
+          },
+          "score": null
+        }
+      ],
+      "evidence": {
+        "engine": "guardian_python_ast",
+        "partial_parsing": false
+      },
+      "callback_id": null
+    },
+    {
+      "contract_version": "1.0",
+      "agent_name": "secret_detection",
+      "status": "pass",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [],
+      "evidence": {
+        "severity": null,
+        "confidence": 0.0,
+        "total_findings": 0,
+        "execution_time_ms": 0.248
+      },
+      "callback_id": null
+    },
+    {
+      "contract_version": "1.0",
+      "agent_name": "prompt_injection",
+      "status": "pass",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [],
+      "evidence": {
+        "elapsed_ms": 1.15,
+        "spans_scanned": 0,
+        "findings_count": 0,
+        "escalated_to_llm": 0
+      },
+      "callback_id": null
+    }
+  ],
+  "scoring": {
+    "method": "weighted",
+    "notice": "Model contributions explain numerical prediction, not policy overrides or causation.",
+    "final_score": 78.75,
+    "model_invoked": false,
+    "configured_scorer": "weighted",
+    "final_recommendation": "review",
+    "agent_breakdown_basis": "Severity-weighted detector risk; hard override when present",
+    "policy_gates_authoritative": true
+  },
+  "per_file": [
+    {
+      "trust_score": 78.75,
+      "recommendation": "review",
+      "explanation": "Trust score 78.75/100 (review). Top risks: high unsafe_eval from code_security in /home/cipher/Demo/final-evidence/final_verified_unsafe.py (/home/cipher/Demo/final-evidence/final_verified_unsafe.py:2) (risk 21.2).",
+      "agent_breakdown": {
+        "code_security": -21.25,
+        "prompt_injection": 0.0,
+        "secret_detection": 0.0
+      },
+      "detector_results": [
+        {
+          "contract_version": "1.0",
+          "agent_name": "code_security",
+          "status": "fail",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [
+            {
+              "category": "unsafe_eval",
+              "severity": "high",
+              "confidence": 0.85,
+              "location": "/home/cipher/Demo/final-evidence/final_verified_unsafe.py:2",
+              "reason": "Dynamic Python execution allows arbitrary code execution.",
+              "remediation": "Avoid eval()/exec() on external input entirely. If parsing structured data, use json.loads() instead. If dynamic dispatch is the actual goal, use an explicit lookup dict of allowed functions rather than executing arbitrary code.",
+              "hard_block": false,
+              "details": {
+                "engine": "guardian_python_ast",
+                "rule_id": "guardian.python-eval-on-input",
+                "end_line": 2,
+                "language": "python",
+                "base_severity": "high",
+                "analysis_scope": "intraprocedural",
+                "language_weighted": false
+              },
+              "score": null
+            }
+          ],
+          "evidence": {
+            "engine": "guardian_python_ast",
+            "partial_parsing": false
+          },
+          "callback_id": null
+        },
+        {
+          "contract_version": "1.0",
+          "agent_name": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [],
+          "evidence": {
+            "severity": null,
+            "confidence": 0.0,
+            "total_findings": 0,
+            "execution_time_ms": 0.248
+          },
+          "callback_id": null
+        },
+        {
+          "contract_version": "1.0",
+          "agent_name": "prompt_injection",
+          "status": "pass",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [],
+          "evidence": {
+            "elapsed_ms": 1.15,
+            "spans_scanned": 0,
+            "findings_count": 0,
+            "escalated_to_llm": 0
+          },
+          "callback_id": null
+        }
+      ],
+      "scoring": {
+        "method": "weighted",
+        "notice": "Model contributions explain numerical prediction, not policy overrides or causation.",
+        "final_score": 78.75,
+        "model_invoked": false,
+        "configured_scorer": "weighted",
+        "final_recommendation": "review",
+        "agent_breakdown_basis": "Severity-weighted detector risk; hard override when present",
+        "policy_gates_authoritative": true
+      },
+      "index": 0,
+      "filename": "/home/cipher/Demo/final-evidence/final_verified_unsafe.py",
+      "coverage": "full",
+      "scan_status": "final"
+    }
+  ],
+  "request_id": "538450cf12bb4e9c9481fdc310b2d75c",
+  "scan_status": "final",
+  "routing": {
+    "overall_coverage": "full",
+    "routing": [
+      {
+        "filename": "/home/cipher/Demo/final-evidence/final_verified_unsafe.py",
+        "artifact_type": "code",
+        "routing_source": "inferred",
+        "expected_agents": [
+          "code_security",
+          "secret_detection",
+          "prompt_injection"
+        ],
+        "coverage": "full",
+        "notes": []
+      }
+    ],
+    "pending_callbacks": [],
+    "routing_notes": []
+  }
+}

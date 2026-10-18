@@ -1,0 +1,8 @@
+name: unsafe
+on: [pull_request_target]
+permissions: write-all
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.event.pull_request.title }}"

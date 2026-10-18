@@ -1,0 +1,131 @@
+{
+  "weighted": {
+    "accuracy": 0.7777777777777778,
+    "macro_f1": 0.7752525252525252,
+    "mcc": 0.7108186533109109,
+    "per_class": {
+      "accept": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091,
+        "support": 30
+      },
+      "review": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75,
+        "support": 30
+      },
+      "reject": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "support": 30
+      }
+    },
+    "confusion_matrix": [
+      [
+        25,
+        5,
+        0
+      ],
+      [
+        0,
+        30,
+        0
+      ],
+      [
+        0,
+        15,
+        15
+      ]
+    ],
+    "false_accepts": 0
+  },
+  "frozen_v2": {
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8372183372183373,
+    "mcc": 0.7534965224510293,
+    "per_class": {
+      "accept": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091,
+        "support": 30
+      },
+      "review": {
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "f1": 0.7692307692307693,
+        "support": 30
+      },
+      "reject": {
+        "precision": 0.8333333333333334,
+        "recall": 0.8333333333333334,
+        "f1": 0.8333333333333334,
+        "support": 30
+      }
+    },
+    "confusion_matrix": [
+      [
+        25,
+        5,
+        0
+      ],
+      [
+        0,
+        25,
+        5
+      ],
+      [
+        0,
+        5,
+        25
+      ]
+    ],
+    "false_accepts": 0
+  },
+  "retrained_v3": {
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8363636363636363,
+    "mcc": 0.7755547359889252,
+    "per_class": {
+      "accept": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091,
+        "support": 30
+      },
+      "review": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "support": 30
+      },
+      "reject": {
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1": 0.8,
+        "support": 30
+      }
+    },
+    "confusion_matrix": [
+      [
+        25,
+        5,
+        0
+      ],
+      [
+        0,
+        30,
+        0
+      ],
+      [
+        0,
+        10,
+        20
+      ]
+    ],
+    "false_accepts": 0
+  }
+}

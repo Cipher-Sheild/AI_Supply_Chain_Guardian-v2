@@ -37,7 +37,7 @@ def scan_python(content,filename):
                      'analysis_scope':'intraprocedural','base_severity':'high','language_weighted':False,
                      'end_line':getattr(node,'end_lineno',node.lineno)}))
     def scope(body,inherited_aliases=None):
-        aliases=dict(inherited_aliases or {});dynamic=set();constructed=set();constants=set()
+        aliases=dict(inherited_aliases or {});dynamic=set();constructed=set();constants=set();function_context=[]
         # Imports are resolved without loading the imported module.
         for node in body:
             if isinstance(node,ast.Import):
@@ -80,7 +80,9 @@ def scan_python(content,filename):
                 if node.args.kwarg:function_dynamic.add(node.args.kwarg.arg)
                 old=set(dynamic);old_constructed=set(constructed);old_constants=set(constants);old_aliases=dict(aliases)
                 dynamic.clear();dynamic.update(function_dynamic);constructed.clear();constants.difference_update(function_dynamic)
+                function_context.append(node.name)
                 for statement in node.body:inspect(statement)
+                function_context.pop()
                 dynamic.clear();dynamic.update(old);constructed.clear();constructed.update(old_constructed)
                 constants.clear();constants.update(old_constants);aliases.clear();aliases.update(old_aliases);return
             if isinstance(node,ast.Import):
@@ -168,7 +170,7 @@ def scan_python(content,filename):
                     url=node.args[1] if called=='requests.request' and len(node.args)>1 else first
                     if called in {'requests.get','requests.post','requests.request'} and url is not None and composed(url):
                         emit(node,'python-ssrf-requests-user-controlled-url','ssrf','Constructed URL requires explicit destination validation.')
-                    if called in {'hashlib.md5','hashlib.sha1'} and first is not None and re.search(r'password|passwd|pwd',ast.unparse(first),re.I):
+                    if called in {'hashlib.md5','hashlib.sha1'} and first is not None and re.search(r'password|passwd|pwd',ast.unparse(first)+' '+(function_context[-1] if function_context else ''),re.I):
                         emit(node,'python-weak-password-hashing','weak_auth','Fast general-purpose hash used for a password-like value.')
             for child in ast.iter_child_nodes(node):inspect(child)
         for node in body:inspect(node)

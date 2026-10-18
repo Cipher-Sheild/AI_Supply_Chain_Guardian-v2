@@ -1,0 +1,435 @@
+{
+  "qualification": "First-use prospective pilot with AI construction labels; familiar attack families, not an independently labelled generalization benchmark",
+  "count": 18,
+  "human_reviewed": false,
+  "source_and_labels_unchanged": true,
+  "weighted": {
+    "n": 18,
+    "accuracy": 0.6666666666666666,
+    "mae": 21.744444444444444,
+    "false_accepts": 3,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        1,
+        1,
+        4
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "compose": {
+        "n": 3,
+        "accuracy": 1.0
+      },
+      "dependency": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "dockerfile": {
+        "n": 3,
+        "accuracy": 1.0
+      },
+      "markdown": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "workflow": {
+        "n": 3,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "cases": [
+    {
+      "sample_id": "prospective-01",
+      "artifact_type": "code",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "3300f8d33d654b8b8eafa689e85cee47",
+      "coverage": "full",
+      "agent_statuses": {
+        "code_security": "pass",
+        "secret_detection": "pass",
+        "prompt_injection": "pass"
+      },
+      "seconds": 0.285
+    },
+    {
+      "sample_id": "prospective-02",
+      "artifact_type": "code",
+      "ai_label": "review",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "f33d54f4016e4b8d86faff5354676a89",
+      "coverage": "full",
+      "agent_statuses": {
+        "code_security": "pass",
+        "secret_detection": "pass",
+        "prompt_injection": "pass"
+      },
+      "seconds": 0.21
+    },
+    {
+      "sample_id": "prospective-03",
+      "artifact_type": "code",
+      "ai_label": "reject",
+      "decision": "review",
+      "score": 78.75,
+      "scan_id": "790ee4b510b5493084d31018b22bad3d",
+      "coverage": "full",
+      "agent_statuses": {
+        "code_security": "fail",
+        "secret_detection": "pass",
+        "prompt_injection": "pass"
+      },
+      "seconds": 0.135
+    },
+    {
+      "sample_id": "prospective-04",
+      "artifact_type": "markdown",
+      "ai_label": "accept",
+      "decision": "review",
+      "score": 89.0,
+      "scan_id": "77e16d9b280740e490e12122357e4bc2",
+      "coverage": "full",
+      "agent_statuses": {
+        "prompt_injection": "warn",
+        "secret_detection": "pass"
+      },
+      "seconds": 15.369
+    },
+    {
+      "sample_id": "prospective-05",
+      "artifact_type": "markdown",
+      "ai_label": "review",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "b9f070226fac43f6a8bb831a5810c4b1",
+      "coverage": "full",
+      "agent_statuses": {
+        "prompt_injection": "fail",
+        "secret_detection": "pass"
+      },
+      "seconds": 1.375
+    },
+    {
+      "sample_id": "prospective-06",
+      "artifact_type": "markdown",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "703fcda0ac3644428117b2bd2c4a3286",
+      "coverage": "full",
+      "agent_statuses": {
+        "prompt_injection": "fail",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.966
+    },
+    {
+      "sample_id": "prospective-07",
+      "artifact_type": "dockerfile",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 97.0,
+      "scan_id": "0814cae6dfa64e3992cf5ef543ead7c7",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.193
+    },
+    {
+      "sample_id": "prospective-08",
+      "artifact_type": "dockerfile",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 62.0,
+      "scan_id": "ab3268d6cffb47c080bfc364913855cf",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "warn",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.223
+    },
+    {
+      "sample_id": "prospective-09",
+      "artifact_type": "dockerfile",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 34.15,
+      "scan_id": "a3769d4a76ba4d819fbd623bb4ca5420",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "warn",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.178
+    },
+    {
+      "sample_id": "prospective-10",
+      "artifact_type": "compose",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 91.0,
+      "scan_id": "4e72719813e342f7a81b40c35286cdb8",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.158
+    },
+    {
+      "sample_id": "prospective-11",
+      "artifact_type": "compose",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 72.5,
+      "scan_id": "0806e063d31447f48e75ca8e374d7bec",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "warn",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.139
+    },
+    {
+      "sample_id": "prospective-12",
+      "artifact_type": "compose",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "5ffc5f19e2804a09a1aeaeec7b165907",
+      "coverage": "full",
+      "agent_statuses": {
+        "docker_security": "fail",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.143
+    },
+    {
+      "sample_id": "prospective-13",
+      "artifact_type": "workflow",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "7fdcacc7bee24edda960403c68d01096",
+      "coverage": "full",
+      "agent_statuses": {
+        "workflow_cicd": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.21
+    },
+    {
+      "sample_id": "prospective-14",
+      "artifact_type": "workflow",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 75.0,
+      "scan_id": "7ffb07967f6147b8aa38f76ca3b720b7",
+      "coverage": "full",
+      "agent_statuses": {
+        "workflow_cicd": "fail",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.182
+    },
+    {
+      "sample_id": "prospective-15",
+      "artifact_type": "workflow",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "a5a0d7bdde664472844f854a2d7986c0",
+      "coverage": "full",
+      "agent_statuses": {
+        "workflow_cicd": "fail",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.191
+    },
+    {
+      "sample_id": "prospective-16",
+      "artifact_type": "dependency",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "d7f2396594e040b6b24184f38c88b672",
+      "coverage": "full",
+      "agent_statuses": {
+        "cipherguard": "pass",
+        "license_compliance": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.259
+    },
+    {
+      "sample_id": "prospective-17",
+      "artifact_type": "dependency",
+      "ai_label": "review",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "1023ead21762422d9366c294fca7e97b",
+      "coverage": "full",
+      "agent_statuses": {
+        "cipherguard": "pass",
+        "license_compliance": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.232
+    },
+    {
+      "sample_id": "prospective-18",
+      "artifact_type": "dependency",
+      "ai_label": "reject",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "6f4664dd6f9942c3a7c48493eb80856c",
+      "coverage": "full",
+      "agent_statuses": {
+        "cipherguard": "pass",
+        "license_compliance": "pass",
+        "secret_detection": "pass"
+      },
+      "seconds": 0.246
+    }
+  ],
+  "frozen_v2": {
+    "n": 18,
+    "accuracy": 0.6111111111111112,
+    "mae": 19.779298517439102,
+    "false_accepts": 3,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        3
+      ],
+      [
+        1,
+        0,
+        5
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 3,
+        "accuracy": 0.6666666666666666
+      },
+      "compose": {
+        "n": 3,
+        "accuracy": 0.6666666666666666
+      },
+      "dependency": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "dockerfile": {
+        "n": 3,
+        "accuracy": 0.6666666666666666
+      },
+      "markdown": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "workflow": {
+        "n": 3,
+        "accuracy": 1.0
+      }
+    },
+    "native_shap_max_additivity_residual": 1.52587890625e-05
+  },
+  "retrained_v3": {
+    "n": 18,
+    "accuracy": 0.6111111111111112,
+    "mae": 21.105133056640625,
+    "false_accepts": 3,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        4,
+        2,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        1,
+        1,
+        4
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 3,
+        "accuracy": 0.6666666666666666
+      },
+      "compose": {
+        "n": 3,
+        "accuracy": 1.0
+      },
+      "dependency": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "dockerfile": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "markdown": {
+        "n": 3,
+        "accuracy": 0.3333333333333333
+      },
+      "workflow": {
+        "n": 3,
+        "accuracy": 1.0
+      }
+    },
+    "native_shap_max_additivity_residual": 4.57763671875e-05
+  },
+  "latency_seconds": {
+    "median": 0.21,
+    "p95": 3.47409999999998,
+    "scope": "18 serial loopback scans; not concurrent-load performance"
+  }
+}

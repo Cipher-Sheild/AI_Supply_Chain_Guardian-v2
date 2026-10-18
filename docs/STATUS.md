@@ -1,3 +1,5 @@
+> Historical status snapshot. For the 18 October 2026 evidence and current limitations, read the [repository README](../README.md), [ML record](ML_AND_SHAP_IMPLEMENTATION.md) and [final results](reports/Results%20of%20the%20entire%20project.pdf). Old counts below are retained as dated development history.
+
 # Final local status — 12 October 2026
 
 The user authorized completing this project locally and explicitly forbids pushing this run. No final-run changes are uploaded to the old repository. Current implementation and measured results are in [FINAL_PROJECT_DOCUMENTATION.md](FINAL_PROJECT_DOCUMENTATION.md) and [final verification](final-validation/VERIFICATION.md).

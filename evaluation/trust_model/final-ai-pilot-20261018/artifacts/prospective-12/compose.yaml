@@ -1,0 +1,5 @@
+services:
+  worker:
+    image: alpine:latest
+    privileged: true
+    volumes: ["/:/host", "/var/run/docker.sock:/var/run/docker.sock"]

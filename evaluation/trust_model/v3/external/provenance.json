@@ -1,0 +1,24 @@
+[
+  {
+    "repository": "pypa/sampleproject",
+    "commit": "621e4974ca25ce531773def586ba3ed8e736b3fc",
+    "spdx_api": "MIT",
+    "license_path": "LICENSE.txt",
+    "license_url": "https://raw.githubusercontent.com/pypa/sampleproject/621e4974ca25ce531773def586ba3ed8e736b3fc/LICENSE.txt",
+    "license_sha256": "71e0bd649395f47e82b500dc6261ce4b8e8d03774727f583e09f5b947e75de97",
+    "notice_retained": true,
+    "checked_utc": "2026-10-17T19:49:41Z",
+    "license_check_scope": "GitHub SPDX identification plus matching retained pinned license text; no legal opinion or whole dependency audit"
+  },
+  {
+    "repository": "pallets/flask",
+    "commit": "d086db856be187255b8ec61ef409357393020f32",
+    "spdx_api": "BSD-3-Clause",
+    "license_path": "LICENSE.txt",
+    "license_url": "https://raw.githubusercontent.com/pallets/flask/d086db856be187255b8ec61ef409357393020f32/LICENSE.txt",
+    "license_sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+    "notice_retained": true,
+    "checked_utc": "2026-10-17T19:50:45Z",
+    "license_check_scope": "GitHub SPDX identification plus matching retained pinned license text; no legal opinion or whole dependency audit"
+  }
+]

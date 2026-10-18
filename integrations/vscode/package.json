@@ -58,7 +58,8 @@
   "scripts": {
     "build": "tsc -p .",
     "package": "vsce package --allow-missing-repository --out guardian.vsix",
-    "test": "npm run build && node tests/run.cjs"
+    "test": "npm run build && node tests/run.cjs",
+    "vscode:prepublish": "npm run build"
   },
   "devDependencies": {
     "@types/node": "22.10.2",
@@ -66,5 +67,11 @@
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.2.1",
     "typescript": "5.6.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cipher-Sheild/AI_Supply_Chain_Guardian-v2.git",
+    "directory": "integrations/vscode"
+  },
+  "homepage": "https://github.com/Cipher-Sheild/AI_Supply_Chain_Guardian-v2"
 }

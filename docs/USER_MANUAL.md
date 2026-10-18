@@ -10,3 +10,21 @@
 8. Compose: set a private `.env` from `.env.example`, obtain Docker daemon access and run `docker compose up --build -d`. Trust Engine uses 8000 and dashboard 3000. Container checks remain unverified in this environment. Never commit `.env` or `.data`.
 
 Common failures: 503 health means a required tool/model/registry/database is unavailable; inspect individual check fields/private logs. Scan timeouts and unsupported coverage require review. Callback auth must match between prompt and Trust Engine; the native launcher sets a fresh shared value without printing it. PDF/model contributions cannot turn incomplete evidence into proof of safety.
+
+### Local demonstration dashboard
+
+For the loopback-only demonstration, the Vite dashboard can read a private client
+configuration through `GUARDIAN_DASHBOARD_CLIENT_CONFIG=/absolute/path/client.env`,
+with `TRUST_ENGINE_URL=http://127.0.0.1:18808`. Start it using
+`npm run dev -- --host 127.0.0.1 --port 3000 --strictPort` from `frontend/`.
+The file must be a regular non-symlink file, mode 600, under 64 KiB, with one
+unquoted `GUARDIAN_API_KEY` entry. The key stays on the server; this mode rejects
+foreign-origin proxy requests and must not be exposed to a network. Other
+configurations retain explicit client-key access in the dashboard.
+
+History refreshes every five seconds on page one while the tab is visible.
+Click a row to view evidence, or use its Download PDF button without opening it.
+Reports download as `guardian-<request_id>.pdf` to the browser's configured download
+directory. A confirmation shows the filename. PDF generation is on demand, not an
+automatic artifact written by the VS Code hook. A provisional report can change;
+check the scan's final/provisional label before sharing.

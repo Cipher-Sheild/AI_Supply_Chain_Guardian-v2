@@ -389,6 +389,14 @@ def _plan(artifact: ArtifactRequest) -> _Stage3Plan:
     for span, h in zip(spans, heuristic_results):
         if h.score >= high_conf_threshold:
             findings.append(_heuristic_finding(span, h))
+        elif h.authority_review:
+            findings.append({'category':'prompt_injection_uncertain','severity':'medium',
+                'confidence':0.55,'location':_location_str(span),
+                'reason':'The supplied instruction claims precedence over existing guidance; its authority needs review.',
+                'remediation':'Verify the source and instruction hierarchy before allowing an assistant to follow this text.',
+                'details':{'stage':'authority_precedence_review','source_type':span.source_type,
+                    'text_snippet':span.text[:200],
+                    'evidence':'An instruction claims authority over earlier/system/developer guidance. Review authority before following it; this is not a confirmed exfiltration attack.'}})
         else:
             stage2_candidates.append((span, h))
 

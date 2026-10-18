@@ -1,0 +1,5 @@
+sample_id,artifact_path,artifact_sha256,author_proposed_label,proposed_scope,reviewer_label,review_scope,review_rationale,reviewer_id,reviewed_date,independent_attestation
+pinned-image-alpine-3.20,/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-0/Dockerfile,f83169e950d56fd593c4431828db04bdcf07afe0da2112aff736f29a198bd8fe,unreviewed,resolved_images,,,,,,
+pinned-image-debian-bookworm-slim,/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-1/Dockerfile,3fd709bed2acb048108f35409b7ff19e86661d832c2adac972b9b2f9f48221cf,unreviewed,resolved_images,,,,,,
+pinned-image-python-3.12-slim,/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-2/Dockerfile,22c4f82b16c0657c15df1e2c415b2247a9518159e01097cf9bf6d1ef86e27282,unreviewed,resolved_images,,,,,,
+pinned-image-node-22-slim,/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-3/Dockerfile,d822be3de73f3e11f163905f0197518b35559daf0c142dd5878246b31861c73c,unreviewed,resolved_images,,,,,,

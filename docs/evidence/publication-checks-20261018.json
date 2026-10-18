@@ -1,0 +1,109 @@
+{
+  "suites": [
+    {
+      "component": "code_security",
+      "returncode": 0,
+      "passed": 70,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.0,
+      "log": ".data/production-pass/latest-code_security-tests.log"
+    },
+    {
+      "component": "docker_security",
+      "returncode": 0,
+      "passed": 77,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.27,
+      "log": ".data/production-pass/latest-docker_security-tests.log"
+    },
+    {
+      "component": "secret_detection",
+      "returncode": 0,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 2.71,
+      "log": ".data/production-pass/latest-secret_detection-tests.log"
+    },
+    {
+      "component": "workflow_cicd",
+      "returncode": 0,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.33,
+      "log": ".data/production-pass/latest-workflow_cicd-tests.log"
+    },
+    {
+      "component": "license_compliance",
+      "returncode": 0,
+      "passed": 43,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 6.74,
+      "log": ".data/production-pass/latest-license_compliance-tests.log"
+    },
+    {
+      "component": "cipherguard",
+      "returncode": 0,
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 6.06,
+      "log": ".data/production-pass/latest-cipherguard-tests.log"
+    },
+    {
+      "component": "prompt_injection",
+      "returncode": 0,
+      "passed": 86,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 6.89,
+      "log": ".data/production-pass/latest-prompt_injection-tests.log"
+    },
+    {
+      "component": "trust_engine",
+      "returncode": 0,
+      "passed": 219,
+      "failed": 0,
+      "skipped": 1,
+      "errors": 0,
+      "seconds": 17.81,
+      "log": ".data/production-pass/latest-trust_engine-tests.log"
+    },
+    {
+      "component": "utilities",
+      "returncode": 0,
+      "passed": 121,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 3.88,
+      "log": ".data/production-pass/latest-utilities-tests.log"
+    }
+  ],
+  "all_passed": true,
+  "passed": 728,
+  "skipped": 1,
+  "scope": "Local isolated unit/regression suites; not proof of security production readiness",
+  "qualification": "Publication rerun: 728 local passes and one PostgreSQL skip; prior separately recorded PostgreSQL success remains historical evidence. Not a production-readiness certificate.",
+  "interface_builds": {
+    "frontend": "passed",
+    "vscode": "passed",
+    "vsix_packaging": "passed"
+  },
+  "live_adapter_rehearsal": {
+    "safe": "allow",
+    "unsafe": "deny",
+    "qualification": "Direct adapter events, not a new actual Copilot execution"
+  }
+}

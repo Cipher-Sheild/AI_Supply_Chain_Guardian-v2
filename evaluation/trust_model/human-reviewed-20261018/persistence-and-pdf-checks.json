@@ -1,0 +1,92 @@
+[
+  {
+    "sample_id": "pypa--sampleproject--src--sample--__init__.py",
+    "request_id": "271fbf46db064815b463e26317819131",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "e264032611f797958f48ef495d215de54db9671dc64af89e133b8995e06e0026",
+    "pdf_bytes": 42178,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pypa--sampleproject--src--sample--simple.py",
+    "request_id": "34dbdb45abf149b385fa1765b257f758",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "7e9dbd0cd14845350671c874c7e68e06bd24459d139a7a9b5973fc7b8608e966",
+    "pdf_bytes": 42111,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pypa--sampleproject--tests--test_simple.py",
+    "request_id": "17fa7099ac1048458f9c20c8b225ee39",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "e562257897dd1713d36e8f57c58a445d4e9b3a0caad7742aab43dfe637e2d04e",
+    "pdf_bytes": 42260,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pypa--sampleproject--README.md",
+    "request_id": "89ddb8064e0b4aa493df6e18a0ba9d01",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "71d29541b4ca41e16405feb2c7f51fa2cab2992a64dc7ed93ead6cc2b617edee",
+    "pdf_bytes": 42376,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pypa--sampleproject--LICENSE.txt",
+    "request_id": "03c0bbaed74f4e7db9da5fec8853d190",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "a6a681a2f86846e23ad6f6a33c0224a16815da4439598c85cef11e63427b5e86",
+    "pdf_bytes": 42382,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pallets--flask--examples--tutorial--flaskr--__init__.py",
+    "request_id": "0a730a9f1a81457c8a2b472d3b3a1cb4",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "baee1639aef33e0b45392e87b6d1b2c575b8ed91f6b08cf89e92a00f874b1880",
+    "pdf_bytes": 43248,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pallets--flask--examples--tutorial--flaskr--db.py",
+    "request_id": "92bebc7a3cf042618abc6997724debf6",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "9093b33a1acb28e7ab9bf75c7565706b9e688647535d30d5a9a7c11b6ddfe740",
+    "pdf_bytes": 42577,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pallets--flask--examples--tutorial--flaskr--auth.py",
+    "request_id": "9726a9f5aa4f439d9287b5bed9220a82",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "01c43b4b2e54189ec8d6cbd35db85b883721c078877cccec1f670f69d1afb968",
+    "pdf_bytes": 42374,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pallets--flask--README.md",
+    "request_id": "d2677a4f582e40f8a978803ab27cff60",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "ec40d6b9479a31705a681b75b677c508a306e1611766beae42e48c159526dbf7",
+    "pdf_bytes": 42362,
+    "pdf_text_contains_matching_scan_id": true
+  },
+  {
+    "sample_id": "pallets--flask--LICENSE.txt",
+    "request_id": "72e7758a83814fae9b0c130a751c17b7",
+    "persisted_equal": true,
+    "pdf_downloaded": true,
+    "pdf_sha256": "1ac698d932acfb5aaccd0d6b2898e82afbf30834d9be2d4d02de3cee3aed50c8",
+    "pdf_bytes": 42084,
+    "pdf_text_contains_matching_scan_id": true
+  }
+]

@@ -1,34 +1,158 @@
 # AI Supply Chain Guardian
 
-A local pre-acceptance artifact review platform with seven detector services, a Trust Engine, persisted history, CLI/pre-commit, dashboard/PDF and an explicit VS Code command. It supports the deterministic weighted baseline and an optional constrained XGBoost synthetic-pilot scorer with exact TreeSHAP. Hard overrides and uncertainty gates remain authoritative.
+[![Regression checks](https://github.com/Cipher-Sheild/AI_Supply_Chain_Guardian-v2/actions/workflows/ci.yml/badge.svg)](https://github.com/Cipher-Sheild/AI_Supply_Chain_Guardian-v2/actions/workflows/ci.yml)
 
-## Documentation
+**Inspect proposed code and configuration, understand the evidence, and decide before a supported coding-agent file tool writes it.**
 
-- [Complete project description, every agent, design and scope](docs/FINAL_PROJECT_DOCUMENTATION.md)
-- [User manual](docs/USER_MANUAL.md), [requirements](docs/SRS.md), [system design](docs/SDD.md), [test plan](docs/TEST_PLAN.md)
-- [Dataset and labeling guide](docs/DATA_LABELING_GUIDE.md), [training/evaluation](evaluation/trust_model/README.md)
-- [Current status](docs/STATUS.md), [final verification](docs/final-validation/VERIFICATION.md)
-- [Detector contract](docs/CONTRACT_V1.md), [executable runtime settings](docs/RUNTIME_CONFIGURATION.md)
-- [Historical project reference](docs/reference/PROJECT_DOCUMENTATION_2026-10-11.md)
+Guardian combines seven detector services with a policy-controlled Trust Engine. It returns an **Accept / Review / Reject** recommendation, a 0–100 trust score, findings, coverage and explanations. Developers can use the website, CLI, HTTP API or VS Code extension; a separately configured Copilot **PreToolUse hook** enforces supported pre-write checks.
 
-## Local start
+![Guardian dashboard](docs/assets/dashboard.jpg)
 
-Python 3.12, Node 22+, npm, Hadolint 2.15.1 and Trivy 0.74.0 are required; setup copies matching host tools or downloads/checks release assets into .tools/bin. The setup installs CPU Torch/ML/ScanCode/Semgrep dependencies and pinned embedding weights inside the project. Start Ollama and obtain llama3.2:latest, then create the bounded judge alias.
+## What is included
+
+| Component | Purpose |
+| --- | --- |
+| Code Security | Native Python AST / Tree-sitter checks for supported source languages |
+| CipherGuard | Package existence, look-alike names, supported dependency advisories and risky lifecycle hooks |
+| Secret Detection | Credential-pattern detection with contextual confidence and masked output |
+| Docker Security | Dockerfile / Compose rules; separately requested supported OCI image inventories and OS advisories |
+| Workflow Security | GitHub Actions / GitLab CI configuration risks |
+| License Compliance | SPDX expressions, supplied license text and policy checks |
+| Prompt Injection | Rules, MiniLM similarity, classifier and a configured judge for uncertain spans |
+| Trust Engine | Capability routing, policy gates, weighted default, optional XGBoost / TreeSHAP, tenant-scoped SQL history and audit PDFs |
+
+Only compatible detectors run for each artifact. A clean result means no supported finding in the **reported scope**, not proof that a whole application is secure. Incomplete checks cannot produce Accept. Redis supports caching/pending work; PostgreSQL is the Compose scan store and SQLite supports local use.
+
+## Start with Docker Compose
+
+Use Docker Engine/Desktop with Compose v2, Git, network access for build dependencies/models and sufficient memory for the complete stack. Initial model downloads/builds can take several minutes. Linux is the demonstrated host; native setup below assumes a Unix-like shell.
 
 ```bash
-python3 scripts/setup_local.py
+git clone https://github.com/Cipher-Sheild/AI_Supply_Chain_Guardian-v2.git
+cd AI_Supply_Chain_Guardian-v2
+cp .env.example .env
+```
+
+Edit the private `.env`: set **different random values** for `POSTGRES_PASSWORD`, `CALLBACK_TOKEN` and `GUARDIAN_API_KEY` (the client key must be at least 32 bytes). For example, generate each value separately with `openssl rand -hex 32`. Keep this file private.
+
+Configure a prompt judge. The default is an externally running Ollama service; the stack does not install Ollama. Point `OLLAMA_HOST` at that service and set an available `OLLAMA_MODEL`. Alternatively set `LLM_PROVIDER=groq`, `GROQ_MODEL` and a private `GROQ_API_KEY`, or another supported provider documented in the [runtime configuration](docs/RUNTIME_CONFIGURATION.md). A missing/unavailable judge can leave uncertain artifacts at Review; do not turn missing evidence into a pass.
+
+```bash
+docker compose up --build -d
+docker compose ps
+curl --fail http://127.0.0.1:8000/health
+```
+
+- Website: **http://127.0.0.1:3000**
+- API / interactive documentation: **http://127.0.0.1:8000/docs**
+- Enter the deployment client key in the dashboard access control when requested. It is separate from callback credentials. The optional development proxy described below keeps a local client key outside the browser.
+- The normal scanner remains **weighted**. Start with a small artifact, wait for `final`, then reopen the saved scan or download its audit PDF.
+- If ports are occupied, change `TRUST_ENGINE_PORT` and `DASHBOARD_PORT` in `.env` and use those URLs consistently.
+- `docker compose down` stops the stack; retained volumes preserve data. Do not remove volumes unless you intend to delete the saved deployment history.
+
+The complete Compose startup includes database migration/seed dependencies and health checks. Public TLS, backup/restore and concurrent-load readiness require deployment-specific work.
+
+## Native local development
+
+Use **Python 3.12** and **Node.js 22.12+ / npm**. The setup script creates an isolated environment, installs pinned service/training dependencies, downloads pinned model assets and builds the extension. Default Docker/license engines do not require Hadolint, Trivy, Semgrep or ScanCode executables; those are optional compatibility engines.
+
+```bash
+python3.12 scripts/setup_local.py
+# With Ollama installed and running, create the bounded judge alias:
 ollama create guardian-judge -f services/prompt_injection/models/OllamaModelfile
 .data/venv/bin/python scripts/run_local.py --python "$PWD/.data/venv/bin/python" --dashboard
 ```
 
-Dashboard: http://127.0.0.1:3000. Trust Engine: http://127.0.0.1:18108. Ctrl-C stops owned services. Default SQL is local SQLite; use an explicitly migrated PostgreSQL URL and running Redis when desired. Optional model mode is `--scorer ml`. `--state-dir` isolates storage/journals when running distinct stacks. Do not reuse a journal across unrelated callback endpoints.
+Default native API: **http://127.0.0.1:18108**; website: **http://127.0.0.1:3000**. The launcher isolates storage under `.data/`, binds to loopback and stops owned services on Ctrl-C. To run with a different provider use `--judge-provider groq` (and the provider's private environment settings); use `--state-dir` for isolated stacks. A private `GUARDIAN_API_KEY` environment value enables client authentication; use the same value in your clients. Do not expose an unauthenticated local configuration publicly.
 
-Compose uses internal detector ports, PostgreSQL migration/seed dependencies and a same-origin dashboard proxy. Configure a private `.env` using `.env.example`, then `docker compose up --build -d` once Docker access is available. Container execution is not verified on this host.
+For an authenticated development website, point the Vite proxy at the actual API and a mode-600 client file outside the repository:
 
-## Current evidence and limits
+```bash
+TRUST_ENGINE_URL=http://127.0.0.1:18108 \
+GUARDIAN_DASHBOARD_CLIENT_CONFIG="$HOME/.config/guardian/client.env" \
+npm run dev --prefix frontend -- --host 127.0.0.1 --port 3000 --strictPort
+```
 
-See the final verification report for exact service/script counts and commands. The 360-artifact pilot has independent-by-construction labels, but no independent human reviewer: 180/90/90 grouped train/validation/test. On 90 grouped synthetic test rows, weighted and XGBoost both reach 77.8% decision accuracy; XGBoost reduces false accepts from 5 to 0 while moving 10 clean rows to Review. MAE improves from 19.58 to 14.83 against engineering score anchors. This is not real-world accuracy or probability calibration, and the model is not promoted to the default. Native/library TreeSHAP agree; tested observed-feature monotonicity holds.
+That file contains `GUARDIAN_API_KEY=...`. Do not launch a second website on port 3000 if the native launcher's `--dashboard` is already using it. The [user manual](docs/USER_MANUAL.md) covers other deployment options.
 
-Go/GitLab/full dependency graph support remains partial/out of scope. Hardening outputs are unverified suggestions. Public user authentication/TLS/tenant isolation, automatic retention and universal AI-assistant Accept-button interception are not delivered. Browser/editor interaction and full Docker deployment still need manual proof. Preserve private .env/.data and protect submitted-content storage; returned credential masking is output hygiene, not proof that every secret format can be detected.
+## CLI
 
-No changes from this final run are pushed to the old remote. The user will provide a new repository for publication.
+Create a private mode-600 client file outside the checkout, then scan a file or directory:
+
+```bash
+python3 scripts/guardian_cli.py path/to/app.py \
+  --url http://127.0.0.1:8000 \
+  --deployment-config "$HOME/.config/guardian/client.env"
+```
+
+Exit codes: **0 Accept**, **2 Review / below threshold**, **3 Reject**, **4 error / incomplete result**. Review/Reject are expected gate outcomes, not necessarily a broken scanner. Directory scans cover supported source/configuration files; they do not execute the program or establish a complete dependency/build graph.
+
+## VS Code and Copilot pre-write checks
+
+```bash
+npm ci --prefix integrations/vscode
+npm run build --prefix integrations/vscode
+npm run package --prefix integrations/vscode
+code --install-extension integrations/vscode/guardian.vsix
+```
+
+Set `guardian.serverUrl` to your API. Run **Guardian: Import Client Key from Deployment Configuration** (or **Guardian: Set API Key**), then **Guardian: Scan Active Artifact**. Optional scan-on-save reports findings after a save; it is distinct from pre-write enforcement.
+
+For supported Copilot tools, prepare a separate trusted workspace:
+
+```bash
+python3 scripts/prepare_video_demo.py \
+  --workspace "$HOME/GuardianVideoDemo" \
+  --url http://127.0.0.1:8000 \
+  --deployment-config "$HOME/.config/guardian/client.env"
+code "$HOME/GuardianVideoDemo"
+```
+
+Inside VS Code enable `chat.useHooks`, run **Chat: Configure Hooks**, and use a **Local Copilot Agent** session. Verify a real hook execution in **Output → GitHub Copilot Chat Hooks**. The adapter reconstructs supported create/edit/restricted patch proposals in memory and requires a final Accept before allowing the file tool. Review, Reject, service failure, invalid results and unsupported write tools deny it.
+
+Inline Tab completion, manual edits, arbitrary tools and other harnesses are outside this enforcement boundary. Normal tool approvals should remain enabled. See the [preacceptance guide](integrations/vscode/PREACCEPTANCE.md), [demo prompts](demo/prompts) and [filming script](docs/demo/Guardian%20Demo%20Script.pdf). The setup script never creates the demonstration source files; Copilot proposes them during the recording.
+
+## ML, SHAP and measured results
+
+The optional model is a **98-feature XGBoost trust-score regressor**, not the prompt-injection classifier. Exact TreeSHAP explains the numerical model prediction before policy gates. A hard override bypasses model inference; an unusable model has an explicit weighted fallback with a Review floor. The candidate is **not promoted** to the default.
+
+| Separate evaluation cohort | Weighted verdict agreement | V3 ML verdict agreement | Interpretation |
+| --- | ---: | ---: | --- |
+| 90 synthetic development cases | 77.78% | **83.33%** | Previously inspected development retest; MAE 19.58 vs 13.11 |
+| 18 AI-labelled first-use cases | 66.67% | 61.11% | AI labels; three false accepts for each before targeted fixes |
+| 10 human-reviewed upstream files | 30% | 20% | Project-team self-attested review; eight Accept / two Review labels; no Reject cases |
+
+The post-fix weighted retest of the 18 cases reached 77.78% with one false accept; it is not untouched evidence. On the ten upstream files, weighted scoring blocked six of eight human-Accept files. **There is no single validated real-world accuracy number or independently validated production-readiness claim.** The earlier public prompt evaluation retained ten missed attacks, nine false positives and two unknown responses.
+
+Latest historical component evidence totals **729 distinct Python passes across separately recorded suites**, plus **nine browser cases counted separately**. This is not a claim that all tests were run simultaneously. See the [results report](docs/reports/Results%20of%20the%20entire%20project.pdf), [ML implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [development evidence](evaluation/trust_model/v3/README.md) and [first-use pilot](evaluation/trust_model/final-ai-pilot-20261018/README.md). Model/fixture hashes, scope, labels and provenance are retained with each cohort.
+
+## Tests and reproducibility
+
+After native dependency setup:
+
+```bash
+.data/venv/bin/python scripts/verify_test_suites.py --output .data/latest-test-results.json
+.data/venv/bin/python scripts/sync_contracts.py --check
+.data/venv/bin/python scripts/sync_runtime.py --check
+npm run build --prefix frontend
+npm test --prefix integrations/vscode
+```
+
+The PostgreSQL integration case requires a **separate migrated test database** via `TEST_DATABASE_URL`; never use your demonstration/history database for tests. Browser checks require Playwright's Chromium installation and the configured backend/fixture mode. GitHub Actions runs isolated service checks, interface builds, model safety/training checks and a dedicated PostgreSQL job. External package/model feeds and live demos have separate operational requirements.
+
+## Documentation and reports
+
+- [Complete project documentation](docs/FINAL_PROJECT_DOCUMENTATION.md), [user manual](docs/USER_MANUAL.md), [runtime configuration](docs/RUNTIME_CONFIGURATION.md)
+- [Architecture](docs/SDD.md), [requirements](docs/SRS.md), [shared contract](docs/CONTRACT_V1.md), [test plan](docs/TEST_PLAN.md)
+- [ML and SHAP implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [labeling guide](docs/DATA_LABELING_GUIDE.md)
+- [Final black book](docs/reports/BlackBook%20Final.docx), [project results](docs/reports/Results%20of%20the%20entire%20project.pdf), [demo script](docs/demo/Guardian%20Demo%20Script.pdf)
+
+Dated documents and earlier evaluation snapshots may describe previous revisions. The cohort-specific evidence and qualifications above supersede older headline counts and accuracy claims.
+
+## Scope and attribution
+
+Guardian is a research prototype. Detection is bounded by supported rules, file types, external sources and requested scope. Container configuration-only scans do not inspect image contents/CVEs; supported resolved-image checks do not cover every platform or language package. Suggested fixes are not build-verified. Public login/account management and universal assistant interception are not implemented.
+
+Third-party libraries, model checkpoints and retained upstream examples keep their own licenses and notices. Source provenance and matching notices accompany the real-artifact evaluation. No project-wide redistribution license has been declared in this repository.
+
+**Team:** Abdulelah Alolofi (project lead), Ahmed Mohammed and Ali Altam. Team contribution details are recorded in the black book.

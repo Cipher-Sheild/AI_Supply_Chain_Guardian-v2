@@ -54,6 +54,10 @@ async def analyze(payload: ArtifactRequest):
         kind = "compose" if path.lower().split("/")[-1] in CAPABILITIES["compose_filenames"] or ComposeParser.is_compose_content(content) else "dockerfile"
     if kind not in ("dockerfile", "compose"):
         return AgentResult(status="stub", coverage="none", unresolved=True, evidence={"reason": "unsupported artifact type"})
+    scope = payload.options.get('scan_scope')
+    supplied_text = scope == 'supplied_text'
+    cve_scan = not supplied_text and (scope == 'resolved_images' or payload.options.get('enable_cve_scan', False))
+    effective_scope = 'supplied_text' if supplied_text else 'resolved_images' if cve_scan else 'configuration_and_reference'
     engine_results = {}
     native_images=[]
     raw = []
@@ -69,7 +73,7 @@ async def analyze(payload: ArtifactRequest):
             parser = ComposeParser(content)
             if not parser.services: raise ValueError("Compose requires a nonempty services mapping")
             raw.extend(compose_rules_engine.evaluate(parser, path))
-            if payload.options.get('enable_cve_scan',False):
+            if cve_scan:
                 from app.registry.image_reference import ImageReference
                 for service in parser.services:
                     if service.image:
@@ -93,11 +97,11 @@ async def analyze(payload: ArtifactRequest):
             tasks = [run("hadolint" if external_scanners else "guardian_lint", hadolint_engine.analyze, content, path),
                      run("trivy_config" if external_scanners else "guardian_config", trivy_config_engine.analyze, content, path, False)]
             for stage in parser.stages:
-                if stage.is_stage_alias: continue
-                if not (payload.options.get('enable_cve_scan',False) and not external_scanners and stage.base_image!='scratch'):
+                if stage.is_stage_alias or supplied_text: continue
+                if not (cve_scan and not external_scanners and stage.base_image!='scratch'):
                     tasks.append(run(f"image_check:{stage.stage_index}", base_image_checker.check_image_exists,
                         stage.image_ref, "", stage.instructions[0].line_number, path))
-                if payload.options.get("enable_cve_scan", False) and stage.base_image != "scratch":
+                if cve_scan and stage.base_image != "scratch":
                     if external_scanners:
                         tasks.append(run(f"trivy_image:{stage.stage_index}", trivy_image_engine.scan_image,
                             stage.image_ref, stage.instructions[0].line_number, path))
@@ -117,7 +121,7 @@ async def analyze(payload: ArtifactRequest):
     output = AgentResult(status="fail" if hard_block else "error" if incomplete else status,
         coverage="partial" if incomplete else "full", unresolved=incomplete,
         decision_floor="reject" if hard_block else "review" if incomplete else "accept", findings=findings,
-        evidence={"artifact_type":kind,"scanner_backend":"external" if external_scanners else "guardian_native","engines_executed":["custom_rules",*engine_results],
+        evidence={"scan_scope":effective_scope,"scope_notice":"Supplied configuration only; image contents and CVEs were not evaluated." if supplied_text else "Image checks apply only to requested references and supported inventory formats.","artifact_type":kind,"scanner_backend":"external" if external_scanners else "guardian_native","engines_executed":["custom_rules",*engine_results],
             "engines":{name:result.evidence() for name,result in engine_results.items()},
             "raw_findings_count":len(raw),"total_findings":len(findings),"risk_score":risk,
             "severity":severity,"execution_time_ms":round((time.perf_counter()-started)*1000,2),

@@ -1,0 +1,139 @@
+{
+  "qualification": "Development retest of inspected first-use AI fixtures; not untouched evidence",
+  "count": 18,
+  "accuracy": 0.7777777777777778,
+  "false_accepts": 1,
+  "cases": [
+    {
+      "sample_id": "prospective-01",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "d00fe7bf892a4f4f845ad848ba14fe47"
+    },
+    {
+      "sample_id": "prospective-02",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 78.75,
+      "scan_id": "706f433d697d406a91afa7b1b11d1e87"
+    },
+    {
+      "sample_id": "prospective-03",
+      "ai_label": "reject",
+      "decision": "review",
+      "score": 78.75,
+      "scan_id": "b38d8635f5b94356858b00e764d3bc7b"
+    },
+    {
+      "sample_id": "prospective-04",
+      "ai_label": "accept",
+      "decision": "review",
+      "score": 89.0,
+      "scan_id": "c3df81482aab4ffdb52e9b407263895e"
+    },
+    {
+      "sample_id": "prospective-05",
+      "ai_label": "review",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "a42b01ca14d3427298ff204ec1205f1a"
+    },
+    {
+      "sample_id": "prospective-06",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "0888473489a740138d7a744787fc273c"
+    },
+    {
+      "sample_id": "prospective-07",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 97.0,
+      "scan_id": "c6330dfca5954b3295c9fd65939f0346"
+    },
+    {
+      "sample_id": "prospective-08",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 62.0,
+      "scan_id": "e724115456c240f8b12483efe8c28d19"
+    },
+    {
+      "sample_id": "prospective-09",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 34.15,
+      "scan_id": "0ceab7dfff9a46bf965d11bcfbf2475b"
+    },
+    {
+      "sample_id": "prospective-10",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 91.0,
+      "scan_id": "9af0001905e8450b8454fec0e5e4a80b"
+    },
+    {
+      "sample_id": "prospective-11",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 72.5,
+      "scan_id": "c9c3d9c6cc124fd0bc6e15a67beec541"
+    },
+    {
+      "sample_id": "prospective-12",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "9196cc58193d45a1b365897253294e68"
+    },
+    {
+      "sample_id": "prospective-13",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "1ab494c7e78b4e5f8bc8fff62402142c"
+    },
+    {
+      "sample_id": "prospective-14",
+      "ai_label": "review",
+      "decision": "review",
+      "score": 75.0,
+      "scan_id": "2d1d0ae98c114e9b872e39e87c76a875"
+    },
+    {
+      "sample_id": "prospective-15",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "7a569b3daa684c6397305f80f524969d"
+    },
+    {
+      "sample_id": "prospective-16",
+      "ai_label": "accept",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "6cf3324c994a461687d6e575673c7021"
+    },
+    {
+      "sample_id": "prospective-17",
+      "ai_label": "review",
+      "decision": "accept",
+      "score": 100.0,
+      "scan_id": "e305e9bd48894da7ba54c072d5d99426"
+    },
+    {
+      "sample_id": "prospective-18",
+      "ai_label": "reject",
+      "decision": "reject",
+      "score": 0.0,
+      "scan_id": "427a5191968b4ebb9b8fc476ab61b791"
+    }
+  ],
+  "human_reviewed": false,
+  "source_hashes": {
+    "services/cipherguard/app/main.py": "30c6033528baf6673d188b322227883bc35dbc9029d4a39f569718bdf24568de",
+    "services/code_security/app/native_python.py": "0ec654e2750050805ef5215aa29cdc0949483fc254baef50ba997981a261a127"
+  }
+}

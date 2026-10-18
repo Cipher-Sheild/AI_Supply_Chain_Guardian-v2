@@ -1,0 +1,30 @@
+[
+  {
+    "original": "alpine:3.20",
+    "pinned": "alpine@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+    "digest": "sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+    "resolved_utc": "2026-10-17T19:50:31Z",
+    "manifest_size": 9226
+  },
+  {
+    "original": "debian:bookworm-slim",
+    "pinned": "debian@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+    "digest": "sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+    "resolved_utc": "2026-10-17T19:50:32Z",
+    "manifest_size": 5651
+  },
+  {
+    "original": "python:3.12-slim",
+    "pinned": "python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+    "digest": "sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+    "resolved_utc": "2026-10-17T19:50:33Z",
+    "manifest_size": 10373
+  },
+  {
+    "original": "node:22-slim",
+    "pinned": "node@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+    "digest": "sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+    "resolved_utc": "2026-10-17T19:50:34Z",
+    "manifest_size": 5218
+  }
+]

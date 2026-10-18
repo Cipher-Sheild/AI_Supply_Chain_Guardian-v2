@@ -1,0 +1,4 @@
+services:
+  worker:
+    image: alpine:latest
+    ports: ["8080:80"]

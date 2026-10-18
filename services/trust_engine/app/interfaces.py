@@ -87,6 +87,10 @@ async def audit_pdf(request_id:str,store=Depends(get_store)):
     line('Coverage: '+data['routing']['overall_coverage'])
     for agent in data.get('detector_results',[]):
         line(f"{agent['agent_name']}: {agent['status']} ({agent['coverage']})",'Heading2')
+        scope=(agent.get('evidence') or {}).get('scan_scope')
+        if scope:
+            line('Scan scope: '+str(scope))
+            line((agent.get('evidence') or {}).get('scope_notice') or '')
         for finding in agent.get('findings',[]):
             line(f"{finding['severity']} - {finding.get('location') or 'unknown location'}: {finding.get('reason') or finding['category']}")
             if finding.get('remediation'): line('Remediation: '+finding['remediation'])

@@ -1,0 +1,27 @@
+{
+  "started_utc": "2026-10-18T03:56:33Z",
+  "manifest_sha256": "b7573a3e5425b3c169c0dcbb5e332604ec2b23358b8105e015d46ded0507d06d",
+  "scan_scope": "supplied_text",
+  "workers": 1,
+  "review_required": true,
+  "endpoint": "http://127.0.0.1:18808",
+  "scope_warning": "Text-only excludes resolved image contents; resolved-image results require separate labels.",
+  "count": 10,
+  "health": {
+    "service": "trust_engine",
+    "status": "ok",
+    "checks": {
+      "callback_auth": true,
+      "scorer_configuration": true,
+      "database": true,
+      "cipherguard": true,
+      "secret_detection": true,
+      "code_security": true,
+      "workflow_cicd": true,
+      "license_compliance": true,
+      "prompt_injection": true,
+      "docker_security": true
+    },
+    "storage": "postgresql"
+  }
+}

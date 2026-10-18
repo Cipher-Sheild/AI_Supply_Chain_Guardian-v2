@@ -248,7 +248,12 @@ def canonical_request(file_dict: dict, decision) -> dict:
         if suffix in languages:payload['language']=languages[suffix]
     elif decision.artifact_type=='markdown':payload['language']='markdown'
     if decision.artifact_type in {"dockerfile","compose"}:
-        payload["options"]={"enable_cve_scan":True,**(payload.get("options") or {})}
+        options = dict(payload.get("options") or {})
+        scope = options.get('scan_scope')
+        if scope == 'supplied_text': options['enable_cve_scan'] = False
+        elif scope == 'resolved_images': options['enable_cve_scan'] = True
+        else: options.setdefault('enable_cve_scan', True)
+        payload["options"] = options
     if decision.artifact_type == "dependency":
         content = payload.get("content", "").lstrip()
         path = (decision.filename or "").replace("\\", "/").lower()

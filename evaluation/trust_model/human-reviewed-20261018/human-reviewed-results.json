@@ -1,0 +1,539 @@
+{
+  "qualification": "Project-team human review; self-attested independent judgement, not a blinded external study or untouched benchmark",
+  "reviewer": "Abdulelah",
+  "reviewed_date": "2026-10-18",
+  "n": 10,
+  "human_labels": {
+    "accept": 8,
+    "review": 2,
+    "reject": 0
+  },
+  "sources": {
+    "stored": {
+      "weighted": {
+        "n": 10,
+        "accuracy": 0.3,
+        "mae": 19.225,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            2,
+            6,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.3333333333333333
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.5
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "frozen_v2": {
+        "n": 10,
+        "accuracy": 0.3,
+        "mae": 23.313229751586913,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            1,
+            5,
+            2
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.5
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.0
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "v3_candidate": {
+        "n": 10,
+        "accuracy": 0.2,
+        "mae": 28.735459518432616,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            1,
+            5,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.3333333333333333
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.0
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "cases": [
+        {
+          "sample_id": "pypa--sampleproject--src--sample--__init__.py",
+          "filename": "__init__.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied Python snippet only defines a `main()` function that prints a placeholder message; no supported security defect is identifiable in the provided text. This decision is limited to the supplied text and does not establish the security of the complete package or its dependencies.",
+          "weighted_decision": "review",
+          "weighted_score": 94.5,
+          "scan_id": "74a76a532e8f4a4b976216b756844fa6",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--src--sample--simple.py",
+          "filename": "simple.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied function performs a basic arithmetic operation and contains no evident security-sensitive behavior or supported defect. The acceptance applies only to the supplied text and does not establish the security of the complete package or its dependencies.",
+          "weighted_decision": "accept",
+          "weighted_score": 100.0,
+          "scan_id": "eb877561c8df442589a1f13a1e7d19cc",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "accept",
+          "v3_candidate": "accept"
+        },
+        {
+          "sample_id": "pypa--sampleproject--tests--test_simple.py",
+          "filename": "test_simple.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied file implements a unit test for the expected behavior of `add_one()` using Python's standard unittest framework. No supported security defect is identifiable in the provided test code; this assessment does not establish the security of the imported module or the complete package.",
+          "weighted_decision": "review",
+          "weighted_score": 83.5,
+          "scan_id": "1c08538f154244e89084adbaf91c98c0",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--README.md",
+          "filename": "README.md",
+          "human_label": "accept",
+          "human_rationale": "The supplied README contains project documentation, standard Markdown links, and an externally hosted Python logo, with no supported security defect identified in the text. This assessment does not verify the linked destinations, external image content, or the security of the complete package.",
+          "weighted_decision": "review",
+          "weighted_score": 50.5,
+          "scan_id": "f4c49101649842f7a81bc6b5001c2c93",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--LICENSE.txt",
+          "filename": "LICENSE.txt",
+          "human_label": "accept",
+          "human_rationale": "The supplied file contains a standard MIT License granting broad software usage and redistribution rights subject to preservation of the required notices. No supported security defect is identifiable in this license text.",
+          "weighted_decision": "review",
+          "weighted_score": 100.0,
+          "scan_id": "ba559314a612445682846c63fe4dba7f",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "reject",
+          "v3_candidate": "reject"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--__init__.py",
+          "filename": "__init__.py",
+          "human_label": "review",
+          "human_rationale": "The application defines a predictable default SECRET_KEY value of \"dev\", which could compromise session integrity if the default remains active in production. The supplied snippet does not establish whether deployment configuration overrides this value, so the production risk requires verification.",
+          "weighted_decision": "reject",
+          "weighted_score": 35.0,
+          "scan_id": "624a639b88384c9186c6f0549ab3782d",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "reject"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--db.py",
+          "filename": "db.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied module manages request-scoped SQLite connections, closes them during application-context teardown, and registers a database initialization CLI command. No supported security defect is identifiable in the provided code, although the schema and database configuration have not been assessed.",
+          "weighted_decision": "review",
+          "weighted_score": 62.25,
+          "scan_id": "75db340cd6fe422b8e8ae23dcbd74fab",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--auth.py",
+          "filename": "auth.py",
+          "human_label": "review",
+          "human_rationale": "The authentication module uses password hashing and parameterized SQL, but login errors distinguish unknown usernames from incorrect passwords, enabling username enumeration. Logout also changes session state through a GET request, and the supplied code does not establish whether appropriate CSRF protections are enforced.",
+          "weighted_decision": "review",
+          "weighted_score": 56.0,
+          "scan_id": "ced2113add0a417ea604b64375f48d15",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--README.md",
+          "filename": "README.md",
+          "human_label": "accept",
+          "human_rationale": "The supplied README contains standard Flask documentation, a minimal example application, and links to framework resources. No supported security defect is identifiable in the supplied text; linked resources and the security of any deployed application are outside this assessment's scope.",
+          "weighted_decision": "review",
+          "weighted_score": 56.0,
+          "scan_id": "edfdebdf4ab44ea3a1f59e2405b2a327",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--LICENSE.txt",
+          "filename": "LICENSE.txt",
+          "human_label": "accept",
+          "human_rationale": "The supplied file contains a BSD-style open-source license specifying redistribution conditions, attribution requirements, and standard warranty and liability disclaimers. No supported security defect is identifiable in the provided license text.",
+          "weighted_decision": "accept",
+          "weighted_score": 100.0,
+          "scan_id": "d7bd0c447a324ccb93aea1312c59a2d3",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "reject",
+          "v3_candidate": "reject"
+        }
+      ]
+    },
+    "fresh": {
+      "weighted": {
+        "n": 10,
+        "accuracy": 0.3,
+        "mae": 19.225,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            2,
+            6,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.3333333333333333
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.5
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "frozen_v2": {
+        "n": 10,
+        "accuracy": 0.3,
+        "mae": 23.313229751586913,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            1,
+            5,
+            2
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.5
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.0
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "v3_candidate": {
+        "n": 10,
+        "accuracy": 0.2,
+        "mae": 28.735459518432616,
+        "false_accepts": 0,
+        "confusion_labels": [
+          "accept",
+          "review",
+          "reject"
+        ],
+        "confusion_matrix": [
+          [
+            1,
+            5,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_type": {
+          "code": {
+            "n": 6,
+            "accuracy": 0.3333333333333333
+          },
+          "license": {
+            "n": 2,
+            "accuracy": 0.0
+          },
+          "markdown": {
+            "n": 2,
+            "accuracy": 0.0
+          }
+        }
+      },
+      "cases": [
+        {
+          "sample_id": "pypa--sampleproject--src--sample--__init__.py",
+          "filename": "__init__.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied Python snippet only defines a `main()` function that prints a placeholder message; no supported security defect is identifiable in the provided text. This decision is limited to the supplied text and does not establish the security of the complete package or its dependencies.",
+          "weighted_decision": "review",
+          "weighted_score": 94.5,
+          "scan_id": "271fbf46db064815b463e26317819131",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--src--sample--simple.py",
+          "filename": "simple.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied function performs a basic arithmetic operation and contains no evident security-sensitive behavior or supported defect. The acceptance applies only to the supplied text and does not establish the security of the complete package or its dependencies.",
+          "weighted_decision": "accept",
+          "weighted_score": 100.0,
+          "scan_id": "34dbdb45abf149b385fa1765b257f758",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "accept",
+          "v3_candidate": "accept"
+        },
+        {
+          "sample_id": "pypa--sampleproject--tests--test_simple.py",
+          "filename": "test_simple.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied file implements a unit test for the expected behavior of `add_one()` using Python's standard unittest framework. No supported security defect is identifiable in the provided test code; this assessment does not establish the security of the imported module or the complete package.",
+          "weighted_decision": "review",
+          "weighted_score": 83.5,
+          "scan_id": "17fa7099ac1048458f9c20c8b225ee39",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--README.md",
+          "filename": "README.md",
+          "human_label": "accept",
+          "human_rationale": "The supplied README contains project documentation, standard Markdown links, and an externally hosted Python logo, with no supported security defect identified in the text. This assessment does not verify the linked destinations, external image content, or the security of the complete package.",
+          "weighted_decision": "review",
+          "weighted_score": 50.5,
+          "scan_id": "89ddb8064e0b4aa493df6e18a0ba9d01",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pypa--sampleproject--LICENSE.txt",
+          "filename": "LICENSE.txt",
+          "human_label": "accept",
+          "human_rationale": "The supplied file contains a standard MIT License granting broad software usage and redistribution rights subject to preservation of the required notices. No supported security defect is identifiable in this license text.",
+          "weighted_decision": "review",
+          "weighted_score": 100.0,
+          "scan_id": "03c0bbaed74f4e7db9da5fec8853d190",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "reject",
+          "v3_candidate": "reject"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--__init__.py",
+          "filename": "__init__.py",
+          "human_label": "review",
+          "human_rationale": "The application defines a predictable default SECRET_KEY value of \"dev\", which could compromise session integrity if the default remains active in production. The supplied snippet does not establish whether deployment configuration overrides this value, so the production risk requires verification.",
+          "weighted_decision": "reject",
+          "weighted_score": 35.0,
+          "scan_id": "0a730a9f1a81457c8a2b472d3b3a1cb4",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "reject"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--db.py",
+          "filename": "db.py",
+          "human_label": "accept",
+          "human_rationale": "The supplied module manages request-scoped SQLite connections, closes them during application-context teardown, and registers a database initialization CLI command. No supported security defect is identifiable in the provided code, although the schema and database configuration have not been assessed.",
+          "weighted_decision": "review",
+          "weighted_score": 62.25,
+          "scan_id": "92bebc7a3cf042618abc6997724debf6",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--examples--tutorial--flaskr--auth.py",
+          "filename": "auth.py",
+          "human_label": "review",
+          "human_rationale": "The authentication module uses password hashing and parameterized SQL, but login errors distinguish unknown usernames from incorrect passwords, enabling username enumeration. Logout also changes session state through a GET request, and the supplied code does not establish whether appropriate CSRF protections are enforced.",
+          "weighted_decision": "review",
+          "weighted_score": 56.0,
+          "scan_id": "9726a9f5aa4f439d9287b5bed9220a82",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--README.md",
+          "filename": "README.md",
+          "human_label": "accept",
+          "human_rationale": "The supplied README contains standard Flask documentation, a minimal example application, and links to framework resources. No supported security defect is identifiable in the supplied text; linked resources and the security of any deployed application are outside this assessment's scope.",
+          "weighted_decision": "review",
+          "weighted_score": 56.0,
+          "scan_id": "d2677a4f582e40f8a978803ab27cff60",
+          "scan_status": "final",
+          "coverage": "partial",
+          "frozen_v2": "review",
+          "v3_candidate": "review"
+        },
+        {
+          "sample_id": "pallets--flask--LICENSE.txt",
+          "filename": "LICENSE.txt",
+          "human_label": "accept",
+          "human_rationale": "The supplied file contains a BSD-style open-source license specifying redistribution conditions, attribution requirements, and standard warranty and liability disclaimers. No supported security defect is identifiable in the provided license text.",
+          "weighted_decision": "accept",
+          "weighted_score": 100.0,
+          "scan_id": "72e7758a83814fae9b0c130a751c17b7",
+          "scan_status": "final",
+          "coverage": "full",
+          "frozen_v2": "reject",
+          "v3_candidate": "reject"
+        }
+      ]
+    }
+  },
+  "model_replay": "Offline fusion over each identical response set; not extra live ML scans or training",
+  "limitations": [
+    "Only two upstream repositories, ten supplied-text files, no Reject labels. Cannot estimate malicious Reject recall.",
+    "The user supplied labels and personal attestations; identity/expertise/independence not externally authenticated. AI label suggestions were previously available in the conversation.",
+    "These files were already scanned before review; neither stored comparison nor fresh scan is an untouched final benchmark."
+  ]
+}

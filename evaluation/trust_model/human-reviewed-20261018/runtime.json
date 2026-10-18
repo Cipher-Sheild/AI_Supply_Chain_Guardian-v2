@@ -1,0 +1,15 @@
+{
+  "checked_utc": "2026-10-18T03:58:50.141652+00:00",
+  "ten_fresh_scan_ids_are_distinct_from_stored_ids": true,
+  "no_model_training_or_label_edits": true,
+  "container_image_ids": {
+    "trust_engine": "sha256:64556fcecbfb884948c08e3af5622b9ce60c0da819da39b1d509bf920ceb086c",
+    "cipherguard": "sha256:fa1f56be0492787186805420ea25176fae12127f2542b988e9bb973e94f03d29",
+    "code_security": "sha256:0ba68c656cb7b7304723ae8040603804e119b6645cffb98e293908ea7c0548ff",
+    "docker_security": "sha256:6e59eaf052cec358d5e53ad4fce9bfe80e05b33bc39df4db680c48dd3fc4023f",
+    "license_compliance": "sha256:82da167d8eda5ef82c09accd3ffd73971f288aca5ea88ad00859f4de582d23f6",
+    "prompt_injection": "sha256:f3b2a7234808d8ad82e82be97995dc01033698f78dbec03287bd47e6c373b4c1",
+    "secret_detection": "sha256:8c8144f7e03ca0c3e42af9ea36403ede2ecb9ddbf09cb7b96f96b436b839c324",
+    "workflow_cicd": "sha256:fbacbbe061883545dd2b3a9f949bc28507b31d33586ddae2686b97c6a689cba6"
+  }
+}

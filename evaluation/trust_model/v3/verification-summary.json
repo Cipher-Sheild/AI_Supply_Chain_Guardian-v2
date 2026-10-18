@@ -1,0 +1,336 @@
+{
+  "date": "2026-10-18",
+  "role": "development_retest; previously inspected corpus; no independent human review",
+  "synthetic_final_records": 360,
+  "synthetic_detector_errors": 0,
+  "scope": "supplied_text",
+  "comparison": {
+    "scope": "developer-inspected retest, supplied_text, NOT independent held-out accuracy",
+    "test_count": 90,
+    "weighted": {
+      "n": 90,
+      "accuracy": 0.7777777777777778,
+      "mae": 19.583333333333332,
+      "false_accepts": 0,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          25,
+          5,
+          0
+        ],
+        [
+          0,
+          30,
+          0
+        ],
+        [
+          0,
+          15,
+          15
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "frozen_v2": {
+      "n": 90,
+      "accuracy": 0.8333333333333334,
+      "mae": 14.226672225528294,
+      "false_accepts": 0,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          25,
+          5,
+          0
+        ],
+        [
+          0,
+          25,
+          5
+        ],
+        [
+          0,
+          5,
+          25
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "retrained_v3": {
+      "n": 90,
+      "accuracy": 0.8333333333333334,
+      "mae": 13.110538641611734,
+      "false_accepts": 0,
+      "confusion_labels": [
+        "accept",
+        "review",
+        "reject"
+      ],
+      "confusion_matrix": [
+        [
+          25,
+          5,
+          0
+        ],
+        [
+          0,
+          30,
+          0
+        ],
+        [
+          0,
+          10,
+          20
+        ]
+      ],
+      "per_type": {
+        "code": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "compose": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "dependency": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "dockerfile": {
+          "n": 15,
+          "accuracy": 1.0
+        },
+        "markdown": {
+          "n": 15,
+          "accuracy": 0.6666666666666666
+        },
+        "workflow": {
+          "n": 15,
+          "accuracy": 1.0
+        }
+      }
+    }
+  },
+  "external": {
+    "count": 10,
+    "accuracy": null,
+    "reason": "Labels unreviewed; no security ground truth inferred from source popularity/license",
+    "decisions": {
+      "accept": 2,
+      "review": 7,
+      "reject": 1
+    }
+  },
+  "resolved_images": [
+    {
+      "sample_id": "pinned-image-alpine-3.20",
+      "request_id": "ff9bf013bb3e47aa8aab2c2e0eb6abe3",
+      "decision": "accept",
+      "status": "pass",
+      "coverage": "full",
+      "error": null,
+      "seconds": 6.275,
+      "inventories": [
+        {
+          "image": "alpine@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+          "manifest_digest": "sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+          "content_manifest_digest": "sha256:c64c687cbea9300178b30c95835354e34c4e4febc4badfe27102879de0483b5e",
+          "platform": "linux/amd64",
+          "os_release": {
+            "NAME": "Alpine Linux",
+            "ID": "alpine",
+            "VERSION_ID": "3.20.10",
+            "PRETTY_NAME": "Alpine Linux v3.20",
+            "HOME_URL": "https://alpinelinux.org/",
+            "BUG_REPORT_URL": "https://gitlab.alpinelinux.org/alpine/aports/-/issues"
+          },
+          "layers_verified": 1,
+          "package_count": 9,
+          "scope": "OS packages; language packages require their supplied lockfiles",
+          "completed": true,
+          "error_reason": null,
+          "duration_ms": 0,
+          "finding_count": 0
+        }
+      ]
+    },
+    {
+      "sample_id": "pinned-image-debian-bookworm-slim",
+      "request_id": "428e2b7ab7924f94852ea8e6c1adb92f",
+      "decision": "reject",
+      "status": "fail",
+      "coverage": "full",
+      "error": null,
+      "seconds": 17.08,
+      "inventories": [
+        {
+          "image": "debian@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+          "manifest_digest": "sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+          "content_manifest_digest": "sha256:a4672c0cb26fbdde88e38fa2dfb6c681942306680e41e4378b28770b6e79ee91",
+          "platform": "linux/amd64",
+          "os_release": {
+            "PRETTY_NAME": "Debian GNU/Linux 12 (bookworm)",
+            "NAME": "Debian GNU/Linux",
+            "VERSION_ID": "12",
+            "VERSION": "12 (bookworm)",
+            "VERSION_CODENAME": "bookworm",
+            "ID": "debian",
+            "HOME_URL": "https://www.debian.org/",
+            "SUPPORT_URL": "https://www.debian.org/support",
+            "BUG_REPORT_URL": "https://bugs.debian.org/"
+          },
+          "layers_verified": 1,
+          "package_count": 63,
+          "scope": "OS packages; language packages require their supplied lockfiles",
+          "completed": true,
+          "error_reason": null,
+          "duration_ms": 0,
+          "finding_count": 109
+        }
+      ]
+    },
+    {
+      "sample_id": "pinned-image-python-3.12-slim",
+      "request_id": "b509ed8c314640d1bf8be670b0c9b8e4",
+      "decision": "reject",
+      "status": "fail",
+      "coverage": "full",
+      "error": null,
+      "seconds": 27.781,
+      "inventories": [
+        {
+          "image": "python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+          "manifest_digest": "sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+          "content_manifest_digest": "sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe",
+          "platform": "linux/amd64",
+          "os_release": {
+            "PRETTY_NAME": "Debian GNU/Linux 13 (trixie)",
+            "NAME": "Debian GNU/Linux",
+            "VERSION_ID": "13",
+            "VERSION": "13 (trixie)",
+            "VERSION_CODENAME": "trixie",
+            "DEBIAN_VERSION_FULL": "13.7",
+            "ID": "debian",
+            "HOME_URL": "https://www.debian.org/",
+            "SUPPORT_URL": "https://www.debian.org/support",
+            "BUG_REPORT_URL": "https://bugs.debian.org/"
+          },
+          "layers_verified": 4,
+          "package_count": 61,
+          "scope": "OS packages; language packages require their supplied lockfiles",
+          "completed": true,
+          "error_reason": null,
+          "duration_ms": 0,
+          "finding_count": 69
+        }
+      ]
+    },
+    {
+      "sample_id": "pinned-image-node-22-slim",
+      "request_id": "56f611d37c99441695ccc2070dbb7a5a",
+      "decision": "reject",
+      "status": "fail",
+      "coverage": "full",
+      "error": null,
+      "seconds": 41.137,
+      "inventories": [
+        {
+          "image": "node@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+          "manifest_digest": "sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+          "content_manifest_digest": "sha256:efd0ab5780c2d9ab1f0f869571a00d5edb17793bff4cce4a2792e3eb0ffc7562",
+          "platform": "linux/amd64",
+          "os_release": {
+            "PRETTY_NAME": "Debian GNU/Linux 12 (bookworm)",
+            "NAME": "Debian GNU/Linux",
+            "VERSION_ID": "12",
+            "VERSION": "12 (bookworm)",
+            "VERSION_CODENAME": "bookworm",
+            "ID": "debian",
+            "HOME_URL": "https://www.debian.org/",
+            "SUPPORT_URL": "https://www.debian.org/support",
+            "BUG_REPORT_URL": "https://bugs.debian.org/"
+          },
+          "layers_verified": 5,
+          "package_count": 63,
+          "scope": "OS packages; language packages require their supplied lockfiles",
+          "completed": true,
+          "error_reason": null,
+          "duration_ms": 0,
+          "finding_count": 109
+        }
+      ]
+    }
+  ],
+  "review_complete": false,
+  "model_promoted": false,
+  "excluded_runs": [
+    "fresh-supplied-text: classifier path setup failure; never used as final results"
+  ],
+  "admission_retries": {
+    "synthetic": 25,
+    "external": 3,
+    "reason": "Concurrent batch admission capacity 503; explicit retry records retained"
+  },
+  "input_sha256": {
+    "fresh_responses": "c6c8b79da4ae720858dca1a9b38a4f3946a211ac9584bc0678b13b4014d51614"
+  }
+}

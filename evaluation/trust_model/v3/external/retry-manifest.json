@@ -1,0 +1,53 @@
+[
+  {
+    "sample_id": "pypa--sampleproject--tests--test_simple.py",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pypa--sampleproject/tests/test_simple.py",
+    "filename": "test_simple.py",
+    "label": "unreviewed",
+    "label_scope": "supplied_text",
+    "reviewer_id": "",
+    "independent_review": false,
+    "human_reviewed": false,
+    "sha256": "a6e7e6eb5be79c975dcbda6dfa87ab53b8806ec1297b07a710bc01ba889ec76a",
+    "repository": "pypa/sampleproject",
+    "commit": "621e4974ca25ce531773def586ba3ed8e736b3fc",
+    "source_url": "https://raw.githubusercontent.com/pypa/sampleproject/621e4974ca25ce531773def586ba3ed8e736b3fc/tests/test_simple.py",
+    "license_spdx": "MIT",
+    "license_notice": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pypa--sampleproject/UPSTREAM-LICENSE.txt",
+    "evaluation_role": "external_unreviewed_not_training_or_accuracy_test"
+  },
+  {
+    "sample_id": "pypa--sampleproject--LICENSE.txt",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pypa--sampleproject/LICENSE.txt",
+    "filename": "LICENSE.txt",
+    "label": "unreviewed",
+    "label_scope": "supplied_text",
+    "reviewer_id": "",
+    "independent_review": false,
+    "human_reviewed": false,
+    "sha256": "71e0bd649395f47e82b500dc6261ce4b8e8d03774727f583e09f5b947e75de97",
+    "repository": "pypa/sampleproject",
+    "commit": "621e4974ca25ce531773def586ba3ed8e736b3fc",
+    "source_url": "https://raw.githubusercontent.com/pypa/sampleproject/621e4974ca25ce531773def586ba3ed8e736b3fc/LICENSE.txt",
+    "license_spdx": "MIT",
+    "license_notice": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pypa--sampleproject/UPSTREAM-LICENSE.txt",
+    "evaluation_role": "external_unreviewed_not_training_or_accuracy_test"
+  },
+  {
+    "sample_id": "pallets--flask--README.md",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pallets--flask/README.md",
+    "filename": "README.md",
+    "label": "unreviewed",
+    "label_scope": "supplied_text",
+    "reviewer_id": "",
+    "independent_review": false,
+    "human_reviewed": false,
+    "sha256": "1f2de14735b1ee9d3a342fa7c5d5e87b95727276c0a56c8a9d77221f37880602",
+    "repository": "pallets/flask",
+    "commit": "d086db856be187255b8ec61ef409357393020f32",
+    "source_url": "https://raw.githubusercontent.com/pallets/flask/d086db856be187255b8ec61ef409357393020f32/README.md",
+    "license_spdx": "BSD-3-Clause",
+    "license_notice": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/external/pallets--flask/UPSTREAM-LICENSE.txt",
+    "evaluation_role": "external_unreviewed_not_training_or_accuracy_test"
+  }
+]

@@ -2,6 +2,7 @@ import asyncio
 import httpx
 import time
 import re
+import json
 from typing import List, Dict, Any, Tuple
 from fastapi import FastAPI
 from app.extraction import extract_all_dependencies, extract_report
@@ -149,6 +150,21 @@ async def scan_manifest(file_path: str, content: str = None) -> AgentResult:
     except (ValueError, TypeError) as exc:
         return AgentResult(agent_name=AGENT_NAME, status="error", coverage="none", evidence={"error": str(exc)})
     findings = []
+    # Inspect install lifecycle content even when the manifest has no packages.
+    # Only a direct network-to-shell pipeline is a confirmed execution finding.
+    if file_path.replace('\\','/').rsplit('/',1)[-1].lower()=='package.json':
+        manifest=json.loads(content or '{}')
+        scripts=manifest.get('scripts',{}) if isinstance(manifest,dict) else {}
+        if isinstance(scripts,dict):
+            for hook in ('preinstall','install','postinstall','prepare'):
+                command=scripts.get(hook)
+                if isinstance(command,str) and re.search(r'\b(?:curl|wget)\b[^\n|]*https?://[^\n|]*\|\s*(?:(?:/usr/bin/|/bin/)?(?:ba|da|z|k)?sh)\b',command):
+                    findings.append(Finding(detector_id='guardian-network-install-shell',file_path=file_path,line_number=0,
+                        preview='scripts.'+hook,confidence=.95,severity='critical',
+                        reason='Install lifecycle pipes downloaded network content directly into a shell.',
+                        remediation='Remove network-to-shell lifecycle execution; use pinned, integrity-verified build inputs.',
+                        package='manifest lifecycle',ecosystem='javascript',score=100,signals=['NETWORK_TO_SHELL_INSTALL'],
+                        risk_contribution=100,recommendation='Reject',hard_block=True,category='dependency_install_script'))
     graph=None
     from app.dependency_graph import LOCK_NAMES,npm_graph
     from app.dependency_manifests import parse

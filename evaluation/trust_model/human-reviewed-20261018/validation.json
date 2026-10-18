@@ -1,0 +1,17 @@
+{
+  "count": 10,
+  "all_file_hashes_match": true,
+  "reviewer_ids": [
+    "Abdulelah"
+  ],
+  "review_dates": [
+    "2026-10-18"
+  ],
+  "label_counts": {
+    "accept": 8,
+    "review": 2,
+    "reject": 0
+  },
+  "review_csv_sha256": "5b85f5fc42209c1b5995a907c4cc5d5e3a7625681c85d8e43c3be53555d8e13b",
+  "qualification": "User-supplied project-team human review; independence is reviewer-attested, not externally authenticated; not a blinded study or untouched benchmark. AI suggestions were previously available in this project conversation."
+}

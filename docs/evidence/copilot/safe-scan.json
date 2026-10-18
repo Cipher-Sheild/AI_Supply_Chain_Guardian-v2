@@ -1,0 +1,163 @@
+{
+  "trust_score": 100.0,
+  "recommendation": "accept",
+  "explanation": "Trust score 100/100 (accept). No findings from 3 agent call(s).",
+  "agent_breakdown": {
+    "code_security": 0.0,
+    "prompt_injection": 0.0,
+    "secret_detection": 0.0
+  },
+  "detector_results": [
+    {
+      "contract_version": "1.0",
+      "agent_name": "code_security",
+      "status": "pass",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [],
+      "evidence": {
+        "engine": "guardian_python_ast",
+        "partial_parsing": false
+      },
+      "callback_id": null
+    },
+    {
+      "contract_version": "1.0",
+      "agent_name": "secret_detection",
+      "status": "pass",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [],
+      "evidence": {
+        "severity": null,
+        "confidence": 0.0,
+        "total_findings": 0,
+        "execution_time_ms": 0.112
+      },
+      "callback_id": null
+    },
+    {
+      "contract_version": "1.0",
+      "agent_name": "prompt_injection",
+      "status": "pass",
+      "coverage": "full",
+      "unresolved": false,
+      "decision_floor": "accept",
+      "findings": [],
+      "evidence": {
+        "elapsed_ms": 1.44,
+        "spans_scanned": 0,
+        "findings_count": 0,
+        "escalated_to_llm": 0
+      },
+      "callback_id": null
+    }
+  ],
+  "scoring": {
+    "method": "weighted",
+    "notice": "Model contributions explain numerical prediction, not policy overrides or causation.",
+    "final_score": 100.0,
+    "model_invoked": false,
+    "configured_scorer": "weighted",
+    "final_recommendation": "accept",
+    "agent_breakdown_basis": "Severity-weighted detector risk; hard override when present",
+    "policy_gates_authoritative": true
+  },
+  "per_file": [
+    {
+      "trust_score": 100.0,
+      "recommendation": "accept",
+      "explanation": "Trust score 100/100 (accept). No findings from 3 agent call(s).",
+      "agent_breakdown": {
+        "code_security": 0.0,
+        "prompt_injection": 0.0,
+        "secret_detection": 0.0
+      },
+      "detector_results": [
+        {
+          "contract_version": "1.0",
+          "agent_name": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [],
+          "evidence": {
+            "engine": "guardian_python_ast",
+            "partial_parsing": false
+          },
+          "callback_id": null
+        },
+        {
+          "contract_version": "1.0",
+          "agent_name": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [],
+          "evidence": {
+            "severity": null,
+            "confidence": 0.0,
+            "total_findings": 0,
+            "execution_time_ms": 0.112
+          },
+          "callback_id": null
+        },
+        {
+          "contract_version": "1.0",
+          "agent_name": "prompt_injection",
+          "status": "pass",
+          "coverage": "full",
+          "unresolved": false,
+          "decision_floor": "accept",
+          "findings": [],
+          "evidence": {
+            "elapsed_ms": 1.44,
+            "spans_scanned": 0,
+            "findings_count": 0,
+            "escalated_to_llm": 0
+          },
+          "callback_id": null
+        }
+      ],
+      "scoring": {
+        "method": "weighted",
+        "notice": "Model contributions explain numerical prediction, not policy overrides or causation.",
+        "final_score": 100.0,
+        "model_invoked": false,
+        "configured_scorer": "weighted",
+        "final_recommendation": "accept",
+        "agent_breakdown_basis": "Severity-weighted detector risk; hard override when present",
+        "policy_gates_authoritative": true
+      },
+      "index": 0,
+      "filename": "/home/cipher/Demo/final-evidence/final_verified_safe.py",
+      "coverage": "full",
+      "scan_status": "final"
+    }
+  ],
+  "request_id": "5a0d347495014e28b0fe7e5eb9b10fd0",
+  "scan_status": "final",
+  "routing": {
+    "overall_coverage": "full",
+    "routing": [
+      {
+        "filename": "/home/cipher/Demo/final-evidence/final_verified_safe.py",
+        "artifact_type": "code",
+        "routing_source": "inferred",
+        "expected_agents": [
+          "code_security",
+          "secret_detection",
+          "prompt_injection"
+        ],
+        "coverage": "full",
+        "notes": []
+      }
+    ],
+    "pending_callbacks": [],
+    "routing_notes": []
+  }
+}

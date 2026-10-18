@@ -18,6 +18,21 @@ TARGETS={'lib/apk/db/installed','var/lib/dpkg/status','etc/os-release','usr/lib/
 ACCEPT='application/vnd.oci.image.index.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json'
 
 
+async def retry_transient(operation):
+    """At most three attempts; never turn missing/auth/bad-content into clean."""
+    for attempt in range(3):
+        try:
+            result = await operation()
+            if isinstance(result, httpx.Response): result.raise_for_status()
+            return result
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code not in {429, 500, 502, 503, 504} or attempt == 2:
+                raise
+        except httpx.TransportError:
+            if attempt == 2: raise
+        await asyncio.sleep(0.25 * (2 ** attempt))
+
+
 def apply_layer(raw,files):
     with tarfile.open(fileobj=io.BytesIO(raw),mode='r:*') as archive:
         count=0;expanded=0;updates={}
@@ -87,10 +102,10 @@ async def inventory(reference):
     if '/' not in repository:repository='library/'+repository
     base='https://registry-1.docker.io/v2/'+repository
     async with httpx.AsyncClient(timeout=15,follow_redirects=False) as client:
-        response=await client.get('https://auth.docker.io/token',params={'service':'registry.docker.io','scope':'repository:'+repository+':pull'})
+        response=await retry_transient(lambda: client.get('https://auth.docker.io/token',params={'service':'registry.docker.io','scope':'repository:'+repository+':pull'}))
         response.raise_for_status();token=response.json()['token']
         headers={'Authorization':'Bearer '+token,'Accept':ACCEPT}
-        async def fetch(url,maximum,digest=None):
+        async def fetch_once(url,maximum,digest=None):
             authorization=headers if url.startswith(base+'/') else {'Accept':ACCEPT}
             for _ in range(5):
                 async with client.stream('GET',url,headers=authorization) as response:
@@ -108,6 +123,8 @@ async def inventory(reference):
                         raise ValueError('OCI content digest mismatch')
                     return bytes(raw)
             raise ValueError('OCI redirect budget exceeded')
+        async def fetch(url, maximum, digest=None):
+            return await retry_transient(lambda: fetch_once(url, maximum, digest))
         raw=await fetch(base+'/manifests/'+(ref.digest or ref.tag),2*1024*1024,ref.digest or None)
         root_digest='sha256:'+hashlib.sha256(raw).hexdigest();manifest=json.loads(raw)
         if 'manifests' in manifest:
@@ -133,7 +150,7 @@ async def inventory(reference):
             await asyncio.to_thread(apply_layer,raw,files)
         packages,release=packages_from_files(files)
         result={'image_ref':reference,'manifest_digest':root_digest,'platform':'linux/amd64',
-                'packages':packages,'os_release':release,'layers_verified':len(manifest.get('layers',[])),
+                'content_manifest_digest':content_digest,'packages':packages,'os_release':release,'layers_verified':len(manifest.get('layers',[])),
                 'package_inventory_scope':'OS packages; language packages require their supplied lockfiles'}
         _inventory_cache.set(content_digest,result)
         return result

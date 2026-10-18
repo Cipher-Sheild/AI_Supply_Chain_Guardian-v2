@@ -51,6 +51,13 @@ class ArtifactRequest(BaseModel):
     ai_tool_source: Optional[str] = None
     options: dict = Field(default_factory=dict)
 
+    @field_validator("options")
+    @classmethod
+    def valid_scan_scope(cls, value):
+        if "scan_scope" in value and (not isinstance(value["scan_scope"], str) or value["scan_scope"] not in {"supplied_text", "resolved_images"}):
+            raise ValueError("scan_scope must be supplied_text or resolved_images")
+        return value
+
     @field_validator("type", "artifact_type")
     @classmethod
     def supported_type(cls, value):

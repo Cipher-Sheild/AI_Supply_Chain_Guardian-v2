@@ -1,0 +1,10 @@
+# Reports are binary assets, not text patches.
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+
+# Preserve evaluation fixture, checksum and upstream-license bytes on every host.
+evaluation/** -text -whitespace
+*.csv -text -whitespace

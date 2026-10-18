@@ -228,3 +228,15 @@ async def test_detector_reported_error_names_its_reason_and_floors_review(monkey
     assert final["trust_result"]["recommendation"] == "review"
     assert reason in final["trust_result"]["explanation"]
     assert "agent reported error" not in final["trust_result"]["explanation"]
+
+
+def test_container_scope_is_explicit_and_default_stays_resolved():
+ from app.orchestration import canonical_request
+ from app.routing import route_file
+ decision=route_file('FROM scratch\n','Dockerfile')
+ default=canonical_request({'content':'FROM scratch\n'},decision)
+ assert default['options']['enable_cve_scan'] is True
+ text=canonical_request({'content':'FROM scratch\n','options':{'scan_scope':'supplied_text','enable_cve_scan':True}},decision)
+ assert text['options']['enable_cve_scan'] is False
+ resolved=canonical_request({'content':'FROM scratch\n','options':{'scan_scope':'resolved_images','enable_cve_scan':False}},decision)
+ assert resolved['options']['enable_cve_scan'] is True

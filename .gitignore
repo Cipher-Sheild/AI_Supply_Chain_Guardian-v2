@@ -57,3 +57,16 @@ frontend/playwright-report/
 
 .tools/bin/
 /dist/
+
+# Private deployment variants and local persistence
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.pem
+*.key
+
+# Local exports / duplicated evidence; curated reports live under docs/
+/output/

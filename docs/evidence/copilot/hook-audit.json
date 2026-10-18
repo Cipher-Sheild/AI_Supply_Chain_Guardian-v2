@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-10-17T20:38:15.699133+00:00",
+    "tool": "Edit",
+    "event_keys": [
+      "cwd",
+      "hook_event_name",
+      "session_id",
+      "timestamp",
+      "tool_input",
+      "tool_name"
+    ],
+    "args_type": "str",
+    "args_keys": [],
+    "input_type": null,
+    "permissionDecision": "allow",
+    "reason": "Guardian: proposed content accepted; scan 5a0d347495014e28b0fe7e5eb9b10fd0, score 100.0/100.",
+    "adapter_sha256": "5ee59a843e583003929b88ffed6bc4eff96edd52ac01864082a70816c9269abf"
+  },
+  {
+    "timestamp": "2026-10-17T20:38:22.763157+00:00",
+    "tool": "Edit",
+    "event_keys": [
+      "cwd",
+      "hook_event_name",
+      "session_id",
+      "timestamp",
+      "tool_input",
+      "tool_name"
+    ],
+    "args_type": "str",
+    "args_keys": [],
+    "input_type": null,
+    "permissionDecision": "deny",
+    "reason": "Guardian: proposed edit blocked (review, reject, incomplete or invalid response); scan 538450cf12bb4e9c9481fdc310b2d75c. See Guardian scan history for findings.",
+    "adapter_sha256": "5ee59a843e583003929b88ffed6bc4eff96edd52ac01864082a70816c9269abf"
+  }
+]

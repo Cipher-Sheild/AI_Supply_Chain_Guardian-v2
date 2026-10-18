@@ -90,6 +90,7 @@ class HeuristicResult:
     span: Span
     score: float  # 0.0 - 1.0
     reasons: list[str] = field(default_factory=list)
+    authority_review: bool = False
 
 
 def _compile_phrase_patterns(phrases: list[str]) -> list[re.Pattern]:
@@ -124,6 +125,26 @@ def _try_decode_hex(candidate: str) -> str | None:
         return decoded if decoded.isprintable() else None
     except (ValueError, UnicodeDecodeError):
         return None
+
+
+# Relational authority claims require human review even without an explicit
+# exfiltration request. This is a policy cue, not a confirmed malicious attack.
+_AUTHORITY_PATTERNS = [
+    re.compile(r"\btrust\s+(?:this|the present|the current)\s+(?:document|text|file|message|instruction)s?\s+(?:more than|above|over)\s+(?:the\s+)?(?:earlier|previous|prior|system|developer)\s+(?:rules|instructions|guidance|messages)\b", re.I),
+    re.compile(r"\b(?:prioritize|prioritise|prefer)\s+(?:this|these|the following)\s+(?:instruction|rule|message|guidance)s?\s+(?:over|above|instead of)\s+(?:the\s+)?(?:earlier|previous|prior|system|developer)\s+(?:rules|instructions|guidance|messages)\b", re.I),
+    re.compile(r"\b(?:this|these)\s+(?:document|text|file|message|instruction|rule)s?\s+(?:takes?|have|has)\s+(?:priority|precedence)\s+over\s+(?:the\s+)?(?:earlier|previous|prior|system|developer)\s+(?:rules|instructions|guidance|messages)\b", re.I),
+]
+
+def authority_claim(text):
+    for sentence in re.split(r"[.!?\n]+", text):
+        # A warning against following an authority claim is not a request to
+        # follow it. Evaluate per sentence so a benign prefix cannot clear a
+        # later positive directive in the same span.
+        if re.search(r"\b(?:do not|don't|never|must not|should not)\s+(?:trust|prioriti[sz]e|prefer)\b", sentence, re.I):
+            continue
+        if any(pattern.search(sentence) for pattern in _AUTHORITY_PATTERNS):
+            return True
+    return False
 
 
 class HeuristicScanner:
@@ -227,4 +248,6 @@ class HeuristicScanner:
         if len(contributions) > 1:
             score = min(1.0, score + 0.1 * (len(contributions) - 1))
 
-        return HeuristicResult(span=span, score=round(score, 4), reasons=reasons)
+        authority = authority_claim(text)
+        if authority: reasons.append('Instruction claims precedence over existing authority; human review required')
+        return HeuristicResult(span=span, score=round(score, 4), reasons=reasons, authority_review=authority)

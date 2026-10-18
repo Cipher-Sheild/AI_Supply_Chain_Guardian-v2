@@ -1,0 +1,78 @@
+[
+  {
+    "sample_id": "pinned-image-alpine-3.20",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-0/Dockerfile",
+    "filename": "Dockerfile",
+    "artifact_type": "dockerfile",
+    "sha256": "f83169e950d56fd593c4431828db04bdcf07afe0da2112aff736f29a198bd8fe",
+    "label": "unreviewed",
+    "label_scope": "resolved_images",
+    "independent_review": false,
+    "reviewer_id": "",
+    "image": {
+      "original": "alpine:3.20",
+      "pinned": "alpine@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+      "digest": "sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+      "resolved_utc": "2026-10-17T19:50:31Z",
+      "manifest_size": 9226
+    },
+    "evaluation_role": "resolved_inventory_operational_check_not_accuracy"
+  },
+  {
+    "sample_id": "pinned-image-debian-bookworm-slim",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-1/Dockerfile",
+    "filename": "Dockerfile",
+    "artifact_type": "dockerfile",
+    "sha256": "3fd709bed2acb048108f35409b7ff19e86661d832c2adac972b9b2f9f48221cf",
+    "label": "unreviewed",
+    "label_scope": "resolved_images",
+    "independent_review": false,
+    "reviewer_id": "",
+    "image": {
+      "original": "debian:bookworm-slim",
+      "pinned": "debian@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+      "digest": "sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587",
+      "resolved_utc": "2026-10-17T19:50:32Z",
+      "manifest_size": 5651
+    },
+    "evaluation_role": "resolved_inventory_operational_check_not_accuracy"
+  },
+  {
+    "sample_id": "pinned-image-python-3.12-slim",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-2/Dockerfile",
+    "filename": "Dockerfile",
+    "artifact_type": "dockerfile",
+    "sha256": "22c4f82b16c0657c15df1e2c415b2247a9518159e01097cf9bf6d1ef86e27282",
+    "label": "unreviewed",
+    "label_scope": "resolved_images",
+    "independent_review": false,
+    "reviewer_id": "",
+    "image": {
+      "original": "python:3.12-slim",
+      "pinned": "python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+      "digest": "sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+      "resolved_utc": "2026-10-17T19:50:33Z",
+      "manifest_size": 10373
+    },
+    "evaluation_role": "resolved_inventory_operational_check_not_accuracy"
+  },
+  {
+    "sample_id": "pinned-image-node-22-slim",
+    "path": "/home/cipher/ai-supply-chain-guardian-CLEAN/evaluation/trust_model/v3/resolved-images/image-3/Dockerfile",
+    "filename": "Dockerfile",
+    "artifact_type": "dockerfile",
+    "sha256": "d822be3de73f3e11f163905f0197518b35559daf0c142dd5878246b31861c73c",
+    "label": "unreviewed",
+    "label_scope": "resolved_images",
+    "independent_review": false,
+    "reviewer_id": "",
+    "image": {
+      "original": "node:22-slim",
+      "pinned": "node@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+      "digest": "sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392",
+      "resolved_utc": "2026-10-17T19:50:34Z",
+      "manifest_size": 5218
+    },
+    "evaluation_role": "resolved_inventory_operational_check_not_accuracy"
+  }
+]
