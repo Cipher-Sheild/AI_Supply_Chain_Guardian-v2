@@ -224,6 +224,22 @@ async def _llm_judge_finding(
             "details": details,
         }
     classifier_candidate=any(reason.startswith('__guardian_classifier_candidate__') for reason in heuristic_result.reasons)
+    # A plain document title is not an instruction. Only clear classifier-only
+    # title noise after an explicit, high-confidence benign contextual verdict.
+    # Action/authority headings, heuristic signals and ambiguous judges retain
+    # the existing Review behaviour.
+    import re
+    ordinary_title=(span.source_type=='markdown_prose'
+        and re.fullmatch(r'#{1,6}\s+[\w][\w &()/.-]{0,100}',span.text.strip()) is not None
+        and not re.search(r'\b(ignore|reveal|send|override|follow|forget|execute|run|read|write|system|assistant|prompt|instructions?|polic(?:y|ies)|trust|exfiltrat\w*|bypass)\b',span.text,re.I))
+    signals=[re.fullmatch(r'__guardian_classifier_candidate__ probability=(0(?:\.\d+)?|1(?:\.0+)?)',reason)
+             for reason in heuristic_result.reasons]
+    weak_classifier=bool(signals) and all(match is not None and float(match.group(1))<0.7 for match in signals)
+    if (classifier_candidate and weak_classifier and ordinary_title and heuristic_result.score==0
+            and not heuristic_result.authority_review
+            and all(reason.startswith('__guardian_classifier_candidate__') for reason in heuristic_result.reasons)
+            and result.requires_review is False and result.confidence>=0.9):
+        return None
     # Public re-evaluation showed that allowing a benign LLM verdict to clear
     # a trained screening signal increased false accepts. Keep disagreement
     # at Review; explicit contextual ambiguity also requires Review.

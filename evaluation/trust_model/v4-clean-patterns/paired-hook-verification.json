@@ -1,0 +1,212 @@
+{
+  "scope": "Automated hook simulations, not Copilot UI evidence; no fixture files written",
+  "selected_agents": [
+    "cipherguard",
+    "code_security",
+    "docker_security",
+    "license_compliance",
+    "prompt_injection",
+    "secret_detection",
+    "workflow_cicd"
+  ],
+  "pairs": [
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 8649f403d99f4b808643f63ff357e743, score 100.0/100.",
+        "scan_id": "8649f403d99f4b808643f63ff357e743",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 91875bae36594b10af145d720182de5f, score 94.07/100.",
+        "scan_id": "91875bae36594b10af145d720182de5f",
+        "score": 94.07,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:33.043089+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/app.py"
+      ],
+      "relative_filenames": [
+        "verification_round_02/app.py"
+      ],
+      "run": "verification_round_02"
+    },
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 1501f3d4fc7a43b0bf742db5f8dacbb9, score 100.0/100.",
+        "scan_id": "1501f3d4fc7a43b0bf742db5f8dacbb9",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan a474362d62004980bea59b9061b1d34d, score 92.38/100.",
+        "scan_id": "a474362d62004980bea59b9061b1d34d",
+        "score": 92.38,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:33.659762+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/package.json"
+      ],
+      "relative_filenames": [
+        "verification_round_02/package.json"
+      ],
+      "run": "verification_round_02"
+    },
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan c4cc16da3ed3498e81b5c0cb91e4845f, score 100.0/100.",
+        "scan_id": "c4cc16da3ed3498e81b5c0cb91e4845f",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan c19a8de04e254de182d40046a6f002fb, score 91.63/100.",
+        "scan_id": "c19a8de04e254de182d40046a6f002fb",
+        "score": 91.63,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:35.091028+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/Dockerfile"
+      ],
+      "relative_filenames": [
+        "verification_round_02/Dockerfile"
+      ],
+      "run": "verification_round_02"
+    },
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 8bc4c8e347384828839ff0cc1d272a44, score 100.0/100.",
+        "scan_id": "8bc4c8e347384828839ff0cc1d272a44",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan f0efab5dc3274111aee99ac6bee417ef, score 92.46/100.",
+        "scan_id": "f0efab5dc3274111aee99ac6bee417ef",
+        "score": 92.46,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:35.607060+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/.gitlab-ci.yml"
+      ],
+      "relative_filenames": [
+        "verification_round_02/.gitlab-ci.yml"
+      ],
+      "run": "verification_round_02"
+    },
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 9cff8b9211a7452985c80e3f91c552de, score 100.0/100.",
+        "scan_id": "9cff8b9211a7452985c80e3f91c552de",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 8c3a471b1e3e46d9b30fdd5dc8b9f7a7, score 84.65/100.",
+        "scan_id": "8c3a471b1e3e46d9b30fdd5dc8b9f7a7",
+        "score": 84.65,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:36.061960+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/LICENSE"
+      ],
+      "relative_filenames": [
+        "verification_round_02/LICENSE"
+      ],
+      "run": "verification_round_02"
+    },
+    {
+      "weighted": {
+        "mode": "weighted",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan 2a9b8f1e326743c4a9bb57c35eec30c4, score 100.0/100.",
+        "scan_id": "2a9b8f1e326743c4a9bb57c35eec30c4",
+        "score": 100.0,
+        "recommendation": "accept",
+        "method": "weighted",
+        "model_version": null,
+        "shap": false
+      },
+      "ml": {
+        "mode": "ml",
+        "decision": "allow",
+        "reason": "Guardian: proposed content accepted; scan e1042c4095b04fc79d4f235eb155868a, score 84.06/100.",
+        "scan_id": "e1042c4095b04fc79d4f235eb155868a",
+        "score": 84.06,
+        "recommendation": "accept",
+        "method": "xgboost",
+        "model_version": "clean-pattern-calibrated-development-v4",
+        "shap": true
+      },
+      "enforcing_mode": "weighted",
+      "timestamp": "2026-10-19T03:59:37.326537+00:00",
+      "filenames": [
+        "/home/cipher/The Final Demo/verification_round_02/README.md"
+      ],
+      "relative_filenames": [
+        "verification_round_02/README.md"
+      ],
+      "run": "verification_round_02"
+    }
+  ]
+}

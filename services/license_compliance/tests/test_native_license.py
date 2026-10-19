@@ -22,6 +22,14 @@ def test_copyright_notice_can_vary():
     assert identify_text(text)[0]==['MIT']
 
 
+def test_complete_mit_without_optional_heading():
+    body=(ROOT/'MIT.txt').read_text().split('\n',1)[1]
+    assert identify_text(body)[0]==['MIT']
+    assert not identify_text(body+'\nCommercial use prohibited.')[0]
+    assert not identify_text(body.replace('without restriction','with restrictions'))[0]
+    assert not identify_text(body.split('THE SOFTWARE')[0])[0]
+
+
 def test_copyright_prefixed_restrictions_are_not_discarded():
     text=(ROOT/'MIT.txt').read_text()
     for clause in ('Copyright commercial use prohibited.',

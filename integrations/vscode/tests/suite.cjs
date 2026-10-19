@@ -29,6 +29,10 @@ exports.run=async()=>{
   await config.update('scanOnSave',true,vscode.ConfigurationTarget.Global);
   const extension=vscode.extensions.getExtension('guardian-local.ai-supply-chain-guardian');
   assert.ok(extension);await extension.activate();
+ const commands=await vscode.commands.getCommands(true);
+ assert.ok(commands.includes('guardian.showComparison'),'Live comparison command must be registered');
+ await vscode.commands.executeCommand('guardian.showComparison');
+ console.log('Guardian extension host: live comparison Output command available.');
   const clientConfig=path.join(temporary,'client.env');
   await fs.writeFile(clientConfig,'GUARDIAN_API_KEY=controlled-editor-key\nGROQ_API_KEY=must-never-be-imported\n',{mode:0o600});
   await vscode.commands.executeCommand('guardian.importDeploymentKey',clientConfig);

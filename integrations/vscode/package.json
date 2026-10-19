@@ -2,7 +2,7 @@
   "name": "ai-supply-chain-guardian",
   "displayName": "AI Supply Chain Guardian",
   "description": "Scan saved source and configuration files through the Guardian Trust Engine.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "guardian-local",
   "engines": {
     "vscode": "^1.90.0"
@@ -31,6 +31,10 @@
       {
         "command": "guardian.clearApiKey",
         "title": "Guardian: Clear Stored Client Key"
+      },
+      {
+        "command": "guardian.showComparison",
+        "title": "Guardian: Show Live Comparison"
       }
     ],
     "configuration": {

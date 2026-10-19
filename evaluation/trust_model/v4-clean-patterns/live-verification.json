@@ -1,0 +1,106 @@
+[
+  {
+    "mode": "weighted",
+    "file": "app.py",
+    "id": "ff8bf36b18f748199c17422133e2d42c",
+    "score": 100.0,
+    "decision": "accept",
+    "method": "weighted",
+    "model_version": null,
+    "findings": 0
+  },
+  {
+    "mode": "weighted",
+    "file": "LICENSE",
+    "id": "fa41c167a0404dfbbde1e7fda95a00fd",
+    "score": 100.0,
+    "decision": "accept",
+    "method": "weighted",
+    "model_version": null,
+    "findings": 0
+  },
+  {
+    "mode": "weighted",
+    "file": "README.md",
+    "id": "33b25c03b06b4ca795049be8d6e6eaa7",
+    "score": 100.0,
+    "decision": "accept",
+    "method": "weighted",
+    "model_version": null,
+    "findings": 0
+  },
+  {
+    "mode": "weighted",
+    "file": "unsafe.py",
+    "id": "781385cbca324dbbb6f57f6a3e4c468e",
+    "score": 78.75,
+    "decision": "review",
+    "method": "weighted",
+    "model_version": null,
+    "findings": 1
+  },
+  {
+    "mode": "weighted",
+    "file": "attack.md",
+    "id": "b6dcb7d5f819455c9d4e11c7826c8a91",
+    "score": 0.0,
+    "decision": "reject",
+    "method": "hard_override",
+    "model_version": null,
+    "findings": 1
+  },
+  {
+    "mode": "ml",
+    "file": "app.py",
+    "id": "03f9f7c5e60e42f299ae53403335a771",
+    "score": 94.07,
+    "decision": "accept",
+    "method": "xgboost",
+    "model_version": "clean-pattern-calibrated-development-v4",
+    "findings": 0,
+    "shap_additivity_error": 1.4334917068481445e-05
+  },
+  {
+    "mode": "ml",
+    "file": "LICENSE",
+    "id": "70ac078316224d5bbdb04c6e0a9c7c61",
+    "score": 84.65,
+    "decision": "accept",
+    "method": "xgboost",
+    "model_version": "clean-pattern-calibrated-development-v4",
+    "findings": 0,
+    "shap_additivity_error": 2.5395303964614868e-05
+  },
+  {
+    "mode": "ml",
+    "file": "README.md",
+    "id": "df17194f227e4b2e8ec513564ab21641",
+    "score": 84.06,
+    "decision": "accept",
+    "method": "xgboost",
+    "model_version": "clean-pattern-calibrated-development-v4",
+    "findings": 0,
+    "shap_additivity_error": 2.6088207960128784e-05
+  },
+  {
+    "mode": "ml",
+    "file": "unsafe.py",
+    "id": "a9f9539b7a5c4643804cd08bae780cb5",
+    "score": 17.46,
+    "decision": "reject",
+    "method": "xgboost",
+    "model_version": "clean-pattern-calibrated-development-v4",
+    "findings": 1,
+    "shap_additivity_error": 4.59328293800354e-06
+  },
+  {
+    "mode": "ml",
+    "file": "attack.md",
+    "id": "2f4c5f133468411a85d62e44c8309c4b",
+    "score": 0.0,
+    "decision": "reject",
+    "method": "hard_override",
+    "model_version": null,
+    "findings": 1
+  }
+]

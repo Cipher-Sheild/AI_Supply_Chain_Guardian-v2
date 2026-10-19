@@ -116,15 +116,19 @@ Inline Tab completion, manual edits, arbitrary tools and other harnesses are out
 
 The optional model is a **98-feature XGBoost trust-score regressor**, not the prompt-injection classifier. Exact TreeSHAP explains the numerical model prediction before policy gates. A hard override bypasses model inference; an unusable model has an explicit weighted fallback with a Review floor. The candidate is **not promoted** to the default.
 
-| Separate evaluation cohort | Weighted verdict agreement | V3 ML verdict agreement | Interpretation |
+| Evaluation cohort | Weighted verdict agreement | ML verdict agreement | Interpretation |
 | --- | ---: | ---: | --- |
-| 90 synthetic development cases | 77.78% | **83.33%** | Previously inspected development retest; MAE 19.58 vs 13.11 |
-| 18 AI-labelled first-use cases | 66.67% | 61.11% | AI labels; three false accepts for each before targeted fixes |
-| 10 human-reviewed upstream files | 30% | 20% | Project-team self-attested review; eight Accept / two Review labels; no Reject cases |
+| 90 previously inspected synthetic development cases | 77.78% | **83.33% (v4)** | Development retest; v4 MAE 13.31; not independent validation |
+| 18 AI-labelled first-use cases (historical v3) | 66.67% | 61.11% | AI labels; three false accepts for each before targeted fixes |
+| 10 previously inspected upstream files, final identical-response replay | 40% | 40% (v4) | Project-team review; eight Accept / two Review labels; no Reject cases |
 
-The post-fix weighted retest of the 18 cases reached 77.78% with one false accept; it is not untouched evidence. On the ten upstream files, weighted scoring blocked six of eight human-Accept files. **There is no single validated real-world accuracy number or independently validated production-readiness claim.** The earlier public prompt evaluation retained ten missed attacks, nine false positives and two unknown responses.
+The v4 candidate adds 127 training-only synthetic clean-pattern anchors; the ten upstream review labels were not used for training. The final upstream replay follows a canonical MIT-body recognition repair. Five of eight reviewer-Accept files still receive Non-Accept decisions. This small, previously inspected cohort cannot establish malicious-input recall or independent generalisation. **There is no single validated real-world accuracy number or independently validated production-readiness claim.** The earlier public prompt evaluation retained ten missed attacks, nine false positives and two unknown responses.
 
-Latest historical component evidence totals **729 distinct Python passes across separately recorded suites**, plus **nine browser cases counted separately**. This is not a claim that all tests were run simultaneously. See the [results report](docs/reports/Results%20of%20the%20entire%20project.pdf), [ML implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [development evidence](evaluation/trust_model/v3/README.md) and [first-use pilot](evaluation/trust_model/final-ai-pilot-20261018/README.md). Model/fixture hashes, scope, labels and provenance are retained with each cohort.
+The final recorded Local Copilot demonstration on **19 October 2026** allowed six safe proposals and denied all six unsafe proposals before file creation. Weighted scoring returned four Reject and two Review decisions on unsafe proposals; v4 with safety gates returned three Reject and three Review. **Weighted scoring controlled writes; v4 was advisory.** These are **12/12 expected allow/block outcomes on selected fixtures**, not general detection accuracy or exact three-class agreement. Review also denies a supported write. Automated hook simulations in the candidate evidence are separate from actual Copilot execution evidence.
+
+Historical component evidence totals **729 distinct Python cases passed across separately recorded suites**, including one separately completed PostgreSQL integration case, plus **nine browser cases counted separately**. This is not one unified 729-pass command and does not describe a fresh run of the current checkout. Test passes do not measure detection accuracy.
+
+See the [v4 candidate evidence](evaluation/trust_model/v4-clean-patterns/README.md), [final readiness audit](evaluation/trust_model/readiness-audit-20261019/README.md), [historical results report](docs/reports/Results%20of%20the%20entire%20project.pdf), [ML implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [v3 development evidence](evaluation/trust_model/v3/README.md) and [first-use pilot](evaluation/trust_model/final-ai-pilot-20261018/README.md). Model/fixture hashes, scope, labels and provenance are retained with each cohort. Some historical response inputs remain local; consult each reproduction guide before attempting a retrain.
 
 ## Tests and reproducibility
 
@@ -140,6 +144,12 @@ npm test --prefix integrations/vscode
 
 The PostgreSQL integration case requires a **separate migrated test database** via `TEST_DATABASE_URL`; never use your demonstration/history database for tests. Browser checks require Playwright's Chromium installation and the configured backend/fixture mode. GitHub Actions runs isolated service checks, interface builds, model safety/training checks and a dedicated PostgreSQL job. External package/model feeds and live demos have separate operational requirements.
 
+## Development status and next work
+
+Weighted enforcement remains the default; the v4 model is an evaluation candidate. The local comparison view is available through **Guardian: Show Live Comparison** in a trusted VS Code workspace. Its log records inspection decisions, not proof of subsequent file creation. Optional dashboard comparison data requires the private `GUARDIAN_COMPARISON_LOG` setting in the local Vite development server; these development routes are not a production API contract.
+
+Planned work includes broader language/ecosystem support, additional security and compliance checks, evaluation on larger independently reviewed real-world datasets, and improved AI analysis, calibration and explainability. Production promotion additionally requires deployment security, recovery and load validation. See the readiness audit for the concrete remaining work.
+
 ## Documentation and reports
 
 - [Complete project documentation](docs/FINAL_PROJECT_DOCUMENTATION.md), [user manual](docs/USER_MANUAL.md), [runtime configuration](docs/RUNTIME_CONFIGURATION.md)
@@ -147,7 +157,7 @@ The PostgreSQL integration case requires a **separate migrated test database** v
 - [ML and SHAP implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [labeling guide](docs/DATA_LABELING_GUIDE.md)
 - [Final black book](docs/reports/BlackBook%20Final.docx), [project results](docs/reports/Results%20of%20the%20entire%20project.pdf), [demo script](docs/demo/Guardian%20Demo%20Script.pdf)
 
-Dated documents and earlier evaluation snapshots may describe previous revisions. The cohort-specific evidence and qualifications above supersede older headline counts and accuracy claims.
+The complete project documentation is a dated engineering snapshot, not the current development setup authority. Use this README and the runtime configuration for current setup. Dated documents and earlier evaluation snapshots may describe previous revisions. The cohort-specific evidence and qualifications above supersede older headline counts and accuracy claims.
 
 ## Scope and attribution
 

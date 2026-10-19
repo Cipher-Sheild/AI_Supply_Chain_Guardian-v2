@@ -38,6 +38,11 @@ def template_index():
     result={}
     for identifier,canonical in templates().items():
         result.setdefault(canonical,[]).append(identifier)
+        # The MIT heading is descriptive, not a licence condition. Recognise
+        # its exact complete body as well; never remove arbitrary headings or
+        # relax the substantive permission, notice and disclaimer clauses.
+        if identifier == 'MIT' and canonical.startswith('mit license '):
+            result.setdefault(canonical[len('mit license '):],[]).append(identifier)
     return result
 
 

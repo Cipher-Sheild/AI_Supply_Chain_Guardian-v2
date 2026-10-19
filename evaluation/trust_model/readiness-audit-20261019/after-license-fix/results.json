@@ -1,0 +1,666 @@
+{
+  "scope": "Previously inspected project-team reviewed ten-file cohort. Fresh detector replay, not an independent holdout. No training or relabelling. Same detector evidence used for both scorers.",
+  "weighted": {
+    "n": 10,
+    "accuracy": 0.4,
+    "mae": 19.225,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        3,
+        5,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_type": {
+      ".md": {
+        "n": 2,
+        "accuracy": 0.0
+      },
+      ".py": {
+        "n": 6,
+        "accuracy": 0.3333333333333333
+      },
+      ".txt": {
+        "n": 2,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "ml_v4": {
+    "n": 10,
+    "accuracy": 0.4,
+    "mae": 17.22963676452637,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        3,
+        5,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_type": {
+      ".md": {
+        "n": 2,
+        "accuracy": 0.0
+      },
+      ".py": {
+        "n": 6,
+        "accuracy": 0.3333333333333333
+      },
+      ".txt": {
+        "n": 2,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "blocked_by_gates": 5,
+  "production_promoted": false,
+  "details": [
+    {
+      "sample_id": "pypa--sampleproject--src--sample--__init__.py",
+      "label": "accept",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 93.68666076660156,
+      "raw_ml_score": 93.68666076660156,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": true,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "full",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "pypa--sampleproject--src--sample--simple.py",
+      "label": "accept",
+      "weighted": "accept",
+      "ml": "accept",
+      "ml_score": 94.07199096679688,
+      "raw_ml_score": 94.07199096679688,
+      "target_score_with_gates": "accept",
+      "label_blocked_even_with_target_score": false,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        }
+      ]
+    },
+    {
+      "sample_id": "pypa--sampleproject--tests--test_simple.py",
+      "label": "accept",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 93.68666076660156,
+      "raw_ml_score": 93.68666076660156,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": true,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "full",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "pypa--sampleproject--README.md",
+      "label": "accept",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 83.67892456054688,
+      "raw_ml_score": 83.67892456054688,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": true,
+      "detectors": [
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "partial",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            }
+          ]
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        }
+      ]
+    },
+    {
+      "sample_id": "pypa--sampleproject--LICENSE.txt",
+      "label": "accept",
+      "weighted": "accept",
+      "ml": "accept",
+      "ml_score": 84.64773559570312,
+      "raw_ml_score": 84.64773559570312,
+      "target_score_with_gates": "accept",
+      "label_blocked_even_with_target_score": false,
+      "detectors": [
+        {
+          "agent": "license_compliance",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        }
+      ]
+    },
+    {
+      "sample_id": "pallets--flask--examples--tutorial--flaskr--__init__.py",
+      "label": "review",
+      "weighted": "reject",
+      "ml": "reject",
+      "ml_score": 34.9715690612793,
+      "raw_ml_score": 34.9715690612793,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": false,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "fail",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": [
+            {
+              "severity": "high",
+              "title": null,
+              "category": "keyword_assignment",
+              "hard_block": false
+            }
+          ]
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "partial",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "pallets--flask--examples--tutorial--flaskr--db.py",
+      "label": "accept",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 68.3200912475586,
+      "raw_ml_score": 68.3200912475586,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": true,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "fail",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": [
+            {
+              "severity": "high",
+              "title": null,
+              "category": "sql_injection",
+              "hard_block": false
+            }
+          ]
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "full",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "pallets--flask--examples--tutorial--flaskr--auth.py",
+      "label": "review",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 93.68666076660156,
+      "raw_ml_score": 93.68666076660156,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": false,
+      "detectors": [
+        {
+          "agent": "code_security",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "partial",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "pallets--flask--README.md",
+      "label": "accept",
+      "weighted": "review",
+      "ml": "review",
+      "ml_score": 83.67892456054688,
+      "raw_ml_score": 83.67892456054688,
+      "target_score_with_gates": "review",
+      "label_blocked_even_with_target_score": true,
+      "detectors": [
+        {
+          "agent": "prompt_injection",
+          "status": "warn",
+          "coverage": "partial",
+          "decision_floor": "review",
+          "findings": [
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection_uncertain",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            },
+            {
+              "severity": "medium",
+              "title": null,
+              "category": "prompt_injection",
+              "hard_block": false
+            }
+          ]
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        }
+      ]
+    },
+    {
+      "sample_id": "pallets--flask--LICENSE.txt",
+      "label": "accept",
+      "weighted": "accept",
+      "ml": "accept",
+      "ml_score": 84.64773559570312,
+      "raw_ml_score": 84.64773559570312,
+      "target_score_with_gates": "accept",
+      "label_blocked_even_with_target_score": false,
+      "detectors": [
+        {
+          "agent": "license_compliance",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        },
+        {
+          "agent": "secret_detection",
+          "status": "pass",
+          "coverage": "full",
+          "decision_floor": "accept",
+          "findings": []
+        }
+      ]
+    }
+  ]
+}

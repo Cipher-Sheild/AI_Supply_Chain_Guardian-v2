@@ -1,0 +1,129 @@
+{
+  "scope": "Previously inspected project-team-labelled 10-file cohort; frozen old detector responses; not independent or untouched. No training on these labels.",
+  "weighted": {
+    "n": 10,
+    "accuracy": 0.3,
+    "mae": 19.225,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        2,
+        6,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 6,
+        "accuracy": 0.3333333333333333
+      },
+      "license": {
+        "n": 2,
+        "accuracy": 0.5
+      },
+      "markdown": {
+        "n": 2,
+        "accuracy": 0.0
+      }
+    }
+  },
+  "v3": {
+    "n": 10,
+    "accuracy": 0.2,
+    "mae": 28.735459518432616,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        1,
+        5,
+        2
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 6,
+        "accuracy": 0.3333333333333333
+      },
+      "license": {
+        "n": 2,
+        "accuracy": 0.0
+      },
+      "markdown": {
+        "n": 2,
+        "accuracy": 0.0
+      }
+    }
+  },
+  "v4": {
+    "n": 10,
+    "accuracy": 0.3,
+    "mae": 20.300808334350585,
+    "false_accepts": 0,
+    "confusion_labels": [
+      "accept",
+      "review",
+      "reject"
+    ],
+    "confusion_matrix": [
+      [
+        2,
+        6,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_type": {
+      "code": {
+        "n": 6,
+        "accuracy": 0.3333333333333333
+      },
+      "license": {
+        "n": 2,
+        "accuracy": 0.5
+      },
+      "markdown": {
+        "n": 2,
+        "accuracy": 0.0
+      }
+    }
+  }
+}

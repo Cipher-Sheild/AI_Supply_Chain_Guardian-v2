@@ -1,0 +1,30 @@
+[
+  {
+    "mode": "weighted",
+    "file": "README.md",
+    "id": "f246bb5e6dbe41938e756d4662a74437",
+    "decision": "accept",
+    "score": 100.0
+  },
+  {
+    "mode": "weighted",
+    "file": "attack.md",
+    "id": "810e3648e4e041219331177b78d67929",
+    "decision": "reject",
+    "score": 0.0
+  },
+  {
+    "mode": "ml",
+    "file": "README.md",
+    "id": "00ae32865f0c49dbbdb49f130df97c3a",
+    "decision": "accept",
+    "score": 84.06
+  },
+  {
+    "mode": "ml",
+    "file": "attack.md",
+    "id": "f7b922f9e7a745eeabb4778b8d38cf82",
+    "decision": "reject",
+    "score": 0.0
+  }
+]

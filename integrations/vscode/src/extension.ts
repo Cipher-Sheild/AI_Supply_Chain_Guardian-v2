@@ -1,9 +1,53 @@
 import * as vscode from 'vscode';
 import * as fs from 'node:fs/promises';
+import * as os from 'node:os';
+import * as path from 'node:path';
 type Scan = { request_id: string; scan_status: string; recommendation: string; trust_score: number; explanation: string; detector_results: { agent_name: string; status: string; findings: {severity: string; location?: string; reason?: string; category: string}[] }[] };
 export function activate(context: vscode.ExtensionContext) {
   const diagnostics=vscode.languages.createDiagnosticCollection('guardian');
   const output=vscode.window.createOutputChannel('Guardian');
+  const comparisonOutput=vscode.window.createOutputChannel('Guardian Live Comparison');
+  let comparisonTimer:ReturnType<typeof setInterval>|undefined;
+  let comparisonText='';
+  let comparisonBusy=false;
+  async function refreshComparison(){
+    if(comparisonBusy||!vscode.workspace.isTrusted)return;
+    comparisonBusy=true;
+    try{
+      const filename=path.join(os.homedir(),'.config','guardian','comparison','pairs.jsonl');
+      const metadata=await fs.lstat(filename);
+      if(!metadata.isFile()||metadata.isSymbolicLink()||metadata.size>8*1048576||
+         (process.platform!=='win32'&&(metadata.mode&0o077)!==0))throw Error('Private comparison log required');
+      const text=await fs.readFile(filename,'utf8');
+      if(text===comparisonText)return;
+      comparisonText=text;comparisonOutput.clear();
+      comparisonOutput.appendLine('Guardian comparison | Weighted: http://127.0.0.1:3000 | ML/SHAP: http://127.0.0.1:3302');
+      comparisonOutput.appendLine('Weighted controls file writes; ML is advisory. These are hook inspection results, not proof that a tool subsequently wrote a file.');
+      for(const line of text.trim().split('\n').filter(Boolean).slice(-100)){
+        try{
+          const item=JSON.parse(line);
+          const safe=(value:unknown)=>String(value??'unavailable').replace(/[\r\n\x00-\x1f\x7f]/g,' ').slice(0,500);
+          comparisonOutput.appendLine(`\n[${safe(item.timestamp)}] ${safe(item.run)}`);
+          for(const file of item.relative_filenames||[])comparisonOutput.appendLine('  File: '+safe(file));
+          for(const mode of ['weighted','ml']){
+            const result=item[mode]||{};
+            comparisonOutput.appendLine(`  ${mode.toUpperCase()}: ${safe(result.recommendation)} | score ${safe(result.score)}/100 | ${safe(result.method)}`);
+            comparisonOutput.appendLine('    Scan ID: '+safe(result.scan_id));
+            if(!result.scan_id)comparisonOutput.appendLine('    Inspection error: '+safe(result.reason));
+          }
+          comparisonOutput.appendLine('  WRITE PERMISSION: '+safe(item.weighted?.decision));
+        }catch{comparisonOutput.appendLine('Skipped an incomplete comparison record.');}
+      }
+    }catch(error){comparisonOutput.appendLine('Guardian comparison: '+String(error));}
+    finally{comparisonBusy=false;}
+  }
+  context.subscriptions.push(comparisonOutput,vscode.commands.registerCommand('guardian.showComparison',async()=>{
+    if(!vscode.workspace.isTrusted){vscode.window.showWarningMessage('Trust this workspace before viewing Guardian comparisons.');return;}
+    comparisonOutput.show(true);comparisonText='';
+    comparisonOutput.appendLine('Waiting for Guardian comparison records...');
+    await refreshComparison();
+    if(!comparisonTimer)comparisonTimer=setInterval(()=>void refreshComparison(),1500);
+  }),{dispose:()=>{if(comparisonTimer)clearInterval(comparisonTimer);}});
   const generations=new Map<string,number>();
   const saveTimers=new Map<string,ReturnType<typeof setTimeout>>();
   const activeControllers=new Map<string,AbortController>();

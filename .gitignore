@@ -70,3 +70,6 @@ frontend/playwright-report/
 
 # Local exports / duplicated evidence; curated reports live under docs/
 /output/
+
+# Temporary authoring, local demo and review intermediates
+/tmp/

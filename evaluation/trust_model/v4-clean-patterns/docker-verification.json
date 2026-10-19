@@ -1,0 +1,19 @@
+{
+  "content": "FROM alpine@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc\nWORKDIR /app\nUSER 65532:65532\nHEALTHCHECK CMD [\"/bin/true\"]\nCMD [\"/bin/true\"]\n",
+  "results": [
+    {
+      "mode": "weighted",
+      "id": "6778626eecd74ec096606d243799cc1e",
+      "score": 100.0,
+      "decision": "accept",
+      "method": "weighted"
+    },
+    {
+      "mode": "ml",
+      "id": "39435158f36c47fc8b579fddff1b78ab",
+      "score": 91.63,
+      "decision": "accept",
+      "method": "xgboost"
+    }
+  ]
+}
