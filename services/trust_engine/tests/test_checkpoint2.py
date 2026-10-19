@@ -86,7 +86,7 @@ async def test_batch_per_file_history_pdf_and_bounds(tmp_path,monkeypatch):
     store=ScanStore(f'sqlite+aiosqlite:///{tmp_path}/api.sqlite3')
     app.dependency_overrides[get_store]=lambda:store
     try:
-        async with AsyncClient(transport=ASGITransport(app=app),base_url='http://test') as client:
+        async with AsyncClient(transport=ASGITransport(app=app),base_url='http://localhost') as client:
             response=await client.post('/analyze/batch',json={'files':[{'filename':'a.py','content':'print(1)'},{'filename':'readme.md','content':'Hello'}]})
             assert response.status_code==200,response.text
             body=response.json();assert len(body['per_file'])==2
@@ -124,7 +124,7 @@ async def test_history_does_not_rescore_per_file_with_a_changed_model(tmp_path,m
     store=ScanStore(f'sqlite+aiosqlite:///{tmp_path}/historical.sqlite3')
     app.dependency_overrides[get_store]=lambda:store
     try:
-        async with AsyncClient(transport=ASGITransport(app=app),base_url='http://test') as client:
+        async with AsyncClient(transport=ASGITransport(app=app),base_url='http://localhost') as client:
             initial=await client.post('/analyze',json={'filename':'settings.cfg','content':'hello'})
             assert initial.status_code==200,initial.text
             def broken(*args):raise AssertionError('stored per-file outcomes must not be rescored on read')

@@ -40,7 +40,7 @@ async def test_remote_peer_denied_without_key(monkeypatch):
     app=FastAPI();app.add_middleware(AccessMiddleware)
     @app.get('/scans')
     def scans():return {}
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app,client=('203.0.113.8',4444)),base_url='http://test') as api:
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app,client=('203.0.113.8',4444)),base_url='http://localhost') as api:
         assert (await api.get('/scans')).status_code==401
 
 
@@ -51,3 +51,24 @@ def test_production_callback_credentials_are_strong_and_separate(monkeypatch):
     with pytest.raises(RuntimeError):validate_configuration()
     monkeypatch.setenv('CALLBACK_TOKEN','k'*32)
     with pytest.raises(RuntimeError):validate_configuration()
+
+
+@pytest.mark.parametrize('headers', [
+    {'Host': 'rebind.attacker.example'},
+    {'Origin': 'https://attacker.example'},
+    {'Origin': 'null'},
+    {'Sec-Fetch-Site': 'cross-site'},
+    {'Host': 'localhost:invalid'},
+])
+def test_keyless_local_rejects_foreign_browser_requests(monkeypatch, headers):
+    monkeypatch.delenv('GUARDIAN_API_KEY', raising=False)
+    monkeypatch.delenv('GUARDIAN_TENANT_KEYS', raising=False)
+    monkeypatch.setenv('GUARDIAN_ENV', 'local')
+    assert client().get('/scans', headers=headers).status_code == 403
+
+
+def test_keyless_local_allows_local_frontend_origin(monkeypatch):
+    monkeypatch.delenv('GUARDIAN_API_KEY', raising=False)
+    monkeypatch.delenv('GUARDIAN_TENANT_KEYS', raising=False)
+    monkeypatch.setenv('GUARDIAN_ENV', 'local')
+    assert client().get('/scans', headers={'Host': '127.0.0.1:18108', 'Origin': 'http://127.0.0.1:3000'}).status_code == 200

@@ -1,0 +1,98 @@
+{
+  "suites": [
+    {
+      "component": "code_security",
+      "returncode": 0,
+      "passed": 70,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 3.38,
+      "log": ".data/production-pass/latest-code_security-tests.log"
+    },
+    {
+      "component": "docker_security",
+      "returncode": 0,
+      "passed": 77,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 3.8,
+      "log": ".data/production-pass/latest-docker_security-tests.log"
+    },
+    {
+      "component": "secret_detection",
+      "returncode": 0,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 2.48,
+      "log": ".data/production-pass/latest-secret_detection-tests.log"
+    },
+    {
+      "component": "workflow_cicd",
+      "returncode": 0,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 2.81,
+      "log": ".data/production-pass/latest-workflow_cicd-tests.log"
+    },
+    {
+      "component": "license_compliance",
+      "returncode": 0,
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.09,
+      "log": ".data/production-pass/latest-license_compliance-tests.log"
+    },
+    {
+      "component": "cipherguard",
+      "returncode": 0,
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.13,
+      "log": ".data/production-pass/latest-cipherguard-tests.log"
+    },
+    {
+      "component": "prompt_injection",
+      "returncode": 0,
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 4.19,
+      "log": ".data/production-pass/latest-prompt_injection-tests.log"
+    },
+    {
+      "component": "trust_engine",
+      "returncode": 0,
+      "passed": 227,
+      "failed": 0,
+      "skipped": 1,
+      "errors": 0,
+      "seconds": 15.79,
+      "log": ".data/production-pass/latest-trust_engine-tests.log"
+    },
+    {
+      "component": "utilities",
+      "returncode": 0,
+      "passed": 124,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0,
+      "seconds": 3.2,
+      "log": ".data/production-pass/latest-utilities-tests.log"
+    }
+  ],
+  "all_passed": true,
+  "passed": 752,
+  "skipped": 1,
+  "scope": "Local isolated unit/regression suites; not proof of security production readiness"
+}

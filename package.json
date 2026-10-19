@@ -1,9 +1,0 @@
-{
-  "name": "guardian-test",
-  "version": "1.0.0",
-  "license": "GPL-3.0-only",
-  "dependencies": {
-    "express": "4.17.1",
-    "lodahs": "1.0.0"
-  }
-}

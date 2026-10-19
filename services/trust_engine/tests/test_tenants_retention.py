@@ -22,7 +22,7 @@ async def test_tenant_api_isolation_including_pdf_and_history(tmp_path,monkeypat
     store=ScanStore(f'sqlite+aiosqlite:///{tmp_path}/tenants.sqlite3')
     app.dependency_overrides[get_store]=lambda:store
     try:
-        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url='http://test') as api:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url='http://localhost') as api:
             headers_a={'Authorization':'Bearer '+'a'*32};headers_b={'Authorization':'Bearer '+'b'*32}
             response=await api.post('/analyze',headers=headers_a,json={'filename':'config.txt','content':'plain text'})
             assert response.status_code==200,response.text

@@ -1,0 +1,18 @@
+{
+  "unauthenticated_history": 401,
+  "safe_scan": {
+    "status": "final",
+    "recommendation": "accept",
+    "coverage": "full"
+  },
+  "authenticated_pdf": "passed",
+  "safe_pretool": {
+    "decision": "allow",
+    "target_unchanged": true
+  },
+  "unsafe_pretool": {
+    "decision": "deny",
+    "target_unchanged": true
+  },
+  "scope": "Final isolated native services with in-process Qwen judge and real MiniLM on PyTorch 2.14.1+cpu; hook adapter execution, not Copilot UI."
+}

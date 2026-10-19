@@ -119,7 +119,9 @@ def _try_load_model():
 
         local=Path(os.getenv("EMBEDDING_MODEL_PATH",str(Path(__file__).resolve().parents[1]/"models"/"minilm")))
         if local.is_dir():validate_local_snapshot(local)
-        model = SentenceTransformer(str(local)) if local.is_dir() else SentenceTransformer(_MODEL_NAME, revision=os.getenv("EMBEDDING_MODEL_REVISION", "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"))
+        options = {'trust_remote_code': False, 'model_kwargs': {'use_safetensors': True}}
+        model = (SentenceTransformer(str(local), local_files_only=True, **options) if local.is_dir()
+                 else SentenceTransformer(_MODEL_NAME, revision=os.getenv("EMBEDDING_MODEL_REVISION", "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"), **options))
         return model
     except Exception as exc:  # noqa: BLE001 -- any failure means "use fallback"
         logger.warning(

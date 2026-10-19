@@ -12,7 +12,8 @@ import time
 
 class Outbox:
     def __init__(self,path=None,max_entries=64):
-        self.path=path or os.getenv('CALLBACK_OUTBOX_PATH','/tmp/guardian-callbacks.sqlite3')
+        from app.private_state import private_state_file
+        self.path=path or os.getenv('CALLBACK_OUTBOX_PATH') or private_state_file('callbacks.sqlite3')
         self.max_entries=max_entries
         Path(self.path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:

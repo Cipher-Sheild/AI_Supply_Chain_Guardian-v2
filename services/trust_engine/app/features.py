@@ -64,14 +64,23 @@ def feature_event(state, phase="initial"):
         "outcome":{key:state.get("trust_result",{}).get(key) for key in ("trust_score","recommendation")}}
 
 def append_feature_event(state, phase="initial"):
-    path=os.getenv("FEATURE_LOG_PATH","/tmp/guardian-features.jsonl")
-    if not path: return
     try:
+        import stat
+        from app.private_state import private_state_file
+        path=os.getenv("FEATURE_LOG_PATH")
+        if path is None:path=private_state_file("features.jsonl")
+        if not path: return
         data=json.dumps(feature_event(state,phase),allow_nan=False,separators=(",",":"))+"\n"
         target=Path(path)
         target.parent.mkdir(parents=True,exist_ok=True)
         with _LOCK:
-            descriptor=os.open(target,os.O_WRONLY|os.O_CREAT|os.O_APPEND,0o600)
-            with os.fdopen(descriptor,"w",encoding="utf-8") as handle: handle.write(data)
+            descriptor=os.open(target,os.O_WRONLY|os.O_CREAT|os.O_APPEND|os.O_NOFOLLOW,0o600)
+            try:
+                metadata=os.fstat(descriptor)
+                if not stat.S_ISREG(metadata.st_mode) or metadata.st_uid!=os.getuid():
+                    raise ValueError("Unsafe feature log ownership or file type")
+                os.fchmod(descriptor,0o600)
+                os.write(descriptor,data.encode('utf-8'))
+            finally:os.close(descriptor)
     except (OSError,ValueError,TypeError):
         logger.warning("Feature observation could not be persisted",exc_info=False)

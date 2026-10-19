@@ -8,6 +8,7 @@ import os
 import json
 import re
 from contextvars import ContextVar
+from urllib.parse import urlsplit
 from starlette.responses import JSONResponse
 current_tenant=ContextVar('guardian_tenant',default='owner')
 
@@ -30,6 +31,28 @@ def validate_configuration():
             raise RuntimeError('production requires CALLBACK_TOKEN of at least 32 bytes')
         if callback in deployment_keys().values():
             raise RuntimeError('callback and API credentials must be distinct')
+
+
+def local_browser_request(scope, headers):
+    """Reject DNS rebinding and foreign browser origins in keyless local mode."""
+    allowed = {'localhost', '127.0.0.1', '::1'}
+    if (scope.get('client') or ('', 0))[0] == 'testclient':
+        allowed.add('testserver')
+    try:
+        host = urlsplit('http://' + headers.get(b'host', b'').decode('ascii'))
+        if host.hostname not in allowed or host.username or host.password:
+            return False
+        # Accessing port validates malformed port syntax as well.
+        host.port
+        origin = headers.get(b'origin')
+        if origin:
+            parsed = urlsplit(origin.decode('ascii'))
+            if parsed.scheme not in {'http', 'https'} or parsed.hostname not in allowed or parsed.username or parsed.password:
+                return False
+            parsed.port
+        return headers.get(b'sec-fetch-site', b'') != b'cross-site'
+    except (ValueError, UnicodeError):
+        return False
 
 
 class AccessMiddleware:
@@ -57,6 +80,8 @@ class AccessMiddleware:
             response=JSONResponse({'detail':'Guardian authentication required'},status_code=401,
                                   headers={'WWW-Authenticate':'Bearer'})
             return await response(scope,receive,send)
+        if not valid and not local_browser_request(scope, headers):
+            return await JSONResponse({'detail':'Local host and origin required'},status_code=403)(scope,receive,send)
         token=current_tenant.set(tenant or 'owner')
         try:await self.app(scope,receive,send)
         finally:current_tenant.reset(token)

@@ -9,7 +9,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--path',type=Path,default=ROOT/'.data/venv');args=parser.parse_args()
     venv.EnvBuilder(with_pip=True).create(args.path)
     python=args.path/'bin/python'
-    subprocess.run([str(python),'-m','pip','install','torch==2.5.1+cpu','--index-url','https://download.pytorch.org/whl/cpu'],check=True)
+    subprocess.run([str(python),'-m','pip','install','--upgrade','pip==26.2','setuptools==83.0.0'],check=True)
+    subprocess.run([str(python),'-m','pip','install','torch==2.14.1+cpu','--index-url','https://download.pytorch.org/whl/cpu'],check=True)
     requirements=set()
     for path in (ROOT/'services').glob('*/requirements.txt'):
         for line in path.read_text().splitlines():

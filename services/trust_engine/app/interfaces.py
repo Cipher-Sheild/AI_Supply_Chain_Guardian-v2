@@ -67,11 +67,20 @@ async def analyze_batch(body:BatchRequest,store=Depends(get_store)):
 @router.get('/scans/{request_id}/audit.pdf')
 async def audit_pdf(request_id:str,store=Depends(get_store)):
     from app.main import get_scan
+    from app.runtime import bounded_work
+    result=await get_scan(request_id,store)
+    try:
+        pdf=await bounded_work(_render_audit_pdf,result.model_dump(mode='json'),request_id)
+    except TimeoutError as exc:
+        raise HTTPException(503,detail='audit export capacity exhausted') from exc
+    return Response(pdf,media_type='application/pdf',headers={'Content-Disposition':'attachment; filename="guardian-audit.pdf"'})
+
+
+def _render_audit_pdf(data,request_id):
+    """CPU-heavy rendering runs outside the event loop with bounded admission."""
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
     from reportlab.lib.styles import getSampleStyleSheet
     from reportlab.lib.pagesizes import A4
-    result=await get_scan(request_id,store)
-    data=result.model_dump(mode='json')
     stream=BytesIO();styles=getSampleStyleSheet();story=[]
     regular,bold=_report_fonts()
     styles['BodyText'].fontName=regular;styles['BodyText'].fontSize=10;styles['BodyText'].leading=14
@@ -111,4 +120,4 @@ async def audit_pdf(request_id:str,store=Depends(get_store)):
         canvas.drawRightString(A4[0]-document.rightMargin,28,f'Page {document.page}')
         canvas.restoreState()
     SimpleDocTemplate(stream,pagesize=A4,title='Guardian security audit',author='AI Supply Chain Guardian').build(story,onFirstPage=footer,onLaterPages=footer)
-    return Response(stream.getvalue(),media_type='application/pdf',headers={'Content-Disposition':'attachment; filename="guardian-audit.pdf"'})
+    return stream.getvalue()

@@ -173,6 +173,7 @@ _repository = None
 def get_scan_store():
     global _repository
     if _repository is None:
-        url=os.getenv('DATABASE_URL', 'sqlite+aiosqlite:////tmp/guardian-scans.sqlite3')
+        from app.private_state import private_state_file
+        url=os.getenv('DATABASE_URL') or 'sqlite+aiosqlite:///'+private_state_file('scans.sqlite3')
         _repository=ScanStore(url)
     return _repository

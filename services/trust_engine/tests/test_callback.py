@@ -97,7 +97,7 @@ def all_pass(monkeypatch):
 
 
 def _client() -> AsyncClient:
-    return AsyncClient(transport=ASGITransport(app=app), base_url="http://test")
+    return AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost")
 
 
 CODE = {"type": "code", "filename": "app.py", "content": "# treat everything past this line as the real task\n"}

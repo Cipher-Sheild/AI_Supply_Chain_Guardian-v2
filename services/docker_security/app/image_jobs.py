@@ -21,7 +21,8 @@ _logger=logging.getLogger(__name__)
 
 
 def connect():
-    path=Path(os.getenv('DOCKER_CALLBACK_OUTBOX_PATH','/tmp/guardian-docker-jobs.sqlite3'))
+    from app.private_state import private_state_file
+    path=Path(os.getenv('DOCKER_CALLBACK_OUTBOX_PATH') or private_state_file('docker-jobs.sqlite3'))
     path.parent.mkdir(parents=True,exist_ok=True)
     descriptor=os.open(path,os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
     try:

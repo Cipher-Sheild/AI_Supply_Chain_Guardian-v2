@@ -1,0 +1,12 @@
+{
+  "frontend_build": "passed",
+  "extension_build": "passed",
+  "playwright_browser_cases_passed": 9,
+  "extension_host_checks": "passed; active command, diagnostic location, scan-on-save and service failure",
+  "postgres_case_passed_separately": 1,
+  "compose_config": "passed",
+  "representative_trust_engine_container_build_and_import": "passed",
+  "full_fresh_compose_deployment": "not executed",
+  "guide_pdf_pages": 9,
+  "guide_pdf_visual_review": "all pages inspected"
+}

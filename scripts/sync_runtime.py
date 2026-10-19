@@ -6,7 +6,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true');args=parser.parse_args()
     changed=[]
     for app in (ROOT/'services').glob('*/app'):
-        for source,target in [('operational.py','runtime.py'),('readiness.py','readiness.py'),('ttl_cache.py','ttl_cache.py'),('redaction.py','redaction.py'),('dependency_graph.py','dependency_graph.py'),('go_modules.py','go_modules.py'),('bounded_yaml.py','bounded_yaml.py'),('dependency_manifests.py','dependency_manifests.py'),('registry_metadata.py','registry_metadata.py'),('advisories.py','advisories.py')]:
+        for source,target in [('private_state.py','private_state.py'),('operational.py','runtime.py'),('readiness.py','readiness.py'),('ttl_cache.py','ttl_cache.py'),('redaction.py','redaction.py'),('dependency_graph.py','dependency_graph.py'),('go_modules.py','go_modules.py'),('bounded_yaml.py','bounded_yaml.py'),('dependency_manifests.py','dependency_manifests.py'),('registry_metadata.py','registry_metadata.py'),('advisories.py','advisories.py')]:
+            if target=='private_state.py' and app.parent.name not in {'trust_engine','docker_security','prompt_injection'}:continue
             if target=='advisories.py' and app.parent.name not in {'cipherguard','docker_security'}:continue
             if target in {'dependency_manifests.py','registry_metadata.py','go_modules.py'} and app.parent.name not in {'cipherguard','license_compliance'}:continue
             if target=='bounded_yaml.py' and app.parent.name not in {'docker_security','workflow_cicd'}:continue

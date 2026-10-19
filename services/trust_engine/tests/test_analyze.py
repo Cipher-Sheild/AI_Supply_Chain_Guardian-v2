@@ -55,14 +55,14 @@ def called_agents(monkeypatch):
 
 async def _post_analyze(payload: dict):
     transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
+    async with AsyncClient(transport=transport, base_url="http://localhost") as client:
         return await client.post("/analyze", json=payload)
 
 
 @pytest.mark.asyncio
 async def test_health_endpoint():
     transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
+    async with AsyncClient(transport=transport, base_url="http://localhost") as client:
         response = await client.get("/health")
     assert response.status_code == 503
     assert response.json()["status"] == "degraded"

@@ -23,6 +23,10 @@ Guardian combines seven detector services with a policy-controlled Trust Engine.
 
 Only compatible detectors run for each artifact. A clean result means no supported finding in the **reported scope**, not proof that a whole application is secure. Incomplete checks cannot produce Accept. Redis supports caching/pending work; PostgreSQL is the Compose scan store and SQLite supports local use.
 
+## Developer setup guide
+
+For the complete backend-first sequence, use the [developer guide](docs/DEVELOPER_GUIDE.md) or its [printable PDF](docs/guides/Guardian_Developer_Setup_Guide.pdf). It covers native setup, private client credentials, web, CLI, VS Code, the optional Copilot hook, Compose and troubleshooting. The [19 October audit](docs/audit-20261019/AUDIT.md) records fixes, verification and remaining limits.
+
 ## Start with Docker Compose
 
 Use Docker Engine/Desktop with Compose v2, Git, network access for build dependencies/models and sufficient memory for the complete stack. Initial model downloads/builds can take several minutes. Linux is the demonstrated host; native setup below assumes a Unix-like shell.
@@ -54,7 +58,7 @@ The complete Compose startup includes database migration/seed dependencies and h
 
 ## Native local development
 
-Use **Python 3.12** and **Node.js 22.12+ / npm**. The setup script creates an isolated environment, installs pinned service/training dependencies, downloads pinned model assets and builds the extension. Default Docker/license engines do not require Hadolint, Trivy, Semgrep or ScanCode executables; those are optional compatibility engines.
+Use **Python 3.12** and **Node.js 22.12+ / npm**. The setup script creates an isolated environment, installs pinned service/training dependencies, downloads pinned model assets and builds the extension. The in-process judge route is `--judge-provider local`; the default launcher otherwise expects a running Ollama service. Default Docker/license engines do not require Hadolint, Trivy, Semgrep or ScanCode executables; those are optional compatibility engines.
 
 ```bash
 python3.12 scripts/setup_local.py
@@ -157,7 +161,7 @@ Planned work includes broader language/ecosystem support, additional security an
 - [ML and SHAP implementation](docs/ML_AND_SHAP_IMPLEMENTATION.md), [labeling guide](docs/DATA_LABELING_GUIDE.md)
 - [Final black book](docs/reports/BlackBook%20Final.docx), [project results](docs/reports/Results%20of%20the%20entire%20project.pdf), [demo script](docs/demo/Guardian%20Demo%20Script.pdf)
 
-The complete project documentation is a dated engineering snapshot, not the current development setup authority. Use this README and the runtime configuration for current setup. Dated documents and earlier evaluation snapshots may describe previous revisions. The cohort-specific evidence and qualifications above supersede older headline counts and accuracy claims.
+Dated documents and earlier evaluation snapshots may describe previous revisions. The cohort-specific evidence and qualifications above supersede older headline counts and accuracy claims.
 
 ## Scope and attribution
 

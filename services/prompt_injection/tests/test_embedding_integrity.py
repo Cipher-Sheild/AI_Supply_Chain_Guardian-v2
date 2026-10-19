@@ -22,3 +22,19 @@ def test_snapshot_path_escape_is_rejected(tmp_path):
     metadata=json.loads(manifest.read_text());metadata['files']['../outside']='a'*64
     manifest.write_text(json.dumps(metadata))
     with pytest.raises(ValueError,match='unsafe'):validate_local_snapshot(root)
+
+
+def test_verified_local_model_disallows_pickle_and_remote_code(tmp_path, monkeypatch):
+    import sys
+    from types import SimpleNamespace
+    from app import embeddings
+    root=snapshot(tmp_path)
+    observed={}
+    def construct(path, **kwargs):
+        observed.update(kwargs)
+        return object()
+    monkeypatch.setenv('EMBEDDING_MODEL_PATH', str(root))
+    monkeypatch.setitem(sys.modules, 'sentence_transformers', SimpleNamespace(SentenceTransformer=construct))
+    assert embeddings._try_load_model() is not None
+    assert observed == {'local_files_only': True, 'trust_remote_code': False,
+                        'model_kwargs': {'use_safetensors': True}}

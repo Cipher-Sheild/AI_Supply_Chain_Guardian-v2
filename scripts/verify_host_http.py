@@ -22,7 +22,7 @@ names=['cipherguard','code_security','secret_detection','docker_security','workf
 env=dict(os.environ,PYTHONPATH='.',PATH=str(Path(python).parent)+os.pathsep+os.environ['PATH'],
     DATABASE_URL=args.database_url or 'sqlite+aiosqlite:///'+scratch.name+'/scans.sqlite3',REDIS_URL=args.redis_url,
     CALLBACK_TOKEN='host-smoke-token-not-a-secret',FEATURE_LOG_PATH=str(out/'host-smoke-features.jsonl'),
-    CALLBACK_OUTBOX_PATH=scratch.name+'/outbox.sqlite3',LLM_PROVIDER='ollama',OLLAMA_HOST='http://127.0.0.1:1',OPENAI_API_KEY='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1')
+    CALLBACK_OUTBOX_PATH=scratch.name+'/outbox.sqlite3',DOCKER_CALLBACK_OUTBOX_PATH=scratch.name+'/docker-jobs.sqlite3',LLM_PROVIDER='ollama',OLLAMA_HOST='http://127.0.0.1:1',OPENAI_API_KEY='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1')
 env['TRUST_SCORER']=os.getenv('TRUST_SCORER','weighted')
 if args.live_models:env.update(OLLAMA_HOST='http://127.0.0.1:11434',OLLAMA_MODEL=args.ollama_model,OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',TOKENIZERS_PARALLELISM='false')
 for i,name in enumerate(names):env[name.upper()+'_URL']=f'http://127.0.0.1:{args.port_base+i}/analyze'
@@ -40,11 +40,11 @@ try:
    sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
    sock.bind(('127.0.0.1',args.port_base+i))
  for i,name in enumerate(names):
-  handle=open('/tmp/guardian-host-'+name+'.log','w')
+  handle=open(Path(scratch.name)/(name+'.log'),'w')
   processes.append((subprocess.Popen([python,'-m','uvicorn','app.main:app','--host','127.0.0.1','--port',str(args.port_base+i)],cwd=r/'services'/name,env=env,stdout=handle,stderr=subprocess.STDOUT,start_new_session=True),handle))
  for i,name in enumerate(names):
   for attempt in range(60):
-   if processes[i][0].poll() is not None: raise RuntimeError(name+' exited; inspect /tmp/guardian-host-'+name+'.log')
+   if processes[i][0].poll() is not None: raise RuntimeError(name+' exited; inspect private smoke logs in '+scratch.name)
    try:
     with urllib.request.urlopen(f'http://127.0.0.1:{args.port_base+i}/openapi.json',timeout=1):pass
     break

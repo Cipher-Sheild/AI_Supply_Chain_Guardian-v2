@@ -1,0 +1,18 @@
+{
+  "versions": {
+    "torch": "2.14.1+cpu",
+    "transformers": "5.10.4",
+    "sentence-transformers": "5.6.1",
+    "huggingface-hub": "1.33.0",
+    "tokenizers": "0.22.2"
+  },
+  "pinned_minilm_embedding_shape": [
+    2,
+    384
+  ],
+  "safetensors_only": true,
+  "remote_model_code": false,
+  "pinned_qwen_loaded": true,
+  "qwen_generated_nonempty_response": true,
+  "scope": "Actual CPU inference; not detection accuracy or production readiness."
+}

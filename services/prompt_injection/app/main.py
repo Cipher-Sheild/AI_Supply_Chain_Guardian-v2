@@ -43,10 +43,16 @@ _scanner = HeuristicScanner(_config)
 
 @app.on_event("startup")
 async def _startup() -> None:
-    _spawn(asyncio.to_thread(preload_embeddings))
-    if __import__('os').getenv('LLM_PROVIDER','ollama')=='local':
-        from app.local_judge import warm
-        _spawn(asyncio.to_thread(warm))
+    def warm_models():
+        # Transformers lazily imports shared modules. Serialize cold imports
+        # for the embedding model and optional local judge in one worker.
+        preload_embeddings()
+        if os.getenv('LLM_PROVIDER','ollama')=='local':
+            from app.local_judge import warm
+            try: warm()
+            except Exception:
+                logger.warning('Local judge warm-up failed; readiness remains degraded', exc_info=True)
+    _spawn(asyncio.to_thread(warm_models))
     _spawn(_outbox_worker())
 
 
